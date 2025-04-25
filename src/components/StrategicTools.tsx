@@ -26,7 +26,7 @@ export function StrategicTools() {
 
         <Card className="bg-white shadow-lg rounded-xl">
           <CardContent className="p-8 text-center">
-            <p className="text-gray-600 text-lg font-bold tracking-wide">
+            <p className="text-gray-600  font-bold tracking-wider text-base/10">
               Our AI platform transforms complex regulatory requirements into simplified, automated workflows—reducing compliance costs by up to 90% while eliminating human error.
             </p>
           </CardContent>

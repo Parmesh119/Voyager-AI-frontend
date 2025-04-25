@@ -41,12 +41,10 @@ export function FeaturesSection() {
             </div>
           </div>
 
-
-
-          <div className="w-full md:w-1/2">
+          <div className="w-full md:w-1/2 ">
             <div className="rounded-2xl overflow-hidden">
               <img
-                src="https://d2pn8kiwq2w21t.cloudfront.net/images/1-Voyager_2-copy.width-1320.jpg"
+                src="https://i0.wp.com/spacenews.com/wp-content/uploads/2024/06/voyager-illus.jpg?resize=1200%2C1080&quality=89&ssl=1"
                 alt="Space technology"
                 className="w-full h-full object-cover rounded-2xl"
               />
