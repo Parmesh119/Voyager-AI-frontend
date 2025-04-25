@@ -1,4 +1,3 @@
-import { LucideBrainCircuit } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
@@ -17,15 +16,15 @@ export function Navbar() {
               <path d="M18 10C13.5817 10 10 13.5817 10 18C10 22.4183 13.5817 26 18 26" stroke="#9BDC28" strokeWidth="1.5" strokeLinecap="round"/>
               <path d="M18 10C22.4183 10 26 13.5817 26 18C26 22.4183 22.4183 26 18 26" stroke="#6BD5E1" strokeWidth="1.5" strokeLinecap="round"/>
             </svg>
-            <span className="ml-2 text-[#9BDC28] font-semibold text-lg">VOYAGER AI</span>
+            <span className="ml-2 text-[#9BDC28] font-semibold text-lg tracking-widest">VOYAGER AI</span>
           </div>
         </div>
         
-        <div className="hidden md:flex space-x-8">
-          <NavItem href="#features">Features</NavItem>
-          <NavItem href="#beliefs">Beliefs</NavItem>
-          <NavItem href="#partnerships">Partnerships</NavItem>
-          <NavItem href="#about">About Us</NavItem>
+        <div className="hidden md:flex space-x-20">
+          <NavItem href="#features" className='font-bold'>Features</NavItem>
+          <NavItem href="#beliefs" className='font-bold'>Beliefs</NavItem>
+          <NavItem href="#partnerships" className='font-bold'>Partnerships</NavItem>
+          <NavItem href="#about" className='font-bold'>About Us</NavItem>
         </div>
         
         <div className="flex items-center gap-3">

@@ -1,5 +1,3 @@
-import React from 'react';
-
 export function RegulationSection() {
   return (
     <section className="w-full py-16 px-4 md:px-8 bg-[#2D7DD2] text-white mt-20">
@@ -8,11 +6,11 @@ export function RegulationSection() {
           Regulation: A Top Priority for Financial Institutions
         </h2>
         
-        <div className="grid md:grid-cols-2 gap-12">
+        <div className="grid md:grid-cols-2 gap-16">
           <div>
             <h3 className="text-xl font-semibold mb-4">CSBS Survey Reveals Growing Focus</h3>
             <p className="text-white/90">
-              Recent Community State Banking Survey (CSBS) data reveals that regulatory compliance has become the top concern for financial institutions. The importance of this issue continues to grow, with concern levels rising from 77% in 2022 to 81% in 2023 in the CSBS Annual Survey.
+              Recent <u>Community State Banking Survey (CSBS)</u> data reveals that regulatory compliance has become the top concern for financial institutions. The importance of this issue continues to grow, with concern levels rising from 77% in 2022 to 81% in 2023 in the CSBS Annual Survey.
             </p>
           </div>
           

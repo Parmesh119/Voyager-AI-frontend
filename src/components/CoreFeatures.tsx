@@ -1,12 +1,13 @@
-import { FileText, Cog, Brain, Search, Shield, Server } from 'lucide-react';
+import { FileText, Search, FileLock2, BriefcaseBusiness, Megaphone, BrainCog } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 
 export function CoreFeatures() {
   return (
-    <section className="w-full py-20 px-4 md:px-8 bg-gray-50 mt-10">
+    <section className="w-full py-24 px-4 md:px-8 bg-gray-50">
       <div className="container mx-auto max-w-6xl">
         <div className="flex justify-center">
-          <div className="inline-block mb-4 px-3 py-1 bg-[#ECFFD9] text-[#75AA00] rounded-full text-sm font-medium">
+          <div className="flex flex-row mb-4 gap-2 px-3 py-1 bg-[#ECFFD9] text-[#75AA00] rounded-full text-sm font-medium">
+            <Search className='w-4 h-5' />
             Intelligent Features
           </div>
         </div>
@@ -22,37 +23,50 @@ export function CoreFeatures() {
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           <FeatureCard
-            icon={<FileText className="h-6 w-6 text-[#75AA00]" />}
+            icon={<FileLock2 className="h-8 w-8 text-[#4b680d] p-1.5 bg-[#dee9c5] rounded-lg"  />}
             title="Regulatory Briefs"
-            description="Access clear, AI-powered summary alerts of regulatory changes. Voyager AI (VAI) creates accurate, summarized updates on federal and state policies, ensuring you're always informed."
+            description={
+              <>
+                <strong>Access clear, AI-powered summary alerts of regulatory changes.</strong><br /> Voyager AI (VAI) creates accurate, summarized updates on federal and state policies, ensuring you're always informed.
+              </>
+            }
           />
-          
+
           <FeatureCard
-            icon={<Cog className="h-6 w-6 text-[#75AA00]" />}
+            icon={<FileText className="h-8 w-8 text-[#4b680d] p-1.5 bg-[#dee9c5] rounded-lg" />}
             title="Policy Execution Engine"
-            description="Seamlessly translate compliance updates into action. VAI automates policy updates and integrates with your institution's policy store, ensuring regulatory compliance."
+            description={
+              <>
+                <strong>Transform regulatory changes into actionable policies.</strong><br /> VAI automates the translation of compliance updates into your institution's policy store, ensuring seamless integration and compliance.
+              </>
+            }
           />
-          
+
           <FeatureCard
-            icon={<Brain className="h-6 w-6 text-[#75AA00]" />}
+            icon={<BriefcaseBusiness className="h-8 w-8 text-[#4b680d] p-1.5 bg-[#dee9c5] rounded-lg" />}
             title="Institutional Awareness"
-            description="An AI continuously refining itself from your live policies—in real time. VAI continuously learns from your compliance data, refining risk models and adapting to your unique evolving regulatory environment."
+            description={
+              <>
+                <strong>An AI continuously refining itself from your live policies—in real time.</strong><br /> VAI continuously learns from your compliance data, refining risk models and adapting to your unique evolving regulatory environment.
+              </>}
           />
-          
+
           <FeatureCard
-            icon={<Search className="h-6 w-6 text-[#75AA00]" />}
+            icon={<Search className="h-8 w-8 text-[#4b680d] p-1.5 bg-[#dee9c5] rounded-lg" />}
             title="Regulatory Insight Engine"
-            description="Instantly explore and interpret the latest federal and state regulations. VAI provides deep regulatory research and real-time insights, helping you stay compliant without manual effort."
+            description={
+              <>
+              <strong>Instantly explore and interpret the latest federal and state regulations.</strong><br /> VAI provides deep regulatory research and real-time insights, helping you stay compliant without manual effort.</>}
           />
-          
+
           <FeatureCard
-            icon={<Shield className="h-6 w-6 text-[#75AA00]" />}
+            icon={<Megaphone className="h-8 w-8 text-[#4b680d] p-1.5 bg-[#dee9c5] rounded-lg" />}
             title="AI Compliance Advisor"
             description="Stay ahead of evolving regulations with AI-driven recommendations. VAI analyzes your position and suggests precise compliance actions, helping you future-proof your compliance strategy."
           />
-          
+
           <FeatureCard
-            icon={<Server className="h-6 w-6 text-[#75AA00]" />}
+            icon={<BrainCog className="h-8 w-8 text-[#4b680d] p-1.5 bg-[#dee9c5] rounded-lg" />}
             title="On-Premise AI Engine"
             description="Compliance data, fully protected inside your secure environment. VAI ensures secure, on-premise storage of policies, offering real-risk analysis maintaining complete regulatory and data security."
           />
@@ -65,7 +79,7 @@ export function CoreFeatures() {
 interface FeatureCardProps {
   icon: React.ReactNode;
   title: string;
-  description: string;
+  description: React.ReactNode;
 }
 
 function FeatureCard({ icon, title, description }: FeatureCardProps) {
