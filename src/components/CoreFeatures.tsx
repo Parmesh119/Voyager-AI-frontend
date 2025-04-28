@@ -12,16 +12,16 @@ export function CoreFeatures() {
           </div>
         </div>
 
-        <div className="flex flex-col items-center text-center mb-12">
+        <div className="flex flex-col items-center text-center mb-12 font-[Arial_Rounded_MT_Bold]">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
             Voyager AI <span className="text-[#2D7DD2]">Core Product Features</span>
           </h2>
-          <p className="text-gray-600 max-w-2xl">
-            Built for the Financial Industry, Voyager AI addresses a wide range of compliance challenges, including AML/KYC, sanctions screening, data privacy, and more...
+          <p className="text-gray-600 max-w-2xl font-[Arial]">
+            Built for the Financial Industry, Voyager AI addresses a wide range of compliance<br /> challenges, including AML/KYC, sanctions screening, data privacy, and more...
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 ">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           <FeatureCard
             icon={<FileLock2 className="h-8 w-8 text-[#1d801a] p-1.5 bg-[#e4f4be] rounded-lg"  />}
             title="Regulatory Briefs"
@@ -37,7 +37,7 @@ export function CoreFeatures() {
             title="Policy Execution Engine"
             description={
               <>
-                <strong>Seamlessly translate compliance updates into action.</strong><br /> VAI automates the translation of compliance updates into your institution's policy store, ensuring seamless integration and compliance.
+                <strong>Seamlessly translate compliance<br /> updates into action.</strong><br /> VAI automates policy updates and integrates with your institution’s policy store, ensuring regulatory compliance.
               </>
             }
           />
@@ -62,13 +62,14 @@ export function CoreFeatures() {
           <FeatureCard
             icon={<Megaphone className="h-8 w-8 text-[#1d801a] p-1.5 bg-[#e4f4be] rounded-lg" />}
             title="AI Compliance Advisor"
-            description="Stay ahead of evolving regulations with AI-driven recommendations. VAI analyzes your position and suggests precise compliance actions, helping you future-proof your compliance strategy."
+            description={
+              <><strong>Stay ahead of evolving regulations with AI-driven recommendations.</strong><br/> VAI analyzes your position and suggests precise compliance actions, helping you future-proof your compliance strategy.</>}
           />
 
           <FeatureCard
             icon={<BrainCog className="h-8 w-8 text-[#1d801a] p-1.5 bg-[#e4f4be] rounded-lg" />}
             title="On-Premise AI Engine"
-            description="Compliance data, fully protected inside your secure environment. VAI ensures secure, on-premise storage of policies, offering real-risk analysis maintaining complete regulatory and data security."
+            description={<><strong>Compliance data, fully protected inside your secure environment. </strong><br/> VAI ensures secure, on-premise storage of policies, offering real-risk analysis maintaining complete regulatory and data security.</>}
           />
         </div>
       </div>

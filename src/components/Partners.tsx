@@ -15,10 +15,10 @@ export function Partners() {
           <div className="inline-block mb-4 px-6 py-1 bg-[#9DC22333] text-[#2e8318] rounded-full text-sm font-medium">
             <span className='flex flex-row gap-2'><UserRound className='h-5 w-4 border-dark' /> Partners</span>
           </div>
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">
-            Who we're <span className="text-[#2D7DD2]">partnered with</span>
+          <h2 className="text-3xl md:text-4xl mb-6 font-[Arial_Rounded_MT_Bold]">
+            <span className='font-bold'>Who we're <span className="text-[#2D7DD2]">partnered with</span></span>
           </h2>
-          <p className="text-gray-600 max-w-2xl mx-auto">
+          <p className="text-gray-600 max-w-2xl mx-auto font-[Arial]">
             Lorem ipsum Lorem ipsum Lorem ipsum
           </p>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 items-center mt-12 opacity-60">
@@ -45,12 +45,12 @@ export function Partners() {
 
       {/* Full width blue section - moved outside the container */}
       <div className="w-full">
-        <div className="bg-[#2D7DD2] text-white w-full py-16 px-0 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Partner With Voyager AI</h2>
-          <p className="text-white/90 max-w-2xl mx-auto mb-8 lg:p-0 p-4">
+        <div className="bg-[#007ABA] text-white w-full py-28 px-0 text-center">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 font-[Arial_Rounded_MT_Bold]">Partner With Voyager AI</h2>
+          <p className="text-white/90 max-w-2xl mx-auto mb-8 lg:p-0 p-4 font-[Arial]">
             Built for the Financial Industry, Voyager AI addresses a wide range of compliance challenges, including AML/KYC, sanctions screening, data privacy, and more...
           </p>
-          <Button variant="secondary" size="lg" className="bg-white text-[#2D7DD2] hover:bg-gray-100 font-bold">
+          <Button variant="secondary" size="lg" className="bg-white text-[#2D7DD2] hover:bg-gray-100 font-bold text-base">
             Become a Partner
           </Button>
         </div>

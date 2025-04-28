@@ -15,7 +15,7 @@ import { Footer } from '@/components/Footer';
 
 function App() {
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen bg-gradient-to-r from-[#FFFFFF] to-[#F0F0F0]">
       <Navbar />
       <HeroSection />
       <FeaturesSection />

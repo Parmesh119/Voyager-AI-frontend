@@ -10,25 +10,25 @@ export function BeliefsSection() {
               Community
             </div>
 
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">
+            <h2 className="text-3xl md:text-4xl font-bold mb-6 font-[Arial Rounded MT Bold]">
               What we <span className="text-[#2D7DD2]">Believe</span>
             </h2>
 
-            <div className="space-y-6 text-sm">
+            <div className="space-y-6 text-sm font-[Arial]">
               <p className="text-gray-600">
-                We believe in the community, the Community Banks, the Credit Unions and the Financial Institutions that touch our lives.
+                We believe in the community, the Community Banks, the Credit Unions and the Financial Institutions that touch our<br/> lives.
               </p>
               
               <p className="text-gray-600">
-                Artificial Intelligence is here, and it can make an impact by improving our work and allowing us to focus on what matters most to us.
+                Artificial Intelligence is here, and it can make an impact<br/> by improving our work and allowing us to focus on what<br/> matters most to us.
               </p>
               
               <p className="text-gray-600">
-                Voyager seeks to solve the core problems FIs care about and provide a simple, intuitive, and intelligent platform.
+                Voyager seeks to solve the core problems FIs care about<br/> and provide a simple, intuitive, and intelligent platform.
               </p>
               
               <p className="text-gray-600">
-                We want to reduce the stress and burden that Financial Institutions encounter.
+                We want to reduce the stress and burden that Financial<br/> Institutions encounter.
               </p>
             </div>
           </div>

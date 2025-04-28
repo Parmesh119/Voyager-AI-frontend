@@ -2,45 +2,48 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { CheckCircle } from 'lucide-react';
 import PdfIcon from '@/assets/HeroSection/PdfIcon';
+import Right_Tick from '@/assets/HeroSection/Right_Tick';
 export function HeroSection() {
   return (
     <section className="w-full py-16 px-4 md:px-8 bg-gradient-to-r from-[#FFFFFF] to-[#F0F0F0]"  >
-      <div className="container mx-auto max-w-5xl text-center">
+      <div className="container mx-auto max-w-5xl text-center font-[Arial_Rounded_MT_Bold]">
         <div className="inline-block mb-4 px-4 py-1 bg-[#ECFFD9] text-[#217e17] rounded-full text-sm font-medium">
           <span className="flex items-center px-6 gap-1">
             <PdfIcon />
             Reinventing Financial Compliance
           </span>
         </div>
-        
+
         <h1 className="text-4xl md:text-5xl font-bold mb-4 ">
           <span className="text-[#2D7DD2]">Compliance-Powered AI</span>
           <br />
           <span className="text-black">for Financial Institutions.</span>
         </h1>
-        
-        <p className="text-gray-700 max-w-3xl mx-auto mb-8 text-base md:text-lg">
+
+        <p className="text-gray-700 max-w-3xl mx-auto mb-8 text-base md:text-lg font-[Arial]">
           An advanced, secure AI that enhances your FI's financial knowledge while ensuring
+          <br />
           compliance with all regulatory requirements through streamlined, automated
+          <br />
           workflows—cutting compliance costs by up to 90% and minimizing human error.
         </p>
-        
+
         <div className="flex flex-col md:flex-row justify-center max-w-md mx-auto mb-8">
-          <Input 
-            type="email" 
-            placeholder="Enter your work email" 
-            className="h-12 border-gray-300 placeholder:text-gray-500 placeholder:tracking-wider placeholder:text-base"
+          <Input
+            type="email"
+            placeholder="Enter your work email"
+            className="h-12 rounded-l-md rounded-r-none border-gray-300 placeholder:text-gray-400 placeholder:tracking-wider placeholder:text-base"
           />
-          <Button className="h-12 bg-[#2D7DD2] font-extrabold hover:bg-[#1d6abf] pl-6 pr-4">
+          <Button className="h-12 rounded-l-none rounded-r-md bg-[#2D7DD2] font-extrabold hover:bg-[#1d6abf] pl-6 pr-4 text-white">
             Get Started
             <ArrowRightIcon className="ml-2 h-6 w-6" />
           </Button>
         </div>
-        
+
         <div className="flex flex-wrap justify-center gap-6 md:gap-8">
-          <Benefit icon={<CheckCircle className="h-5 w-5 text-[#75AA00]" />} text="Free 14 Day Trial" />
-          <Benefit icon={<CheckCircle className="h-5 w-5 text-[#75AA00]" />} text="No Credit Card Required" />
-          <Benefit icon={<CheckCircle className="h-5 w-5 text-[#75AA00]" />} text="Cancel Anytime" />
+          <Benefit icon={<Right_Tick />} text="Free 14 Day Trial" />
+          <Benefit icon={<Right_Tick />} text="No Credit Card Required" />
+          <Benefit icon={<Right_Tick />} text="Cancel Anytime" />
         </div>
       </div>
     </section>
@@ -63,20 +66,20 @@ function Benefit({ icon, text }: BenefitProps) {
 
 function ArrowRightIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
-    <svg 
-      xmlns="http://www.w3.org/2000/svg" 
-      width="24" 
-      height="24" 
-      viewBox="0 0 24 24" 
-      fill="none" 
-      stroke="currentColor" 
-      strokeWidth="2" 
-      strokeLinecap="round" 
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
       strokeLinejoin="round"
       {...props}
     >
-      <path d="M5 12h14"/>
-      <path d="m12 5 7 7-7 7"/>
+      <path d="M5 12h14" />
+      <path d="m12 5 7 7-7 7" />
     </svg>
   );
 }

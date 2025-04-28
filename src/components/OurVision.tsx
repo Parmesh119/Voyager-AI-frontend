@@ -9,17 +9,17 @@ export function OurVision() {
               A True Partner
             </div>
 
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">
-              Our <span className="text-[#2D7DD2]">Vision</span>
+            <h2 className="text-3xl md:text-4xl mb-6 font-[Arial_Rounded_MT_Bold]">
+              <span className="font-bold">Our <span className="text-[#2D7DD2]">Vision</span></span>
             </h2>
 
-            <div className="space-y-6 text-sm">
+            <div className="space-y-6 text-sm font-[Arial]">
               <p className="text-gray-600">
-                We are not developing an AI product that simply accelerates specific tasks or processes.
+                We are not developing an AI product that simply<br/> accelerates specific tasks or processes.
               </p>
               
               <p className="text-gray-600">
-                We are creating a true interactive partner that can streamline repetitive aspects, help you achieve results more quickly, and learn alongside your institution.
+                We are creating a true interactive partner that can<br/> streamline repetitive aspects, help you achieve results<br/> more quickly, and learn alongside your institution.
               </p>
               
               <p className="text-gray-600">
