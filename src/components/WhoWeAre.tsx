@@ -1,12 +1,11 @@
-import React from 'react';
-
+import WhoWeAreImage from "@/assets/WhoWeAre/WhoWeAreImage.jpg";
 export function WhoWeAre() {
   return (
-    <section className="w-full py-20 px-4 md:px-8 bg-white">
+    <section className="w-full py-20 px-4 md:px-8 bg-gradient-to-r from-[#FFFFFF] to-[#F0F0F0]">
       <div className="container mx-auto max-w-6xl">
         <div className="flex flex-col md:flex-row-reverse gap-12">
           <div className="w-full md:w-1/2">
-            <div className="inline-block mb-4 px-3 py-1 bg-[#ECFFD9] text-[#75AA00] rounded-full text-sm font-medium">
+            <div className="inline-block mb-4 px-14 py-1 bg-[#9DC22333] text-[#2e8318] rounded-full text-sm font-medium">
               Pioneers
             </div>
 
@@ -14,7 +13,7 @@ export function WhoWeAre() {
               Who we <span className="text-[#2D7DD2]">Are</span>
             </h2>
 
-            <div className="space-y-6">
+            <div className="space-y-6 text-sm flex flex-wrap">
               <p className="text-gray-600">
                 We are a group of pioneers, born in the mobile banking age.
               </p>
@@ -36,7 +35,7 @@ export function WhoWeAre() {
           <div className="w-full md:w-1/2">
             <div className="rounded-2xl overflow-hidden h-[400px]">
               <img 
-                src="https://images.pexels.com/photos/2387873/pexels-photo-2387873.jpeg"
+                src={WhoWeAreImage}
                 alt="People looking at night sky" 
                 className="w-full h-full object-cover rounded-2xl"
               />

@@ -3,10 +3,10 @@ import { Search, Layers2, BrainCog } from 'lucide-react';
 
 export function Architecture() {
   return (
-    <section className="w-full py-20 px-4 md:px-8 bg-white">
+    <section className="w-full py-20 px-4 md:px-8 bg-gradient-to-r from-[#FFFFFF] to-[#F0F0F0]">
       <div className="container mx-auto max-w-6xl">
         <div className="flex justify-center mb-8">
-          <div className="flex flex-row gap-2 px-3 py-1 bg-[#ECFFD9] text-[#75AA00] rounded-full text-sm font-medium">
+          <div className="flex flex-row gap-2 px-6 py-1 bg-[#9DC22333] text-[#2e8318] rounded-full text-sm font-medium">
             <Search className='h-5 w-4' />
             Knowledge Database
           </div>

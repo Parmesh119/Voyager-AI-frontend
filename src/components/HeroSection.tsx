@@ -1,19 +1,19 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { CheckCircle, FileText } from 'lucide-react';
-
+import { CheckCircle } from 'lucide-react';
+import PdfIcon from '@/assets/HeroSection/PdfIcon';
 export function HeroSection() {
   return (
-    <section className="w-full py-16 px-4 md:px-8 bg-[#f7f9fb]">
+    <section className="w-full py-16 px-4 md:px-8 bg-gradient-to-r from-[#FFFFFF] to-[#F0F0F0]"  >
       <div className="container mx-auto max-w-5xl text-center">
-        <div className="inline-block mb-4 px-3 py-1 bg-[#ECFFD9] text-[#75AA00] rounded-full text-sm font-medium">
-          <span className="flex items-center">
-            <FileText className="mr-1 h-4 w-4" />
+        <div className="inline-block mb-4 px-4 py-1 bg-[#ECFFD9] text-[#217e17] rounded-full text-sm font-medium">
+          <span className="flex items-center px-6 gap-1">
+            <PdfIcon />
             Reinventing Financial Compliance
           </span>
         </div>
         
-        <h1 className="text-4xl md:text-5xl font-bold mb-4">
+        <h1 className="text-4xl md:text-5xl font-bold mb-4 ">
           <span className="text-[#2D7DD2]">Compliance-Powered AI</span>
           <br />
           <span className="text-black">for Financial Institutions.</span>
@@ -25,15 +25,15 @@ export function HeroSection() {
           workflows—cutting compliance costs by up to 90% and minimizing human error.
         </p>
         
-        <div className="flex flex-col md:flex-row gap-3 justify-center max-w-md mx-auto mb-8">
+        <div className="flex flex-col md:flex-row justify-center max-w-md mx-auto mb-8">
           <Input 
             type="email" 
             placeholder="Enter your work email" 
-            className="h-12 border-gray-300"
+            className="h-12 border-gray-300 placeholder:text-gray-500 placeholder:tracking-wider placeholder:text-base"
           />
-          <Button className="h-12 bg-[#2D7DD2] hover:bg-[#1d6abf] pl-6 pr-4">
+          <Button className="h-12 bg-[#2D7DD2] font-extrabold hover:bg-[#1d6abf] pl-6 pr-4">
             Get Started
-            <ArrowRightIcon className="ml-2 h-4 w-4" />
+            <ArrowRightIcon className="ml-2 h-6 w-6" />
           </Button>
         </div>
         

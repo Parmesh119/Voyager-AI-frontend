@@ -1,6 +1,6 @@
 export function RegulationSection() {
   return (
-    <section className="w-full py-16 px-4 md:px-8 bg-[#2D7DD2] text-white mt-20">
+    <section className="w-full py-16 px-4 md:px-8 bg-[#2D7DD2] text-white">
       <div className="container mx-auto max-w-6xl ">
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
           Regulation: A Top Priority for Financial Institutions

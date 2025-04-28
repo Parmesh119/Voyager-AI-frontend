@@ -1,12 +1,12 @@
-import { FileText, Search, FileLock2, BriefcaseBusiness, Megaphone, BrainCog } from 'lucide-react';
+import { Search, FileLock2, BriefcaseBusiness, Megaphone, BrainCog } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
-
+import PdfIcon from '@/assets/CoreFeatures/PdfIcon';
 export function CoreFeatures() {
   return (
-    <section className="w-full py-24 px-4 md:px-8 bg-gray-50">
+    <section className="w-full py-24 px-4 md:px-8 bg-gradient-to-r from-[#FFFFFF] to-[#F0F0F0]">
       <div className="container mx-auto max-w-6xl">
         <div className="flex justify-center">
-          <div className="flex flex-row mb-4 gap-2 px-3 py-1 bg-[#ECFFD9] text-[#75AA00] rounded-full text-sm font-medium">
+          <div className="flex flex-row mb-4 gap-2 px-6 py-1 bg-[#9DC22333] text-[#2e8318] rounded-full text-sm font-medium">
             <Search className='w-4 h-5' />
             Intelligent Features
           </div>
@@ -21,9 +21,9 @@ export function CoreFeatures() {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 ">
           <FeatureCard
-            icon={<FileLock2 className="h-8 w-8 text-[#4b680d] p-1.5 bg-[#dee9c5] rounded-lg"  />}
+            icon={<FileLock2 className="h-8 w-8 text-[#1d801a] p-1.5 bg-[#e4f4be] rounded-lg"  />}
             title="Regulatory Briefs"
             description={
               <>
@@ -33,17 +33,17 @@ export function CoreFeatures() {
           />
 
           <FeatureCard
-            icon={<FileText className="h-8 w-8 text-[#4b680d] p-1.5 bg-[#dee9c5] rounded-lg" />}
+            icon={<PdfIcon />}
             title="Policy Execution Engine"
             description={
               <>
-                <strong>Transform regulatory changes into actionable policies.</strong><br /> VAI automates the translation of compliance updates into your institution's policy store, ensuring seamless integration and compliance.
+                <strong>Seamlessly translate compliance updates into action.</strong><br /> VAI automates the translation of compliance updates into your institution's policy store, ensuring seamless integration and compliance.
               </>
             }
           />
 
           <FeatureCard
-            icon={<BriefcaseBusiness className="h-8 w-8 text-[#4b680d] p-1.5 bg-[#dee9c5] rounded-lg" />}
+            icon={<BriefcaseBusiness className="h-8 w-8 text-[#1d801a] p-1.5 bg-[#e4f4be] rounded-lg" />}
             title="Institutional Awareness"
             description={
               <>
@@ -52,7 +52,7 @@ export function CoreFeatures() {
           />
 
           <FeatureCard
-            icon={<Search className="h-8 w-8 text-[#4b680d] p-1.5 bg-[#dee9c5] rounded-lg" />}
+            icon={<Search className="h-8 w-8 text-[#1d801a] p-1.5 bg-[#e4f4be] rounded-lg" />}
             title="Regulatory Insight Engine"
             description={
               <>
@@ -60,13 +60,13 @@ export function CoreFeatures() {
           />
 
           <FeatureCard
-            icon={<Megaphone className="h-8 w-8 text-[#4b680d] p-1.5 bg-[#dee9c5] rounded-lg" />}
+            icon={<Megaphone className="h-8 w-8 text-[#1d801a] p-1.5 bg-[#e4f4be] rounded-lg" />}
             title="AI Compliance Advisor"
             description="Stay ahead of evolving regulations with AI-driven recommendations. VAI analyzes your position and suggests precise compliance actions, helping you future-proof your compliance strategy."
           />
 
           <FeatureCard
-            icon={<BrainCog className="h-8 w-8 text-[#4b680d] p-1.5 bg-[#dee9c5] rounded-lg" />}
+            icon={<BrainCog className="h-8 w-8 text-[#1d801a] p-1.5 bg-[#e4f4be] rounded-lg" />}
             title="On-Premise AI Engine"
             description="Compliance data, fully protected inside your secure environment. VAI ensures secure, on-premise storage of policies, offering real-risk analysis maintaining complete regulatory and data security."
           />
@@ -84,11 +84,11 @@ interface FeatureCardProps {
 
 function FeatureCard({ icon, title, description }: FeatureCardProps) {
   return (
-    <Card className="bg-white hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-1">
+    <Card className="bg-white shadow-lg duration-300 transform hover:-translate-y-1">
       <CardContent className="pt-6">
         <div className="mb-4">{icon}</div>
-        <h3 className="text-lg font-semibold mb-2">{title}</h3>
-        <p className="text-gray-600 text-sm">{description}</p>
+        <span className='space-y-4'><h3 className="text-lg font-semibold mb-2">{title}</h3>
+        <p className="text-gray-600 text-sm/6">{description}</p></span>
       </CardContent>
     </Card>
   );

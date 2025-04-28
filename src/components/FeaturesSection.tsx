@@ -1,10 +1,10 @@
 export function FeaturesSection() {
   return (
-    <section className="w-full py-16 px-4 md:px-8">
+    <section className="w-full py-32 px-4 md:px-8 bg-gradient-to-r from-[#FFFFFF] to-[#F0F0F0] ">
       <div className="container mx-auto max-w-6xl">
         <div className="flex flex-col md:flex-row gap-12">
           <div className="w-full md:w-1/2">
-            <div className="inline-block mb-4 px-3 py-1 bg-[#ECFFD9] text-[#75AA00] rounded-full text-sm font-medium">
+            <div className="inline-block mb-4 px-6 py-1 bg-[#9DC22333] text-[#2e8318] rounded-full text-sm font-medium">
               Intelligent Features
             </div>
 
@@ -16,25 +16,25 @@ export function FeaturesSection() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-12">
               <div>
-                <div className="text-3xl font-bold text-[#2D7DD2] mb-2">200X</div>
-                <div className="text-lg font-semibold mb-2">Faster Audits</div>
-                <p className="text-gray-600">
+                <div className="text-4xl font-extrabold text-[#2D7DD2] mb-2">200X</div>
+                <div className="font-semibold mb-2 text-sm">Faster Audits</div>
+                <p className="text-gray-600 text-sm">
                   Experience significantly reduced audit times with automated data analysis and reporting.
                 </p>
               </div>
 
               <div>
-                <div className="text-3xl font-bold text-[#2D7DD2] mb-2">90%</div>
-                <div className="text-lg font-semibold mb-2">Reduced Costs</div>
-                <p className="text-gray-600">
+                <div className="text-4xl font-extrabold text-[#2D7DD2] mb-2">90%</div>
+                <div className="text-sm font-semibold mb-2">Reduced Costs</div>
+                <p className="text-gray-600 text-sm">
                   Optimize your compliance budget with AI-driven automation and streamlined workflows.
                 </p>
               </div>
 
               <div>
-                <div className="text-3xl font-bold text-[#2D7DD2] mb-2">99%</div>
-                <div className="text-lg font-semibold mb-2">Increased Accuracy</div>
-                <p className="text-gray-600">
+                <div className="text-4xl font-extrabold text-[#2D7DD2] mb-2">99%</div>
+                <div className="text-sm font-semibold mb-2">Increased Accuracy</div>
+                <p className="text-gray-600 text-sm">
                   Benefit from highly accurate results driven by AI algorithms that minimize human error.
                 </p>
               </div>
@@ -55,28 +55,3 @@ export function FeaturesSection() {
     </section>
   );
 }
-
-// interface MetricProps {
-//   value: string;
-//   color: string;
-//   title: string;
-//   description: string;
-// }
-
-// function Metric({ value, color, title, description }: MetricProps) {
-//   return (
-//     <div>
-//       <div className="flex items-baseline gap-3 mb-1">
-//         <span className="text-4xl font-bold" style={{ color }}>
-//           {value}
-//         </span>
-//         <span className="text-lg font-medium text-gray-800">
-//           {title}
-//         </span>
-//       </div>
-//       <p className="text-gray-600 max-w-md">
-//         {description}
-//       </p>
-//     </div>
-//   );
-// }

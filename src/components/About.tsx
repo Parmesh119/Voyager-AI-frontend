@@ -1,15 +1,15 @@
-import { Card, CardContent } from '@/components/ui/card';
+import {  CardContent } from '@/components/ui/card';
 import { BriefcaseBusiness } from 'lucide-react';
 
 
 export function About() {
   return (
-    <section className="w-full py-20 px-4 md:px-8 bg-white">
+    <section className="w-full py-20 px-4 md:px-8 bg-gradient-to-r from-[#FFFFFF] to-[#F0F0F0]">
       <div className="container mx-auto max-w-6xl">
         {/* About Voyager AI Section */}
         <div className="mb-20">
           <div className="flex justify-center mb-8">
-            <div className="flex flex-row gap-2 px-3 py-1 bg-[#ECFFD9] text-[#75AA00] rounded-full text-sm font-medium">
+            <div className="flex flex-row gap-2 px-6 py-1 bg-[#9DC22333] text-[#2e8318] rounded-full text-sm font-medium">
               <BriefcaseBusiness className='w-4 h-5' />The Company
             </div>
           </div>
@@ -45,7 +45,7 @@ export function About() {
         {/* Leadership Section */}
         <div className="mb-20">
           <div className="flex justify-center mb-8">
-            <div className="flex flex-row gap-2 px-3 py-1 bg-[#ECFFD9] text-[#75AA00] rounded-full text-sm font-medium">
+            <div className="flex flex-row gap-2 px-6 py-1 bg-[#9DC22333] text-[#2e8318] rounded-full text-sm font-medium">
               <BriefcaseBusiness className='h-5 w-4' /> The Company
             </div>
           </div>

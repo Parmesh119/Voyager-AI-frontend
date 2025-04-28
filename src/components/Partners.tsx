@@ -3,17 +3,17 @@ import { UserRound } from 'lucide-react';
 
 export function Partners() {
   return (
-    <section className="w-full py-20 bg-white">
+    <section className="w-full py-20 bg-gradient-to-r from-[#FFFFFF] to-[#F0F0F0]">
       <div className="container mx-auto max-w-6xl px-4 md:px-8">
         <div className="text-center mb-20">
-          <div className="inline-block mb-4 px-3 py-1 bg-[#ECFFD9] text-[#75AA00] rounded-full text-sm font-medium">
-            <span className='flex flex-row gap-2'><UserRound className='h-5 w-4' /> Partners</span>
+          <div className="inline-block mb-4 px-6 py-1 bg-[#9DC22333] text-[#2e8318] rounded-full text-sm font-medium">
+            <span className='flex flex-row gap-2'><UserRound className='h-5 w-4 border-dark' /> Partners</span>
           </div>
           <h2 className="text-3xl md:text-4xl font-bold mb-6">
             Who we're <span className="text-[#2D7DD2]">partnered with</span>
           </h2>
           <p className="text-gray-600 max-w-2xl mx-auto">
-            Working with industry leaders to deliver the best solutions for financial institutions
+            Lorem ipsum Lorem ipsum Lorem ipsum 
           </p>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-24 items-center mt-12 opacity-60">
             <img src="https://kaskade.cloud/wp-content/uploads/2020/08/aws-logo.png" alt="AWS" className="h-36 w-auto mx-auto" />
@@ -23,8 +23,8 @@ export function Partners() {
           </div>
         </div>
         <div className="text-center mb-20">
-          <div className="inline-block mb-4 px-3 py-1 bg-[#ECFFD9] text-[#75AA00] rounded-full text-sm font-medium">
-            <span className='flex flex-row gap-2'><UserRound className='h-5 w-4' />Friends</span>
+          <div className="inline-block mb-4 px-6 py-1 bg-[#9DC22333] text-[#2e8318] rounded-full text-sm font-medium">
+            <span className='flex flex-row gap-2'><UserRound className='h-5 w-4 border-bold' />Friends</span>
           </div>
           <h2 className="text-3xl md:text-4xl font-bold mb-12">
             We've got <span className="text-[#2D7DD2]">acolades from</span>
