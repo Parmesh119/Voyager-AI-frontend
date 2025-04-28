@@ -19,7 +19,7 @@ export function HeroSection() {
           <span className="text-black">for Financial Institutions.</span>
         </h1>
         
-        <p className="text-gray-600 max-w-3xl mx-auto mb-8 text-base md:text-lg">
+        <p className="text-gray-700 max-w-3xl mx-auto mb-8 text-base md:text-lg">
           An advanced, secure AI that enhances your FI's financial knowledge while ensuring
           compliance with all regulatory requirements through streamlined, automated
           workflows—cutting compliance costs by up to 90% and minimizing human error.

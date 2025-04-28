@@ -9,7 +9,7 @@ export function Navbar() {
         <div className="flex items-center gap-2">
           <div className="flex items-center gap-2">
             <Logo />
-            <span className="ml-2 text-[#9BDC28] font-semibold text-lg tracking-widest text-xl">VOYAGER AI</span>
+            <span className="ml-2 text-[#9BDC28] font-semibold tracking-widest text-xl">VOYAGER AI</span>
           </div>
         </div>
         

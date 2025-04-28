@@ -1,6 +1,13 @@
 import { Button } from '@/components/ui/button';
 import { ChevronUp } from 'lucide-react';
 export function Footer() {
+
+  const handleUpEvent = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  };
   return (
     <footer className="w-full bg-[#0A1628] text-white">
       {/* CTA Section */}
@@ -70,7 +77,7 @@ export function Footer() {
             <a href="#" className="hover:text-white">Terms of Service</a>
             <a href="#" className="hover:text-white">Cookies</a>
           </div>
-          <div><ChevronUp className='h-8 w-8 bg-gray-500 rounded-full p-1' /></div>
+          <div className='cursor-pointer' onClick={handleUpEvent}><ChevronUp  className='h-8 w-8 bg-gray-500 rounded-full p-1' /></div>
         </div>
       </div>
     </footer>
