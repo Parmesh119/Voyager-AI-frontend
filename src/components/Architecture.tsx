@@ -1,4 +1,4 @@
-import { Search, Layers2, BrainCog } from 'lucide-react';
+import { Search } from 'lucide-react';
 
 export function Architecture() {
   return (

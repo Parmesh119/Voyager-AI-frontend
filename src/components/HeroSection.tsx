@@ -1,6 +1,5 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { CheckCircle } from 'lucide-react';
 import PdfIcon from '@/assets/HeroSection/PdfIcon';
 import Right_Tick from '@/assets/HeroSection/Right_Tick';
 export function HeroSection() {

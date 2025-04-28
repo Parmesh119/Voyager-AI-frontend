@@ -14,8 +14,8 @@ export function About() {
             </div>
           </div>
 
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
-            About <span className="text-[#2D7DD2]">Voyager AI</span>
+          <h2 className="text-3xl md:text-4xl text-center mb-12 font-[Arial_Rounded_MT_Bold]">
+            <span className='font-bold'>About <span className="text-[#2D7DD2]">Voyager AI</span></span>
           </h2>
 
           <div className="gap-8">
@@ -27,13 +27,13 @@ export function About() {
               <CardContent className="p-8 flex flex-col md:flex-row gap-8">
                 <div className="flex-1">
                   <h3 className="text-xl font-bold mb-4">Mission</h3>
-                  <p className="text-gray-600">
+                  <p className="text-gray-600 font-[Arial] leading-relaxed">
                     At Voyager AI, We are driven to empower financial institutions with the tools they need to navigate the ever-evolving regulatory landscape. Our mission is to be the trust partner in transforming compliance through innovative AI-Powered solutions.
                   </p>
                 </div>
                 <div className="flex-1">
                   <h3 className="text-xl font-bold mb-4">Expertise</h3>
-                  <p className="text-gray-600">
+                  <p className="text-gray-600 font-[Arial] leading-relaxed">
                     Our Team comprises of seasoned financial experts, data scientists, and regulatory specialists who bring a wealth of industry knowledge and technical expertise to your doorstep. Together, We are redefining the future of compliance, risk management, and innovate AI.
                   </p>
                 </div>
