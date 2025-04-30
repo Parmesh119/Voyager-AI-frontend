@@ -1,39 +1,33 @@
 import { Button } from '@/components/ui/button';
 import { ChevronUp } from 'lucide-react';
+import { NavItem } from './Navbar';
 export function Footer() {
 
-  const handleUpEvent = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
-  };
   return (
     <footer className="w-full bg-[#0A1628] text-white">
-      {/* CTA Section */}
       <div className="w-full py-20 px-4 md:px-8 bg-gradient-to-r from-[#02B6EA] to-[#A4C31A]">
         <div className="container mx-auto max-w-6xl text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Ready to Transform Your Banking Compliance?
+          <h2 className="text-3xl md:text-4xl  mb-4 font-[Arial_Rounded_MT_Bold]">
+            <span className='font-bold'>Ready to Transform Your Banking Compliance?</span>
           </h2>
-          <p className="text-white/90 max-w-2xl mx-auto mb-8">
-            Voyager AI empowers compliance teams with AI-augmented tools and utilize AI for skill augmentation in a way never before possible.
+          <p className="text-white/90 max-w-2xl mx-auto mb-8 font-[Arial]">
+            Voyager AI empowers compliance teams with AI-augmented tools<br /> and utilize AI for skill augmentation in a way never before possible.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
-            <Button variant="secondary" size="lg" className="bg-white hover:bg-gray-100 text-blue-700 font-bold text-md">Become a Partner</Button>
-            <Button variant="secondary" size="lg" className="bg-white hover:bg-gray-100 text-blue-700 font-bold text-md">Request a Demo</Button>
-            <Button variant="secondary" size="lg" className="bg-white hover:bg-gray-100 text-blue-700 font-bold text-md">Contact Sales</Button>
+            <Button variant="secondary" size="lg" className="font-[Arial] bg-white hover:bg-gray-100 text-blue-700 font-bold text-md">Become a Partner</Button>
+            <Button variant="secondary" size="lg" className="font-[Arial] bg-white hover:bg-gray-100 text-blue-700 font-bold text-md">Request a Demo</Button>
+            <Button variant="secondary" size="lg" className="font-[Arial] bg-white hover:bg-gray-100 text-blue-700 font-bold text-md">Contact Sales</Button>
           </div>
         </div>
-      </div> 
+      </div>
 
       {/* Footer Content */}
-      <div className="container mx-auto max-w-6xl py-16 px-4 md:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+      <div className="container mx-auto py-16 p-4">
+        <div className="flex flex-row mb-6 justify-between font-[Arial]">
           <div>
             <h3 className="text-xl font-bold mb-4">Voyager AI</h3>
-            <p className="text-white">
-              Transforming complex regulatory requirements into simplified, automated workflows—reducing compliance costs by up to 90% while eliminating human error.
+            <p className="text-white font-[Arial]">
+              Transforming complex regulatory<br /> requirements into simplified, automated<br /> workflows—reducing compliance costs by up<br /> to 90% while eliminating human error.
             </p>
           </div>
 
@@ -68,16 +62,21 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-white pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-          <div className="text-white text-sm">
-            ©2025 Voyager AI. All rights reserved.
+        <div className="border-t border-white pt-8 font-[Arial] flex flex-col md:flex-row justify-between items-center gap-4">
+          <div className="text-white text-sm font-[Arial]">
+            © 2025 Voyager AI. All rights reserved.
           </div>
-          <div className="flex gap-6 text-sm text-white">
+          <div className="flex gap-6 md:gap-16 lg:gap-28 lg:mr-10 text-sm text-white">
             <a href="#" className="hover:text-white">Privacy Policy</a>
             <a href="#" className="hover:text-white">Terms of Service</a>
             <a href="#" className="hover:text-white">Cookies</a>
           </div>
-          <div className='cursor-pointer' onClick={handleUpEvent}><ChevronUp  className='h-8 w-8 bg-gray-500 rounded-full p-1' /></div>
+          <NavItem href="#top" className='text-decoration-none'><button
+            className="cursor-pointer"
+            aria-label="Scroll to top"
+          >
+            <ChevronUp className="h-8 w-8 bg-gray-500 rounded-full p-1" />
+          </button></NavItem>
         </div>
       </div>
     </footer>

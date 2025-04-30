@@ -21,7 +21,7 @@ export function RegulationSection() {
               As regulations become increasingly complex and scrutiny<br /> intensifies, traditional compliance approaches are no longer<br /> sustainable.
             </p>
             <p className="text-white/90 mt-4 font-[Arial]">
-              Financial institutions now require innovative solutions that can both<br /> scale with expanding regulatory demands and maintain consistent accuracy and efficiency.
+              Financial institutions now require innovative solutions that can both<br /> scale with expanding regulatory demands and maintain consistent<br/> accuracy and efficiency.
             </p>
           </div>
         </div>

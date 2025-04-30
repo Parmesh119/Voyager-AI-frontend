@@ -3,7 +3,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import PdfIcon from '@/assets/CoreFeatures/PdfIcon';
 export function CoreFeatures() {
   return (
-    <section className="w-full py-24 px-4 md:px-8 bg-gradient-to-r from-[#FFFFFF] to-[#F0F0F0]">
+    <section id="features" className="w-full py-24 px-4 md:px-8 bg-gradient-to-r from-[#FFFFFF] to-[#F0F0F0]">
       <div className="container mx-auto max-w-6xl">
         <div className="flex justify-center">
           <div className="flex flex-row mb-4 gap-2 px-6 py-1 bg-[#9DC22333] text-[#2e8318] rounded-full text-sm font-medium">

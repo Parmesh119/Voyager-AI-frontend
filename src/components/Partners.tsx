@@ -9,7 +9,7 @@ import Gener8tor from "@/assets/Friends/Generator.png";
 import WISC from "@/assets/Friends/WISC.png";
 export function Partners() {
   return (
-    <section className="w-full py-20 bg-gradient-to-r from-[#FFFFFF] to-[#F0F0F0]">
+    <section id="partnerships" className="w-full py-20 bg-gradient-to-r from-[#FFFFFF] to-[#F0F0F0]">
       <div className="container mx-auto max-w-6xl">
         <div className="text-center mb-20">
           <div className="inline-block mb-4 px-6 py-1 bg-[#9DC22333] text-[#2e8318] rounded-full text-sm font-medium">
@@ -21,7 +21,7 @@ export function Partners() {
           <p className="text-gray-600 max-w-2xl mx-auto font-[Arial]">
             Lorem ipsum Lorem ipsum Lorem ipsum
           </p>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 items-center mt-12 opacity-60">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 items-center mt-12 opacity-60">
             <img src={AWS} alt="AWS" className="h-36 w-auto mx-auto" />
             <img src={GoogleCloud} alt="Google Cloud" className="h-32 mx-auto w-full" />
             <img src={August_Brown} alt="August Brown" className="h-full w-full mx-auto" />
@@ -32,8 +32,8 @@ export function Partners() {
           <div className="inline-block mb-4 px-6 py-1 bg-[#9DC22333] text-[#2e8318] rounded-full text-sm font-medium">
             <span className='flex flex-row gap-2'><UserRound className='h-5 w-4 border-bold' />Friends</span>
           </div>
-          <h2 className="text-3xl md:text-4xl font-bold mb-12">
-            We've got <span className="text-[#2D7DD2]">acolades from</span>
+          <h2 className="text-3xl md:text-4xl mb-12 font-[Arial_Rounded_MT_Bold]">
+            <span className='font-bold'>We've got <span className="text-[#2D7DD2]">acolades from</span></span>
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center opacity-60">
             <img src={FOR_M} alt="FOR-M by mke tech" className="h-28 w-64 mx-auto" />
@@ -46,11 +46,11 @@ export function Partners() {
       {/* Full width blue section - moved outside the container */}
       <div className="w-full">
         <div className="bg-[#007ABA] text-white w-full py-28 px-0 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 font-[Arial_Rounded_MT_Bold]">Partner With Voyager AI</h2>
+          <h2 className="text-3xl md:text-4xl mb-4 font-[Arial_Rounded_MT_Bold]"><span className='font-bold'>Partner With Voyager AI</span></h2>
           <p className="text-white/90 max-w-2xl mx-auto mb-8 lg:p-0 p-4 font-[Arial]">
             Built for the Financial Industry, Voyager AI addresses a wide range of compliance challenges, including AML/KYC, sanctions screening, data privacy, and more...
           </p>
-          <Button variant="secondary" size="lg" className="bg-white text-[#2D7DD2] hover:bg-gray-100 font-bold text-base">
+          <Button variant="secondary" size="lg" className="bg-white font-[Arial] text-[#2D7DD2] hover:bg-gray-100 font-bold text-base">
             Become a Partner
           </Button>
         </div>

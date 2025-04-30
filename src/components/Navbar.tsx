@@ -4,7 +4,7 @@ import Logo from '@/assets/logo/Logo';
 
 export function Navbar() {
   return (
-    <nav className="w-full py-4 px-4 md:px-8">
+    <nav className="w-full py-4 px-4 md:px-8" id="top">
       <div className="container mx-auto flex items-center justify-between">
         <div className="flex items-center gap-2">
           <div className="flex items-center gap-2">
@@ -21,12 +21,12 @@ export function Navbar() {
         </div>
         
         <div className="flex items-center gap-3">
-          <Button variant="ghost" className="text-black">
+          <Button variant="ghost" className="text-black font-bold">
             Login
           </Button>
-          <Button className="bg-[#2D7DD2] hover:bg-[#1d6abf] font-extrabold">
+          <NavItem href="#requestDemo"><Button className="cursor-pointer bg-[#2D7DD2] hover:bg-[#1d6abf] font-extrabold">
             Request a Demo
-          </Button>
+          </Button></NavItem>
         </div>
       </div>
     </nav>
@@ -39,7 +39,7 @@ interface NavItemProps {
   className?: string;
 }
 
-function NavItem({ href, children, className }: NavItemProps) {
+export function NavItem({ href, children, className }: NavItemProps) {
   return (
     <a 
       href={href} 

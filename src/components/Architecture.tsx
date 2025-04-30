@@ -118,15 +118,15 @@ export function Architecture() {
 
         {/* Domain Core Section */}
         <div className="flex lg:flex-row flex-col lg:gap-20 gap-10 items-center mb-16">
-          <div className="relative w-[500px] h-[381px]">
-            <svg width="500" height="381" viewBox="0 0 459 381" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <div className="relative lg:w-[500px] lg:mr-0 mr-12 w-[450px] h-[350px] lg:h-[381px]">
+            <svg width="500" height="381" viewBox="10 0 500 381" fill="none" xmlns="http://www.w3.org/2000/svg">
               <g filter="url(#filter0_d_171_390)" >
                 <rect x="15" width="429" height="351" rx="20" fill="#2D7DD2" />
                 <rect x="15.5" y="0.5" width="428" height="350" rx="19.5" stroke="#EAEAEA" />
               </g>
 
               <text x="229.5" y="75"
-                fontFamily="Arial, sans-serif"
+                fontFamily="Arial"
                 fontSize="40"
                 fontWeight="bold"
                 fill="white"
@@ -181,7 +181,7 @@ export function Architecture() {
           <div className="shadow-lg bg-[#75AA00] rounded-2xl order-1 md:order-2 w-full lg:w-1/2 text-center p-12">
             <h3 className="text-white text-4xl font-bold mb-6"><span className='font-[Arial]'>Knowledge Core</span></h3>
             <svg
-              width="180"
+              width="170"
               viewBox="0 0 167 193"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"

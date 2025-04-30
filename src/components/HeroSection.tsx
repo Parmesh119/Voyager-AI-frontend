@@ -13,11 +13,11 @@ export function HeroSection() {
           </span>
         </div>
 
-        <h1 className="text-4xl md:text-5xl font-bold mb-4 ">
-          <span className="text-[#2D7DD2]">Compliance-Powered AI</span>
-          <br />
-          <span className="text-black">for Financial Institutions.</span>
-        </h1>
+        <p className="text-4xl md:text-5xl mb-4" >
+          <span className="font-bold"><p className="text-[#2D7DD2] mb-4"  >Compliance-Powered AI</p>
+          
+          <p className="text-black">for Financial Institutions.</p></span>
+        </p>
 
         <p className="text-gray-700 max-w-3xl mx-auto mb-8 text-base md:text-lg font-[Arial]">
           An advanced, secure AI that enhances your FI's financial knowledge while ensuring
@@ -33,7 +33,7 @@ export function HeroSection() {
             placeholder="Enter your work email"
             className="h-12 rounded-l-md rounded-r-none border-gray-300 placeholder:text-gray-400 placeholder:tracking-wider placeholder:text-base"
           />
-          <Button className="h-12 rounded-l-none rounded-r-md bg-[#2D7DD2] font-extrabold hover:bg-[#1d6abf] pl-6 pr-4 text-white">
+          <Button className="h-12 text-md rounded-l-none rounded-r-md bg-[#2D7DD2] font-extrabold hover:bg-[#1d6abf] pl-6 pr-4 text-white">
             Get Started
             <ArrowRightIcon className="ml-2 h-6 w-6" />
           </Button>

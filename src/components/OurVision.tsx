@@ -3,8 +3,8 @@ export function OurVision() {
   return (
     <section className="w-full py-20 px-4 md:px-8 bg-gradient-to-r from-[#FFFFFF] to-[#F0F0F0]">
       <div className="container mx-auto max-w-6xl">
-        <div className="flex flex-col md:flex-row gap-32">
-          <div className="w-full md:w-5/12">
+        <div className="flex flex-col md:flex-row lg:gap-48 gap-10">
+          <div className="w-full md:w-1/3">
             <div className="inline-block mb-4 px-14 py-1 bg-[#9DC22333] text-[#2e8318] rounded-full text-sm font-medium">
               A True Partner
             </div>
