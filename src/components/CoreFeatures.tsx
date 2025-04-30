@@ -1,61 +1,80 @@
 import { Search, FileLock2, BriefcaseBusiness, Megaphone, BrainCog } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import PdfIcon from '@/assets/CoreFeatures/PdfIcon';
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useEffect, useRef } from 'react';
+import { motion, AnimatePresence, useInView } from 'framer-motion';
 
 export function CoreFeatures() {
   const [loading, setLoading] = useState(true);
   const [animationPhase, setAnimationPhase] = useState(0);
   const [activeCardIndex, setActiveCardIndex] = useState<number | null>(null);
+  const [animationComplete, setAnimationComplete] = useState(false);
+  const sectionRef = useRef(null);
+  // Trigger when 5% is visible for earlier animation start, run only once
+  const isInView = useInView(sectionRef, { once: true, amount: 0.05 });
 
-  // Simulate loading time and control animation phases
   useEffect(() => {
-    // Phase 0: Skeleton loading
-    const loadingTimer = setTimeout(() => {
-      setLoading(false);
-      
-      // Phase 1: Show icons and titles
-      setTimeout(() => {
-        setAnimationPhase(1);
-        
-        // Phase 2: Show first line of description in all cards simultaneously
-        setTimeout(() => {
-          setAnimationPhase(2);
-          
-          // Phase 3: Show second line of description in all cards simultaneously
-          setTimeout(() => {
-            setAnimationPhase(3);
-          }, 500);
-        }, 500);
-      }, 300);
-    }, 2000);
-    
-    return () => clearTimeout(loadingTimer);
-  }, []);
+    // Only run the timer logic if the component is in view
+    if (isInView) {
+      // Simulate loading time and control animation phases after entering view
+      const loadingTimer = setTimeout(() => {
+        setLoading(false); // Stop showing skeletons
+
+        // Phase 1: Show icons and titles (slight delay after loading stops)
+        const phase1Timer = setTimeout(() => {
+          setAnimationPhase(1);
+
+          // Phase 2: Show first line of description (slightly longer delay for smoothness)
+          const phase2Timer = setTimeout(() => {
+            setAnimationPhase(2);
+
+            // Phase 3: Show second line of description
+            const phase3Timer = setTimeout(() => {
+              setAnimationPhase(3);
+
+              // Mark animation as complete after all phases
+              setTimeout(() => {
+                setAnimationComplete(true);
+              }, 500);
+            }, 600); // Increased delay
+
+            return () => clearTimeout(phase3Timer);
+          }, 600); // Increased delay
+
+          return () => clearTimeout(phase2Timer);
+        }, 300); // Short delay after skeleton disappears
+
+        return () => clearTimeout(phase1Timer);
+      }, 500); // Base loading simulation time after entering view
+
+      return () => clearTimeout(loadingTimer);
+    } else {
+      // If not in view, ensure loading is true (for skeleton)
+      setLoading(true);
+      setAnimationPhase(0); // Reset animation phase if it goes out of view (if once: false)
+      setAnimationComplete(false);
+    }
+  }, [isInView]); // Rerun effect when isInView changes
 
   const handleCardClick = (index: number) => {
-    if (activeCardIndex === index) {
-      setActiveCardIndex(null); // Collapse card if already active
-    } else {
-      setActiveCardIndex(index); // Expand clicked card
-    }
+    setActiveCardIndex(activeCardIndex === index ? null : index);
   };
 
   const cardVariants = {
-    normal: { 
+    normal: {
       scale: 1,
       zIndex: 1,
-      boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)"
+      boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+      transition: { type: "spring", stiffness: 400, damping: 30 } // Smoother spring
     },
-    active: { 
-      scale: 1.05, 
+    active: {
+      scale: 1.05,
       zIndex: 10,
-      boxShadow: "0 12px 20px rgba(0, 0, 0, 0.15)"
+      boxShadow: "0 12px 20px rgba(0, 0, 0, 0.15)",
+      transition: { type: "spring", stiffness: 400, damping: 30 } // Smoother spring
     }
   };
 
-  // Card data for mapping
   const featureCards = [
     {
       icon: <FileLock2 className="h-8 w-8 text-[#1d801a] p-1.5 bg-[#e4f4be] rounded-lg" />,
@@ -107,25 +126,35 @@ export function CoreFeatures() {
     }
   ];
 
-  // Fade in animation for text elements
-  const fadeInVariants = {
-    hidden: { opacity: 0 },
-    visible: { 
-      opacity: 1,
-      transition: { duration: 0.4 }
-    }
+  // Common initial/animate props for fade-in effect based on isInView
+  const sectionFadeInProps = {
+    initial: { opacity: 0 },
+    animate: { opacity: isInView ? 1 : 0 },
+    transition: { duration: 0.6, ease: "easeOut" }
   };
 
+  const textFadeInSlideProps = {
+    initial: { opacity: 0, y: 20 },
+    animate: { opacity: isInView ? 1 : 0, y: isInView ? 0 : 20 },
+    transition: { duration: 0.7, delay: isInView ? 0.2 : 0, ease: "easeOut" } // Slightly longer duration
+  }
+
+  const showSkeletons = loading; // Show skeletons if loading is true (covers initial load and before isInView)
+
   return (
-    <section id="features" className="w-full py-24 px-4 md:px-8 bg-gradient-to-r from-[#FFFFFF] to-[#F0F0F0]">
+    <section ref={sectionRef} id="features" className="w-full py-24 px-4 md:px-8 bg-gradient-to-r from-[#FFFFFF] to-[#F0F0F0] overflow-hidden">
       <div className="container mx-auto max-w-6xl">
+        {/* Header Badge - Conditionally render skeleton or actual content */}
         <AnimatePresence>
-          {!loading && (
-            <motion.div 
+          {showSkeletons ? (
+            <div key="skeleton-badge" className="flex justify-center mb-4">
+              <div className="h-8 w-40 bg-gray-200 rounded-full animate-pulse"></div>
+            </div>
+          ) : (
+            <motion.div
+              key="actual-badge"
               className="flex justify-center"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5 }}
+              {...sectionFadeInProps} // Apply fade-in based on isInView
             >
               <div className="flex flex-row mb-4 gap-2 px-6 py-1 bg-[#9DC22333] text-[#2e8318] rounded-full text-sm font-medium">
                 <Search className='w-4 h-5' />
@@ -135,13 +164,19 @@ export function CoreFeatures() {
           )}
         </AnimatePresence>
 
+        {/* Title & Subtitle - Conditionally render skeleton or actual content */}
         <AnimatePresence>
-          {!loading && (
-            <motion.div 
+          {showSkeletons ? (
+            <div key="skeleton-header" className="flex flex-col items-center text-center mb-12">
+              <div className="h-10 w-3/4 max-w-lg bg-gray-200 rounded mb-4 animate-pulse"></div>
+              <div className="h-4 w-full max-w-xl bg-gray-200 rounded animate-pulse mb-2"></div>
+              <div className="h-4 w-full max-w-lg bg-gray-200 rounded animate-pulse"></div>
+            </div>
+          ) : (
+            <motion.div
+              key="actual-header"
               className="flex flex-col items-center text-center mb-12 font-[Arial_Rounded_MT_Bold]"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
+              {...textFadeInSlideProps} // Apply fade-in/slide based on isInView
             >
               <h2 className="text-3xl md:text-4xl font-bold mb-4">
                 Voyager AI <span className="text-[#2D7DD2]">Core Product Features</span>
@@ -153,82 +188,106 @@ export function CoreFeatures() {
           )}
         </AnimatePresence>
 
+        {/* Cards Grid - Conditionally render skeletons or actual cards */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {loading ? (
-            // Skeleton loading cards - maintain consistent size with actual cards
+          {showSkeletons ? (
             [...Array(6)].map((_, i) => (
-              <div key={i} className="bg-gray-200 rounded-3xl shadow-lg p-6 h-64 animate-pulse">
-                <div className="mb-4 h-8 w-8 bg-gray-300 rounded-lg"></div>
-                <div className="h-6 bg-gray-300 rounded w-3/4 mb-4"></div>
+              <div key={`skeleton-${i}`} className="bg-white rounded-3xl shadow-lg p-6 h-64 border border-gray-100">
+                {/* Use white bg for consistency, add subtle border */}
+                <div className="mb-4 h-8 w-8 bg-gray-200 rounded-lg animate-pulse"></div>
+                <div className="h-6 bg-gray-200 rounded w-3/4 mb-4 animate-pulse"></div>
                 <div className="space-y-2">
-                  <div className="h-4 bg-gray-300 rounded w-full"></div>
-                  <div className="h-4 bg-gray-300 rounded w-5/6"></div>
-                  <div className="h-4 bg-gray-300 rounded w-full"></div>
-                  <div className="h-4 bg-gray-300 rounded w-4/6"></div>
+                  <div className="h-4 bg-gray-200 rounded w-full animate-pulse"></div>
+                  <div className="h-4 bg-gray-200 rounded w-5/6 animate-pulse"></div>
+                  <div className="h-4 bg-gray-200 rounded w-full animate-pulse"></div>
+                  <div className="h-4 bg-gray-200 rounded w-4/6 animate-pulse"></div>
                 </div>
               </div>
             ))
           ) : (
-            // Actual cards with animation
             featureCards.map((card, index) => (
               <motion.div
                 key={index}
                 onClick={() => handleCardClick(index)}
                 variants={cardVariants}
-                initial="normal"
+                initial="normal" // Always start as normal
                 animate={activeCardIndex === index ? "active" : "normal"}
-                transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                className="cursor-pointer"
-                whileHover={{ scale: activeCardIndex === null ? 1.02 : 1.05 }}
+                whileHover={{ scale: 1.05, boxShadow: "0 12px 20px rgba(0, 0, 0, 0.15)" }} // Smooth hover effect
+                whileTap={{ scale: 0.95 }} // Slight shrink on click
+                custom={index} // Pass index for potential stagger
+                initial={{ opacity: 0, y: 30 }}
+                animate={{
+                  opacity: isInView ? 1 : 0,
+                  y: isInView ? 0 : 30,
+                  transition: {
+                    duration: 0.5,
+                    delay: isInView ? 0.1 + index * 0.08 : 0, // Stagger card appearance
+                    ease: "easeOut",
+                  },
+                }}
+                className="cursor-pointer rounded-3xl" // Keep this for consistent styling target
               >
-                <Card className=" shadow-lg h-64"> {/* Fixed height to match skeleton */}
-                  <CardContent className="pt-6">
-                    {/* Icon - Always visible after loading */}
-                    <motion.div 
+                {/* Apply rounded-3xl and overflow hidden here for click effect */}
+                <Card className="shadow-lg h-64 rounded-3xl overflow-hidden border border-transparent hover:border-gray-200 transition-colors duration-300">
+                  <CardContent className="pt-6 flex flex-col h-full"> {/* Use flex-col and h-full */}
+                    {/* Icon - Always visible after loading phase 1 */}
+                    <motion.div
                       className="mb-4"
                       initial={{ opacity: 0 }}
                       animate={{ opacity: animationPhase >= 1 ? 1 : 0 }}
-                      transition={{ duration: 0.4 }}
+                      transition={{ duration: 0.5, ease: "easeOut" }}
                     >
                       {card.icon}
                     </motion.div>
-                    
-                    <span className='space-y-4'>
-                      {/* Title - Appears first after loading */}
-                      <motion.h3 
-                        className="text-lg font-semibold mb-2"
+            
+                    <div className="flex-grow space-y-3"> {/* Use flex-grow to push content down */}
+                      {/* Title - Appears after loading phase 1 */}
+                      <motion.h3
+                        className="text-lg font-semibold" // Removed mb-2, handled by space-y
                         initial={{ opacity: 0 }}
                         animate={{ opacity: animationPhase >= 1 ? 1 : 0 }}
-                        transition={{ duration: 0.4 }}
+                        transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }} // Slight delay after icon
                       >
                         {card.title}
                       </motion.h3>
-                      
-                      {/* Description - Parts appear sequentially across all cards */}
-                      <div className="text-gray-600 text-sm/6">
-                        {/* First part of description */}
-                        <motion.span
-                          variants={fadeInVariants}
-                          initial="hidden"
-                          animate={animationPhase >= 2 ? "visible" : "hidden"}
-                          transition={{ duration: 0.4 }}
-                          className="inline-block"
-                        >
-                          {card.descriptionParts[0]}<br />
-                        </motion.span>
-                        
-                        {/* Second part of description */}
-                        <motion.span
-                          variants={fadeInVariants}
-                          initial="hidden"
-                          animate={animationPhase >= 3 ? "visible" : "hidden"}
-                          transition={{ duration: 0.4 }}
-                          className="inline-block"
-                        >
-                          {card.descriptionParts[1]}
-                        </motion.span>
+            
+                      <div className="text-gray-600 text-sm/relaxed">
+                        {animationComplete ? (
+                          <>
+                            {card.descriptionParts[0]}
+                            {card.descriptionParts[1] && (
+                              <>
+                                <br />
+                                {card.descriptionParts[1]}
+                              </>
+                            )}
+                          </>
+                        ) : (
+                          <>
+                            <motion.span
+                              initial={{ opacity: 0 }}
+                              animate={{ opacity: animationPhase >= 2 ? 1 : 0 }}
+                              transition={{ duration: 0.4 }}
+                            >
+                              {card.descriptionParts[0]}
+                            </motion.span>
+            
+                            {card.descriptionParts[1] && (
+                              <>
+                                <br />
+                                <motion.span
+                                  initial={{ opacity: 0 }}
+                                  animate={{ opacity: animationPhase >= 3 ? 1 : 0 }}
+                                  transition={{ duration: 0.4 }}
+                                >
+                                  {card.descriptionParts[1]}
+                                </motion.span>
+                              </>
+                            )}
+                          </>
+                        )}
                       </div>
-                    </span>
+                    </div>
                   </CardContent>
                 </Card>
               </motion.div>
@@ -236,17 +295,20 @@ export function CoreFeatures() {
           )}
         </div>
       </div>
-      
-      {/* Overlay to close active card when clicking outside */}
-      {activeCardIndex !== null && (
-        <motion.div 
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 0.5 }}
-          exit={{ opacity: 0 }}
-          className="fixed inset-0 bg-black bg-opacity-10 z-0"
-          onClick={() => setActiveCardIndex(null)}
-        />
-      )}
+
+      <AnimatePresence>
+        {activeCardIndex !== null && (
+          <motion.div
+            key="overlay" // Add key for AnimatePresence
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }} // Faster fade for overlay
+            className="fixed inset-0 bg-black/20 z-5" // Slightly darker overlay, adjusted z-index
+            onClick={() => setActiveCardIndex(null)}
+          />
+        )}
+      </AnimatePresence>
     </section>
   );
 }
