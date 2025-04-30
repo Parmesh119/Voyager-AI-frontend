@@ -210,23 +210,32 @@ export function CoreFeatures() {
                 key={index}
                 onClick={() => handleCardClick(index)}
                 variants={cardVariants}
-                initial="normal" // Always start as normal
-                animate={activeCardIndex === index ? "active" : "normal"}
-                whileHover={{ scale: 1.05, boxShadow: "0 12px 20px rgba(0, 0, 0, 0.15)" }} // Smooth hover effect
-                whileTap={{ scale: 0.95 }} // Slight shrink on click
-                custom={index} // Pass index for potential stagger
-                initial={{ opacity: 0, y: 30 }}
+                custom={index} // For potential stagger
+                initial={{
+                  scale: 1,
+                  opacity: 0,
+                  y: 30,
+                }}
                 animate={{
+                  scale: activeCardIndex === index ? 1.05 : 1,
+                  boxShadow: activeCardIndex === index ? "0 12px 20px rgba(0, 0, 0, 0.15)" : "none",
                   opacity: isInView ? 1 : 0,
                   y: isInView ? 0 : 30,
                   transition: {
                     duration: 0.5,
-                    delay: isInView ? 0.1 + index * 0.08 : 0, // Stagger card appearance
+                    delay: isInView ? 0.1 + index * 0.08 : 0,
                     ease: "easeOut",
                   },
                 }}
-                className="cursor-pointer rounded-3xl" // Keep this for consistent styling target
+                whileHover={{
+                  scale: 1.05,
+                  boxShadow: "0 12px 20px rgba(0, 0, 0, 0.15)",
+                }}
+                whileTap={{ scale: 0.95 }}
+                className="cursor-pointer rounded-3xl"
               >
+                {/* className="cursor-pointer rounded-3xl"  */}
+
                 {/* Apply rounded-3xl and overflow hidden here for click effect */}
                 <Card className="shadow-lg h-64 rounded-3xl overflow-hidden border border-transparent hover:border-gray-200 transition-colors duration-300">
                   <CardContent className="pt-6 flex flex-col h-full"> {/* Use flex-col and h-full */}
@@ -239,7 +248,7 @@ export function CoreFeatures() {
                     >
                       {card.icon}
                     </motion.div>
-            
+
                     <div className="flex-grow space-y-3"> {/* Use flex-grow to push content down */}
                       {/* Title - Appears after loading phase 1 */}
                       <motion.h3
@@ -250,7 +259,7 @@ export function CoreFeatures() {
                       >
                         {card.title}
                       </motion.h3>
-            
+
                       <div className="text-gray-600 text-sm/relaxed">
                         {animationComplete ? (
                           <>
@@ -271,7 +280,7 @@ export function CoreFeatures() {
                             >
                               {card.descriptionParts[0]}
                             </motion.span>
-            
+
                             {card.descriptionParts[1] && (
                               <>
                                 <br />
