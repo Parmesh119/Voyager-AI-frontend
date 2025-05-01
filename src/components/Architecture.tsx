@@ -1,9 +1,8 @@
 import { Search, BookOpen } from 'lucide-react';
-import { motion } from 'framer-motion'; // Import motion
+import { motion } from 'framer-motion';
 
 export function Architecture() {
 
-  // Animation variants for sections/elements
   const sectionVariants = {
     hidden: { opacity: 0, y: 50 },
     visible: {
@@ -29,11 +28,11 @@ export function Architecture() {
   };
 
   const agentContainerVariants = {
-      hidden: { opacity: 1 }, // Parent doesn't fade, just orchestrates children
+      hidden: { opacity: 1 },
       visible: {
           opacity: 1,
           transition: {
-              staggerChildren: 0.2 // Stagger animation for agent cards
+              staggerChildren: 0.2
           }
       }
   };
@@ -58,7 +57,7 @@ export function Architecture() {
       x: 0,
       transition: {
         duration: 0.7,
-        ease: [0.25, 0.1, 0.25, 1] // Custom ease for a smoother effect
+        ease: [0.25, 0.1, 0.25, 1]
       }
     }
   };
@@ -77,13 +76,13 @@ export function Architecture() {
 
 
   return (
-    <section className="w-full py-20 px-4 md:px-8 bg-gradient-to-r from-[#FFFFFF] to-[#F0F0F0] overflow-hidden"> {/* Added overflow-hidden */}
+    <section className="w-full py-20 px-4 md:px-8 bg-gradient-to-r from-[#FFFFFF] to-[#F0F0F0] overflow-hidden">
       <div className="container mx-auto max-w-6xl">
-        {/* Header Section with Animation */}
+
         <motion.div
            initial="hidden"
            animate="visible"
-           variants={agentContainerVariants} // Use container for stagger delay if needed, or just simple fade
+           variants={agentContainerVariants}
            className="flex flex-col items-center"
         >
             <motion.div
@@ -111,22 +110,20 @@ export function Architecture() {
             </motion.p>
         </motion.div>
 
-        {/* Agents Section with Animation */}
         <motion.div
           className="flex flex-col md:flex-row justify-between items-center mb-20 gap-24"
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }} // Trigger when 30% is in view
-          variants={sectionVariants} // Apply fade-up to the whole section container first
+          viewport={{ once: true, amount: 0.3 }}
+          variants={sectionVariants}
         >
           <motion.div
             className="flex flex-col sm:flex-row gap-12 mb-8 md:mb-0 w-full"
-            variants={agentContainerVariants} // Use container variants to stagger children
+            variants={agentContainerVariants}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.3 }}
           >
-            {/* Comparison Agent SVG */}
              <motion.div variants={agentItemVariants}>
                  <svg width="203" height="168" viewBox="0 0 203 168" fill="none" xmlns="http://www.w3.org/2000/svg" className='mx-auto'>
                     <g filter="url(#filter0_d_171_379_comp)">
@@ -153,7 +150,6 @@ export function Architecture() {
                 </svg>
              </motion.div>
 
-            {/* Horizon Agent SVG */}
             <motion.div variants={agentItemVariants}>
                 <svg width="203" height="168" viewBox="0 0 203 168" fill="none" xmlns="http://www.w3.org/2000/svg" className='mx-auto'>
                     <g filter="url(#filter0_d_171_379_horiz)">
@@ -180,7 +176,6 @@ export function Architecture() {
                 </svg>
              </motion.div>
 
-            {/* Analysis Agent */}
             <motion.div variants={agentItemVariants}>
                 <svg width="203" height="168" className='mx-auto' viewBox="0 0 203 168" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <g filter="url(#filter0_d_171_379_anal)">
@@ -207,10 +202,10 @@ export function Architecture() {
                 </svg>
             </motion.div>
           </motion.div>
-          {/* Agent Description with Animation */}
+
           <motion.div
             className="text-gray-600 text-md w-full md:w-full mx-auto md:mx-0 text-center md:text-justify font-[Arial]"
-            variants={itemVariants} // Simple fade-in/slide-up for the text block
+            variants={itemVariants}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.3 }}
@@ -220,9 +215,7 @@ export function Architecture() {
         </motion.div>
 
 
-        {/* Domain Core Section with Animation */}
         <div className="flex lg:flex-row flex-col lg:gap-20 gap-10 items-center mb-16">
-          {/* Domain Core SVG with Slide-in Animation */}
           <motion.div
              className="relative lg:w-[500px] lg:mr-0 mr-12 w-[450px] h-[350px] lg:h-[381px]"
              initial="hidden"
@@ -271,7 +264,7 @@ export function Architecture() {
               </defs>
             </svg>
           </motion.div>
-          {/* Domain Core Text with Slide-in Animation */}
+
           <motion.div
             className="max-w-lg"
             initial="hidden"
@@ -285,21 +278,20 @@ export function Architecture() {
           </motion.div>
         </div>
 
-        {/* Knowledge Core Section with Animation */}
         <div className="flex lg:flex-row-reverse flex-col gap-20 lg:pl-48 items-center text-justify m-auto">
-          {/* Knowledge Core Card with Slide-in Animation */}
           <motion.div
             className="shadow-lg bg-[#75AA00] rounded-2xl order-1 md:order-2 w-full lg:w-1/2 text-center p-12"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.3 }}
-            variants={slideInRightVariants} // Slide in from right
+            variants={slideInRightVariants}
           >
             <h3 className="text-white text-4xl font-bold mb-6"><span className='font-[Arial]'>Knowledge Core</span></h3>
             <motion.div
                 initial={{ scale: 0.8, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                transition={{ delay: 0.3, duration: 0.5 }} // Slight delay after card slides in
+                whileInView={{ scale: 1, opacity: 1 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ delay: 0.3, duration: 0.5 }}
             >
               <svg
                 width="170"
@@ -346,13 +338,12 @@ export function Architecture() {
             </motion.div>
           </motion.div>
 
-          {/* Knowledge Core Text with Slide-in Animation */}
           <motion.div
             className="order-2 md:order-1 lg:w-1/2"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.3 }}
-            variants={slideInLeftVariants} // Slide in from left
+            variants={slideInLeftVariants}
            >
             <p className="text-gray-600 text-lg font-[Arial]">
               We've created a secure vault where your existing documents are AI-empowered,
@@ -369,9 +360,6 @@ export function Architecture() {
 }
 
 
-// MirroredBlobPlusIcon and IconExample components remain unchanged as they are separate exports
-// and the request was specifically for the Architecture component.
-
 export function MirroredBlobPlusIcon({ size = 24, color = "#2174B9", className = "" }) {
   return (
     <span>
@@ -382,14 +370,12 @@ export function MirroredBlobPlusIcon({ size = 24, color = "#2174B9", className =
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
         className={className}
-        style={{ transform: "scaleX(-1)" }}  // This flips the icon horizontally
+        style={{ transform: "scaleX(-1)" }}
       >
-        {/* Main blob shape */}
         <path
           d="M32 12C36.5 12 39.5 16 39.5 20C39.5 24 42 26.5 46 26.5C50 26.5 54 29.5 54 34C54 38.5 50 41.5 46 41.5C42 41.5 39.5 44 39.5 48C39.5 52 36.5 56 32 56C27.5 56 24.5 52 24.5 48C24.5 44 22 41.5 18 41.5C14 41.5 10 38.5 10 34C10 29.5 14 26.5 18 26.5C22 26.5 24.5 24 24.5 20C24.5 16 27.5 12 32 12Z"
           fill={color}
         />
-        {/* Small circle in top right (will appear on left after mirroring) */}
         <svg
           width={size / 6}
           height={size / 6}
@@ -397,14 +383,13 @@ export function MirroredBlobPlusIcon({ size = 24, color = "#2174B9", className =
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
           className={className}
-          x="48" // Example positioning (adjust x, y based on visual need)
+          x="48"
           y="12"
         >
-          {/* Re-using the blob path for the small element as per original code structure, though a circle might be simpler */}
           <path
             d="M32 12C36.5 12 39.5 16 39.5 20C39.5 24 42 26.5 46 26.5C50 26.5 54 29.5 54 34C54 38.5 50 41.5 46 41.5C42 41.5 39.5 44 39.5 48C39.5 52 36.5 56 32 56C27.5 56 24.5 52 24.5 48C24.5 44 22 41.5 18 41.5C14 41.5 10 38.5 10 34C10 29.5 14 26.5 18 26.5C22 26.5 24.5 24 24.5 20C24.5 16 27.5 12 32 12Z"
             fill={color}
-            transform="scale(0.15)" // Scale down the nested path
+            transform="scale(0.15)"
           />
         </svg>
       </svg>

@@ -2,16 +2,37 @@
 
 import type React from "react"
 
-import { motion } from "framer-motion"
+import { motion, useScroll, useTransform } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import PdfIcon from "@/assets/HeroSection/PdfIcon"
 import Right_Tick from "@/assets/HeroSection/Right_Tick"
 import { MousePointer2 } from "lucide-react"
+import { useRef } from "react"
+
 export function HeroSection() {
+  const containerRef = useRef<HTMLDivElement>(null)
+  const titleRef = useRef<HTMLDivElement>(null)
+  const paragraphRef = useRef<HTMLParagraphElement>(null)
+  const buttonRef = useRef<HTMLDivElement>(null)
+  
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end start"]
+  })
+  
+  const y = useTransform(scrollYProgress, [0, 1], [0, -150])
+  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0])
+  const scale = useTransform(scrollYProgress, [0, 0.5], [1, 0.95])
+  const xLeftItems = useTransform(scrollYProgress, [0, 0.5], [0, -30])
+  const xRightItems = useTransform(scrollYProgress, [0, 0.5], [0, 30])
+  
   return (
-    <section className="w-full py-16 px-4 md:px-8 bg-gradient-to-r from-[#FFFFFF] to-[#F0F0F0]">
-      <div className="container mx-auto max-w-5xl text-center font-[Arial_Rounded_MT_Bold]">
+    <section ref={containerRef} className="w-full py-16 px-4 md:px-8 bg-gradient-to-r from-[#FFFFFF] to-[#F0F0F0]">
+      <motion.div 
+        className="container mx-auto max-w-5xl text-center font-[Arial_Rounded_MT_Bold]"
+        style={{ y, opacity, scale }}
+      >
         <motion.div
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
@@ -25,8 +46,10 @@ export function HeroSection() {
         </motion.div>
 
         <motion.div
+          ref={titleRef}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
+          style={{ x: xLeftItems }}
           transition={{ duration: 1 }}
           className="text-4xl md:text-5xl mb-4"
         >
@@ -52,8 +75,10 @@ export function HeroSection() {
         </motion.div>
 
         <motion.p
+          ref={paragraphRef}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
+          style={{ x: xRightItems }}
           transition={{ duration: 1, delay: 0.4 }}
           className="text-gray-700 max-w-3xl mx-auto mb-8 text-base md:text-lg font-[Arial]"
         >
@@ -65,8 +90,10 @@ export function HeroSection() {
         </motion.p>
 
         <motion.div
+          ref={buttonRef}
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
+          style={{ y: useTransform(scrollYProgress, [0, 0.5], [0, 20]) }}
           transition={{ duration: 0.8, delay: 0.6 }}
           className="flex flex-col md:flex-row justify-center max-w-md mx-auto mb-8"
         >
@@ -106,7 +133,6 @@ export function HeroSection() {
                   transform: "translate(-50%, -50%)"
                 }}
               >
-                {/* Standard mouse pointer icon */}
                 <MousePointer2 size={20} color="black" strokeWidth={2} />
               </motion.div>
             </Button>
@@ -129,12 +155,18 @@ export function HeroSection() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.6, delay: 0.8 + index * 0.2 }}
+              whileInView={{ 
+                opacity: 1,
+                y: 0,
+                transition: { duration: 0.5, delay: index * 0.1 }
+              }}
+              viewport={{ once: true }}
             >
               <Benefit icon={benefit.icon} text={benefit.text} />
             </motion.div>
           ))}
         </motion.div>
-      </div>
+      </motion.div>
     </section>
   )
 }
