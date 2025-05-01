@@ -15,18 +15,18 @@ export function HeroSection() {
   const titleRef = useRef<HTMLDivElement>(null)
   const paragraphRef = useRef<HTMLParagraphElement>(null)
   const buttonRef = useRef<HTMLDivElement>(null)
-  
+
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end start"]
   })
-  
+
   const y = useTransform(scrollYProgress, [0, 1], [0, -150])
-  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0])
+  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0])
   const scale = useTransform(scrollYProgress, [0, 0.5], [1, 0.95])
   const xLeftItems = useTransform(scrollYProgress, [0, 0.5], [0, -30])
   const xRightItems = useTransform(scrollYProgress, [0, 0.5], [0, 30])
-  
+
   return (
     <section ref={containerRef} className="w-full py-16 px-4 md:px-8 bg-gradient-to-r from-[#FFFFFF] to-[#F0F0F0]">
       <motion.div 

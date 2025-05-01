@@ -7,7 +7,7 @@ export function WhoWeAre() {
   const imageRef = useRef(null);
   const textRef = useRef(null);
   
-  const isInView = useInView(sectionRef, { once: true, amount: 0.2 });
+  const isInView = useInView(sectionRef, { once: false, amount: 0.2 }); // Changed to false to enable fade-out
   const isImageInView = useInView(imageRef, { once: true, amount: 0.5 });
   const isTextInView = useInView(textRef, { once: true, amount: 0.5 });
   
@@ -24,10 +24,15 @@ export function WhoWeAre() {
     restDelta: 0.001
   });
   
-  const textOpacity = useTransform(smoothScroll, [0.1, 0.4], [0.6, 1]);
-  const textY = useTransform(smoothScroll, [0.1, 0.4], [30, 0]);
+  // Enhanced scroll animations with fade-out effect
+  const textOpacity = useTransform(smoothScroll, [0.1, 0.4, 0.7, 0.9], [0.6, 1, 1, 0]);
+  const textY = useTransform(smoothScroll, [0.1, 0.4, 0.7, 0.9], [30, 0, 0, -30]);
   
-  // Staggered text animation variants - different from BeliefsSection
+  // New fade-out animation for the entire section
+  const sectionOpacity = useTransform(smoothScroll, [0.1, 0.8, 0.95], [1, 1, 0]);
+  const sectionScale = useTransform(smoothScroll, [0.1, 0.8, 0.95], [1, 1, 0.95]);
+  
+  // Staggered text animation variants
   const paragraphVariants = {
     hidden: { opacity: 0, x: -15 },
     visible: { 
@@ -35,7 +40,15 @@ export function WhoWeAre() {
       x: 0,
       transition: { 
         duration: 0.6,
-        ease: [0.21, 0.45, 0.15, 1.0] // Different easing curve
+        ease: [0.21, 0.45, 0.15, 1.0]
+      }
+    },
+    exit: {
+      opacity: 0,
+      x: -15,
+      transition: {
+        duration: 0.4,
+        ease: [0.65, 0, 0.35, 1]
       }
     }
   };
@@ -46,9 +59,17 @@ export function WhoWeAre() {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.15, // Different timing from BeliefsSection
+        staggerChildren: 0.15,
         delayChildren: 0.2,
         when: "beforeChildren"
+      }
+    },
+    exit: {
+      opacity: 0,
+      transition: {
+        staggerChildren: 0.08,
+        staggerDirection: -1,
+        when: "afterChildren"
       }
     }
   };
@@ -65,6 +86,14 @@ export function WhoWeAre() {
         stiffness: 200,
         damping: 20
       }
+    },
+    exit: {
+      opacity: 0,
+      y: -10,
+      scale: 0.95,
+      transition: {
+        duration: 0.3
+      }
     }
   };
   
@@ -78,13 +107,44 @@ export function WhoWeAre() {
         duration: 0.7,
         ease: [0.25, 0.1, 0.25, 1]
       }
+    },
+    exit: {
+      opacity: 0,
+      y: 15,
+      transition: {
+        duration: 0.5
+      }
+    }
+  };
+
+  // Image animation with fade-out
+  const imageVariants = {
+    hidden: { opacity: 0, scale: 0.95 },
+    visible: { 
+      opacity: 1, 
+      scale: 1,
+      transition: { 
+        duration: 0.8, 
+        ease: [0.25, 0.1, 0.25, 1]
+      }
+    },
+    exit: {
+      opacity: 0,
+      scale: 0.97,
+      transition: {
+        duration: 0.6
+      }
     }
   };
 
   return (
-    <section 
+    <motion.section 
       ref={sectionRef}
       className="w-full py-20 px-4 md:px-8 bg-gradient-to-r from-[#FFFFFF] to-[#F0F0F0] overflow-hidden"
+      style={{
+        opacity: sectionOpacity,
+        scale: sectionScale
+      }}
     >
       <div className="container mx-auto max-w-6xl">
         <div className="flex flex-col md:flex-row-reverse lg:gap-48 gap-10">
@@ -147,12 +207,12 @@ export function WhoWeAre() {
           <motion.div 
             className="w-full md:w-1/2"
             ref={imageRef}
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={isImageInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.95 }}
-            transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
+            variants={imageVariants}
+            initial="hidden"
+            animate={isImageInView ? "visible" : "hidden"}
           >
             <div className="rounded-2xl overflow-hidden h-[400px] relative">
-              {/* Image mask effect - different from BeliefsSection */}
+              {/* Image mask effect */}
               <motion.div 
                 className="absolute inset-0 bg-white z-10 origin-left"
                 style={{ 
@@ -167,7 +227,7 @@ export function WhoWeAre() {
                 alt="People looking at night sky" 
                 className="w-full h-full object-cover rounded-2xl"
                 style={{ 
-                  objectPosition: "center center" // Fixes the whitespace issue
+                  objectPosition: "center center"
                 }}
                 whileHover={{ 
                   scale: 1.03,
@@ -178,6 +238,6 @@ export function WhoWeAre() {
           </motion.div>
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 }

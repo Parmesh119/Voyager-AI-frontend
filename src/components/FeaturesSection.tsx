@@ -4,10 +4,11 @@ import { motion, useInView, animate, motionValue, useTransform, useScroll } from
 import { useEffect, useRef } from "react";
 
 // Helper component for animating the number
-function AnimatedNumber({ value }: { value: string }) {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true });
+// Now accepts a startAnimation boolean prop to trigger the animation from the parent
+function AnimatedNumber({ value, startAnimation }: { value: string, startAnimation: boolean }) {
   const count = motionValue(0);
+  // Use a ref to track if the animation has already run to ensure it only happens once
+  const hasAnimated = useRef(false);
 
   const numericValue = parseInt(value.replace(/[^0-9]/g, ""), 10);
   const suffix = value.replace(/[0-9]/g, "");
@@ -15,17 +16,22 @@ function AnimatedNumber({ value }: { value: string }) {
   const rounded = useTransform(count, latest => `${Math.round(latest)}${suffix}`);
 
   useEffect(() => {
-    if (isInView) {
+    // Start the animation only if startAnimation is true AND it hasn't animated before
+    if (startAnimation && !hasAnimated.current) {
       const controls = animate(count, numericValue, {
         duration: 1.5, // Adjust duration as needed
         ease: "easeOut"
       });
-      return controls.stop; // Stop animation on unmount
-    }
-     // No cleanup needed if not in view
-  }, [isInView, count, numericValue]); // Dependencies
+      hasAnimated.current = true; // Mark as animated
 
-  return <motion.span ref={ref}>{rounded}</motion.span>;
+      // Optional: cleanup function to stop animation on unmount if it's still running
+      return () => controls.stop();
+    }
+    // No cleanup or action needed if not starting animation or already animated
+  }, [startAnimation, count, numericValue]); // Dependency on startAnimation to react when it changes
+
+  // Removed the ref={ref} from here as isInView is now controlled by the parent section
+  return <motion.span>{rounded}</motion.span>;
 }
 
 
@@ -33,6 +39,9 @@ export function FeaturesSection() {
   // Refs for the main left and right sections to trigger animations on scroll
   const sectionRef = useRef(null); // Use one ref for the whole section container
 
+  // Check if the section is in view.
+  // once: false means isInView will be true when it enters, and false when it leaves.
+  // margin: "-100px 0px" pulls the trigger point 100px up from the bottom of the viewport.
   const isInView = useInView(sectionRef, { once: false, margin: "-100px 0px" }); // Adjust margin as needed
 
   // Ref for the image to apply parallax
@@ -41,11 +50,11 @@ export function FeaturesSection() {
   // Set up scroll tracking for the image ref
   const { scrollYProgress } = useScroll({
     target: imageRef,
-    offset: ["start end", "end start"],
+    offset: ["start end", "end start"], // Start parallax when image starts entering, end when it finishes leaving
   });
 
   // Use useTransform to map the scroll progress (0 to 1) to a vertical translation range
-  // As the image scrolls into view (progress 0 -> 1), its y position goes from -50px to 50px
+  // As the image scrolls through the viewport (progress 0 -> 1), its y position goes from -50px to 50px
   const yImage = useTransform(scrollYProgress, [0, 1], [-50, 50]); // Adjust the range for more/less intense parallax
 
   // Define animation variants for the main columns
@@ -135,11 +144,13 @@ export function FeaturesSection() {
               ].map((stat, index) => (
                 <motion.div
                   key={index}
-                  variants={itemVariants}
+                  variants={itemVariants} // Apply item variants to the container div
                 >
                   <div className="w-28 h-12 justify-start text-sky-600 text-3xl font-black font-['Arial_Black']">
-                    <AnimatedNumber value={stat.value} />
+                    {/* Pass the isInView status of the section to trigger the number animation */}
+                    <AnimatedNumber value={stat.value} startAnimation={isInView} />
                   </div>
+                  {/* Title and description also using itemVariants */}
                   <motion.div // Title
                     variants={itemVariants} // Apply item variants
                     className="font-semibold mb-2 text-sm"
@@ -181,4 +192,4 @@ export function FeaturesSection() {
       </div>
     </section>
   )
-} 
+}
