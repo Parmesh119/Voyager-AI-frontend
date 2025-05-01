@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import PdfIcon from "@/assets/HeroSection/PdfIcon"
 import Right_Tick from "@/assets/HeroSection/Right_Tick"
-
+import { MousePointer2 } from "lucide-react"
 export function HeroSection() {
   return (
     <section className="w-full py-16 px-4 md:px-8 bg-gradient-to-r from-[#FFFFFF] to-[#F0F0F0]">
@@ -15,7 +15,7 @@ export function HeroSection() {
         <motion.div
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4 }}
+          transition={{ duration: 0.8 }}
           className="inline-block mb-4 px-4 py-1 bg-[#ECFFD9] text-[#217e17] rounded-full text-sm font-medium"
         >
           <span className="flex items-center px-6 gap-1">
@@ -27,14 +27,14 @@ export function HeroSection() {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 1 }}
           className="text-4xl md:text-5xl mb-4"
         >
           <span className="font-bold">
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ duration: 0.4 }}
+              transition={{ duration: 0.8 }}
               className="text-[#2D7DD2] mb-4"
             >
               Compliance-Powered AI
@@ -43,7 +43,7 @@ export function HeroSection() {
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ duration: 0.4 }}
+              transition={{ duration: 0.8 }}
               className="text-black"
             >
               for Financial Institutions.
@@ -54,7 +54,7 @@ export function HeroSection() {
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
+          transition={{ duration: 1, delay: 0.4 }}
           className="text-gray-700 max-w-3xl mx-auto mb-8 text-base md:text-lg font-[Arial]"
         >
           An advanced, secure AI that enhances your FI's financial knowledge while ensuring
@@ -67,7 +67,7 @@ export function HeroSection() {
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: 0.3 }}
+          transition={{ duration: 0.8, delay: 0.6 }}
           className="flex flex-col md:flex-row justify-center max-w-md mx-auto mb-8"
         >
           <Input
@@ -75,16 +75,48 @@ export function HeroSection() {
             placeholder="Enter your work email"
             className="h-12 rounded-l-md rounded-r-none border-gray-300 placeholder:text-gray-400 placeholder:tracking-wider placeholder:text-base"
           />
-          <Button className="h-12 text-md rounded-l-none rounded-r-md bg-[#2D7DD2] font-extrabold hover:bg-[#1d6abf] pl-6 pr-4 text-white">
-            Get Started
-            <ArrowRightIcon className="ml-2 h-6 w-6" />
-          </Button>
+          <div className="relative">
+            <Button className="h-12 text-md rounded-l-none rounded-r-md bg-[#2D7DD2] font-extrabold hover:bg-[#1d6abf] pl-6 pr-4 text-white">
+              Get Started
+              <ArrowRightIcon className="ml-2 h-6 w-6" />
+
+              <motion.div
+                className="absolute pointer-events-none"
+                animate={{
+
+                  x: [0, 15, 20, 15, 0, -15, -20, -15, 0],
+                  y: [-20, -15, 0, 15, 20, 15, 0, -15, -20],
+                }}
+                transition={{
+                  x: {
+                    repeat: Infinity,
+                    duration: 6,
+                    ease: "linear",
+                  },
+                  y: {
+                    repeat: Infinity,
+                    duration: 6,
+                    ease: "linear",
+                  },
+                }}
+                style={{
+                  zIndex: 10,
+                  left: "50%",
+                  top: "50%",
+                  transform: "translate(-50%, -50%)"
+                }}
+              >
+                {/* Standard mouse pointer icon */}
+                <MousePointer2 size={20} color="black" strokeWidth={2} />
+              </motion.div>
+            </Button>
+          </div>
         </motion.div>
 
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.4 }}
+          transition={{ duration: 1, delay: 0.8 }}
           className="flex flex-wrap justify-center gap-6 md:gap-8"
         >
           {[
@@ -96,7 +128,7 @@ export function HeroSection() {
               key={index}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ duration: 0.3, delay: 0.4 + index * 0.1 }}
+              transition={{ duration: 0.6, delay: 0.8 + index * 0.2 }}
             >
               <Benefit icon={benefit.icon} text={benefit.text} />
             </motion.div>

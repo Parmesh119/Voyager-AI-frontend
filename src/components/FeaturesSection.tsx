@@ -1,6 +1,31 @@
 "use client"
 
-import { motion } from "framer-motion"
+import { motion, useInView, animate, motionValue, useTransform } from "framer-motion"
+import { useEffect, useRef } from "react"
+
+function AnimatedNumber({ value }: { value: string }) {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true });
+  const count = motionValue(0);
+
+  const numericValue = parseInt(value.replace(/[^0-9]/g, ""), 10);
+  const suffix = value.replace(/[0-9]/g, "");
+
+  const rounded = useTransform(count, latest => `${Math.round(latest)}${suffix}`);
+
+  useEffect(() => {
+    if (isInView) {
+      const controls = animate(count, numericValue, {
+        duration: 1.5, // Adjust duration as needed
+        ease: "easeOut"
+      });
+      return controls.stop;
+    }
+  }, [isInView, count, numericValue]);
+
+  return <motion.span ref={ref}>{rounded}</motion.span>;
+}
+
 
 export function FeaturesSection() {
   return (
@@ -73,7 +98,7 @@ export function FeaturesSection() {
                     transition={{ duration: 0.4, delay: 0.3 + index * 0.15 }}
                     className="w-28 h-12 justify-start text-sky-600 text-3xl font-black font-['Arial_Black']"
                   >
-                    {stat.value}
+                    <AnimatedNumber value={stat.value} />
                   </motion.div>
                   <motion.div
                     initial={{ opacity: 0 }}

@@ -2,7 +2,7 @@ import { Search, FileLock2, BriefcaseBusiness, Megaphone, BrainCog } from 'lucid
 import { Card, CardContent } from '@/components/ui/card';
 import PdfIcon from '@/assets/CoreFeatures/PdfIcon';
 import { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence, useInView } from 'framer-motion';
+import { motion, AnimatePresence, useInView, useScroll, useTransform } from 'framer-motion'; // Import parallax hooks
 
 export function CoreFeatures() {
   const [loading, setLoading] = useState(true);
@@ -10,17 +10,26 @@ export function CoreFeatures() {
   const [activeCardIndex, setActiveCardIndex] = useState<number | null>(null);
   const [animationComplete, setAnimationComplete] = useState(false);
   const sectionRef = useRef(null);
-  // Trigger when 5% is visible for earlier animation start, run only once
   const isInView = useInView(sectionRef, { once: true, amount: 0.05 });
 
-  useEffect(() => {
-    // Only run the timer logic if the component is in view
-    if (isInView) {
-      // Simulate loading time and control animation phases after entering view
-      const loadingTimer = setTimeout(() => {
-        setLoading(false); // Stop showing skeletons
+  // --- Parallax Setup ---
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"] // Track scroll from when bottom enters to when top leaves
+  });
 
-        // Phase 1: Show icons and titles (slight delay after loading stops)
+  // Map scroll progress to Y transform values for parallax
+  // Title/Subtitle moves slightly faster upwards
+  const parallaxYHeader = useTransform(scrollYProgress, [0, 1], [50, -50]);
+  // Cards grid moves slightly slower upwards
+  const parallaxYGrid = useTransform(scrollYProgress, [0, 1], [-60, 60]);
+  // --- End Parallax Setup ---
+
+
+  useEffect(() => {
+    if (isInView) {
+      const loadingTimer = setTimeout(() => {
+        setLoading(false);
         const phase1Timer = setTimeout(() => {
           setAnimationPhase(1);
 
@@ -133,10 +142,11 @@ export function CoreFeatures() {
     transition: { duration: 0.6, ease: "easeOut" }
   };
 
-  const textFadeInSlideProps = {
-    initial: { opacity: 0, y: 20 },
-    animate: { opacity: isInView ? 1 : 0, y: isInView ? 0 : 20 },
-    transition: { duration: 0.7, delay: isInView ? 0.2 : 0, ease: "easeOut" } // Slightly longer duration
+  // Updated to remove y animation, as parallax handles it
+  const textFadeInProps = {
+    initial: { opacity: 0 },
+    animate: { opacity: isInView ? 1 : 0 },
+    transition: { duration: 0.7, delay: isInView ? 0.2 : 0, ease: "easeOut" }
   }
 
   const showSkeletons = loading; // Show skeletons if loading is true (covers initial load and before isInView)
@@ -154,6 +164,8 @@ export function CoreFeatures() {
             <motion.div
               key="actual-badge"
               className="flex justify-center"
+              // Apply parallax style to the badge container
+              style={{ y: parallaxYHeader }}
               {...sectionFadeInProps} // Apply fade-in based on isInView
             >
               <div className="flex flex-row mb-4 gap-2 px-6 py-1 bg-[#9DC22333] text-[#2e8318] rounded-full text-sm font-medium">
@@ -176,7 +188,9 @@ export function CoreFeatures() {
             <motion.div
               key="actual-header"
               className="flex flex-col items-center text-center mb-12 font-[Arial_Rounded_MT_Bold]"
-              {...textFadeInSlideProps} // Apply fade-in/slide based on isInView
+              // Apply parallax style to the header container
+              style={{ y: parallaxYHeader }}
+              {...textFadeInProps} // Apply fade-in based on isInView (y animation removed)
             >
               <h2 className="text-3xl md:text-4xl font-bold mb-4">
                 Voyager AI <span className="text-[#2D7DD2]">Core Product Features</span>
@@ -189,7 +203,11 @@ export function CoreFeatures() {
         </AnimatePresence>
 
         {/* Cards Grid - Conditionally render skeletons or actual cards */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <motion.div
+          className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
+          // Apply parallax to the grid container
+          style={{ y: parallaxYGrid }}
+        >
           {showSkeletons ? (
             [...Array(6)].map((_, i) => (
               <div key={`skeleton-${i}`} className="bg-white rounded-3xl shadow-lg p-6 h-64 border border-gray-100">
@@ -212,34 +230,35 @@ export function CoreFeatures() {
                 variants={cardVariants}
                 custom={index} // For potential stagger
                 initial={{
-                  scale: 1,
+                  // Removed y animation here, parallax grid handles vertical movement
                   opacity: 0,
-                  y: 30,
+                  scale: 0.95 // Keep initial scale down for pop-in effect
                 }}
                 animate={{
+                  // Keep active state animations
                   scale: activeCardIndex === index ? 1.05 : 1,
-                  boxShadow: activeCardIndex === index ? "0 12px 20px rgba(0, 0, 0, 0.15)" : "none",
-                  opacity: isInView ? 1 : 0,
-                  y: isInView ? 0 : 30,
+                  boxShadow: activeCardIndex === index ? "0 12px 20px rgba(0, 0, 0, 0.15)" : "0 4px 6px rgba(0, 0, 0, 0.1)", // Ensure normal boxShadow is reapplied
+                  opacity: isInView ? 1 : 0, // Fade based on view
                   transition: {
                     duration: 0.5,
-                    delay: isInView ? 0.1 + index * 0.08 : 0,
+                    delay: isInView ? 0.2 + index * 0.08 : 0, // Stagger delay based on view
                     ease: "easeOut",
                   },
                 }}
-                whileHover={{
+                whileHover={!showSkeletons ? { // Prevent hover effect on skeletons (though they won't exist here)
                   scale: 1.05,
                   boxShadow: "0 12px 20px rgba(0, 0, 0, 0.15)",
-                }}
-                whileTap={{ scale: 0.95 }}
-                className="cursor-pointer rounded-3xl"
+                  transition: { duration: 0.2 } // Faster hover transition
+                } : {}}
+                whileTap={!showSkeletons ? { scale: 0.98 } : {}} // Slightly less intense tap
+                className="cursor-pointer rounded-3xl" // Keep border styles outside motion? Might be better.
+                 style={{ // Ensure default card style applies if not active
+                    boxShadow: activeCardIndex === index ? undefined : "0 4px 6px rgba(0, 0, 0, 0.1)"
+                 }}
               >
-                {/* className="cursor-pointer rounded-3xl"  */}
-
-                {/* Apply rounded-3xl and overflow hidden here for click effect */}
                 <Card className="shadow-lg h-64 rounded-3xl overflow-hidden border border-transparent hover:border-gray-200 transition-colors duration-300">
-                  <CardContent className="pt-6 flex flex-col h-full"> {/* Use flex-col and h-full */}
-                    {/* Icon - Always visible after loading phase 1 */}
+                  <CardContent className="pt-6 flex flex-col h-full">
+                    {/* Card Content Animations remain largely the same, triggered by animationPhase */}
                     <motion.div
                       className="mb-4"
                       initial={{ opacity: 0 }}
@@ -249,18 +268,18 @@ export function CoreFeatures() {
                       {card.icon}
                     </motion.div>
 
-                    <div className="flex-grow space-y-3"> {/* Use flex-grow to push content down */}
-                      {/* Title - Appears after loading phase 1 */}
+                    <div className="flex-grow space-y-3">
                       <motion.h3
-                        className="text-lg font-semibold" // Removed mb-2, handled by space-y
+                        className="text-lg font-semibold"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: animationPhase >= 1 ? 1 : 0 }}
-                        transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }} // Slight delay after icon
+                        transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
                       >
                         {card.title}
                       </motion.h3>
 
                       <div className="text-gray-600 text-sm/relaxed">
+                        {/* Phased description rendering based on animationComplete */}
                         {animationComplete ? (
                           <>
                             {card.descriptionParts[0]}
@@ -302,7 +321,7 @@ export function CoreFeatures() {
               </motion.div>
             ))
           )}
-        </div>
+        </motion.div>
       </div>
 
       <AnimatePresence>
@@ -312,7 +331,7 @@ export function CoreFeatures() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }} // Faster fade for overlay
+            transition={{ duration: 0.3 }}
             className="fixed inset-0 bg-black/20 z-5" // Slightly darker overlay, adjusted z-index
             onClick={() => setActiveCardIndex(null)}
           />
