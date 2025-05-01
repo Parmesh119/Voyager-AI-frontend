@@ -1,22 +1,105 @@
 "use client"
 
-import { motion } from "framer-motion"
+import { motion, useInView, animate, motionValue, useTransform, useScroll } from "framer-motion";
+import { useEffect, useRef } from "react";
+
+// Improved AnimatedNumber component that resets and re-animates when scrolling back into view
+function AnimatedNumber({ value, startAnimation }: { value: string, startAnimation: boolean }) {
+  const count = motionValue(0);
+  const numericValue = parseInt(value.replace(/[^0-9]/g, ""), 10);
+  const suffix = value.replace(/[0-9]/g, "");
+  const rounded = useTransform(count, latest => `${Math.round(latest)}${suffix}`);
+  
+  // Track previous state to detect transitions from not visible to visible
+  const wasVisible = useRef(false);
+
+  useEffect(() => {
+    if (startAnimation) {
+      // If becoming visible
+      if (!wasVisible.current) {
+        // Animate from 0 to the target value
+        const controls = animate(count, numericValue, {
+          duration: 1.5,
+          ease: "easeOut"
+        });
+        
+        // Cleanup function
+        return () => controls.stop();
+      } else {
+        // If already visible, ensure the value is set properly without animation
+        count.set(numericValue);
+      }
+      wasVisible.current = true;
+    } else {
+      // When not visible, reset the counter to 0 for next animation
+      count.set(0);
+      wasVisible.current = false;
+    }
+  }, [startAnimation, count, numericValue]);
+
+  return <motion.span>{rounded}</motion.span>;
+}
 
 export function FeaturesSection() {
+  const sectionRef = useRef(null);
+  const imageRef = useRef(null);
+  
+  // Track when the section is in viewport with a more generous threshold
+  const isInView = useInView(sectionRef, { 
+    once: false, // Important: we need to detect when it enters AND leaves
+    amount: 0.2,  // Trigger when 20% of the element is in view 
+  });
+
+  // Set up scroll tracking for the image ref
+  const { scrollYProgress } = useScroll({
+    target: imageRef,
+    offset: ["start end", "end start"],
+  });
+
+  // Use useTransform to map the scroll progress (0 to 1) to a vertical translation range
+  const yImage = useTransform(scrollYProgress, [0, 1], [-50, 50]);
+
+  // Define animation variants for the main columns
+  const columnVariants = {
+    hidden: (direction: 'left' | 'right') => ({
+      opacity: 0,
+      x: direction === 'left' ? -100 : 100,
+    }),
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        duration: 0.8,
+        ease: "easeOut",
+        when: "beforeChildren",
+        staggerChildren: 0.15,
+        delayChildren: 0.2
+      },
+    },
+  };
+
+  // Define animation variants for children elements within the left column
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
+  };
+
   return (
-    <section className="w-full py-32 px-4 md:px-8 font-[Arial_Rounded_MT_Bold] bg-gradient-to-r from-[#FFFFFF] to-[#F0F0F0] overflow-hidden">
+    <section ref={sectionRef} className="w-full py-32 px-4 md:px-8 font-[Arial_Rounded_MT_Bold] bg-gradient-to-r from-[#FFFFFF] to-[#F0F0F0] overflow-hidden">
       <div className="container mx-auto max-w-6xl">
         <div className="flex flex-col md:flex-row gap-12">
+
+          {/* Left Column - Fade/Slide in/out on scroll */}
           <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
+            variants={columnVariants}
+            initial="hidden"
+            animate={isInView ? "visible" : "hidden"}
+            custom="left"
             className="w-full md:w-1/2"
           >
+            {/* Child elements using itemVariants and staggered by parent */}
             <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
+              variants={itemVariants}
               className="inline-block mb-4 px-6 py-1 bg-[#9DC22333] text-[#2e8318] rounded-full text-sm font-medium"
             >
               Intelligent Features
@@ -24,23 +107,20 @@ export function FeaturesSection() {
 
             <motion.h2 className="text-3xl md:text-4xl font-bold mb-12">
               <motion.span
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.1 }}
+                variants={itemVariants}
               >
                 Proven Performance.
               </motion.span>
               <br />
               <motion.span
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.2 }}
+                variants={itemVariants}
                 className="text-[#2D7DD2]"
               >
                 Accelerate.
               </motion.span>
             </motion.h2>
 
+            {/* Stats Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-12">
               {[
                 {
@@ -63,30 +143,20 @@ export function FeaturesSection() {
               ].map((stat, index) => (
                 <motion.div
                   key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.3 + index * 0.15 }}
+                  variants={itemVariants}
                 >
+                  <div className="w-28 h-12 justify-start text-sky-600 text-3xl font-black font-['Arial_Black']">
+                    {/* Pass the isInView status to trigger/reset animation */}
+                    <AnimatedNumber value={stat.value} startAnimation={isInView} />
+                  </div>
                   <motion.div
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.4, delay: 0.3 + index * 0.15 }}
-                    className="w-28 h-12 justify-start text-sky-600 text-3xl font-black font-['Arial_Black']"
-                  >
-                    {stat.value}
-                  </motion.div>
-                  <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 0.4, delay: 0.4 + index * 0.15 }}
+                    variants={itemVariants}
                     className="font-semibold mb-2 text-sm"
                   >
                     {stat.title}
                   </motion.div>
                   <motion.p
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 0.4, delay: 0.5 + index * 0.15 }}
+                    variants={itemVariants}
                     className="text-gray-600 text-sm font-[Arial]"
                     style={{ lineHeight: "19px" }}
                   >
@@ -97,20 +167,21 @@ export function FeaturesSection() {
             </div>
           </motion.div>
 
+          {/* Right Column - Fade/Slide in/out on scroll + Parallax Image */}
           <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.7, ease: "easeOut" }}
+            variants={columnVariants}
+            initial="hidden"
+            animate={isInView ? "visible" : "hidden"}
+            custom="right"
             className="w-full md:w-1/2"
           >
             <div className="rounded-2xl overflow-hidden">
               <motion.img
-                initial={{ scale: 1.05 }}
-                animate={{ scale: 1 }}
-                transition={{ duration: 0.7 }}
+                ref={imageRef}
+                style={{ y: yImage }}
                 src="https://i0.wp.com/spacenews.com/wp-content/uploads/2024/06/voyager-illus.jpg?resize=1200%2C1080&quality=89&ssl=1"
                 alt="Space technology"
-                className="w-540 h-429 object-cover rounded-2xl"
+                className="w-full h-auto object-cover rounded-2xl"
               />
             </div>
           </motion.div>
