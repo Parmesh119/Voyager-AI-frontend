@@ -106,35 +106,7 @@ export function HeroSection() {
             <Button className="h-12 text-md rounded-l-none rounded-r-md bg-[#2D7DD2] font-extrabold hover:bg-[#1d6abf] pl-6 pr-4 text-white">
               Get Started
               <ArrowRightIcon className="ml-2 h-6 w-6" />
-
-              <motion.div
-                className="absolute pointer-events-none"
-                animate={{
-
-                  x: [0, 15, 20, 15, 0, -15, -20, -15, 0],
-                  y: [-20, -15, 0, 15, 20, 15, 0, -15, -20],
-                }}
-                transition={{
-                  x: {
-                    repeat: Infinity,
-                    duration: 6,
-                    ease: "linear",
-                  },
-                  y: {
-                    repeat: Infinity,
-                    duration: 6,
-                    ease: "linear",
-                  },
-                }}
-                style={{
-                  zIndex: 10,
-                  left: "50%",
-                  top: "50%",
-                  transform: "translate(-50%, -50%)"
-                }}
-              >
-                <MousePointer2 size={20} color="black" strokeWidth={2} />
-              </motion.div>
+              
             </Button>
           </div>
         </motion.div>

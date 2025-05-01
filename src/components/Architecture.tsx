@@ -114,6 +114,7 @@ export function Architecture() {
           className="flex flex-col md:flex-row justify-between items-center mb-20 gap-24"
           initial="hidden"
           whileInView="visible"
+          
           viewport={{ once: true, amount: 0.3 }}
           variants={sectionVariants}
         >
@@ -121,6 +122,7 @@ export function Architecture() {
             className="flex flex-col sm:flex-row gap-12 mb-8 md:mb-0 w-full"
             variants={agentContainerVariants}
             initial="hidden"
+            
             whileInView="visible"
             viewport={{ once: true, amount: 0.3 }}
           >

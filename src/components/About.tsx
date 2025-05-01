@@ -1,87 +1,73 @@
 import { CardContent } from '@/components/ui/card';
 import { BriefcaseBusiness } from 'lucide-react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { useRef } from 'react';
-
 
 export function About() {
   const aboutSectionRef = useRef(null);
   const leadershipSectionRef = useRef(null);
 
-  const { scrollYProgress: scrollYProgressAbout } = useScroll({
-    target: aboutSectionRef,
-    offset: ["start end", "end start"]
-  });
-  const parallaxXAbout = useTransform(scrollYProgressAbout, [0, 1], [-80, 80]);
-
-   const { scrollYProgress: scrollYProgressLeadership } = useScroll({
-    target: leadershipSectionRef,
-    offset: ["start end", "end start"]
-  });
-  const parallaxXLeadership = useTransform(scrollYProgressLeadership, [0, 1], [80, -80]);
-
   const sectionEntryVariant = {
-      hidden: { opacity: 0 },
-      visible: {
-          opacity: 1,
-          transition: {
-              duration: 0.4,
-              staggerChildren: 0.15,
-              delayChildren: 0.1
-          }
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        duration: 0.4,
+        staggerChildren: 0.15,
+        delayChildren: 0.1
       }
+    }
   };
 
   const itemFadeUp = {
-      hidden: { opacity: 0, y: 25 },
-      visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } }
+    hidden: { opacity: 0, y: 25 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } }
   };
 
-   const cardRevealVariant = {
-       hidden: { clipPath: 'inset(10% 50% 90% 50% round 16px)', opacity: 0.5, scale: 0.95 },
-       visible: {
-           clipPath: 'inset(0% 0% 0% 0% round 16px)',
-           opacity: 1,
-           scale: 1,
-           transition: {
-               duration: 0.7,
-               ease: [0.25, 1, 0.5, 1], // Faster start, smooth end
-               delay: 0.2
-           }
-       }
-   };
+  const cardRevealVariant = {
+    hidden: { clipPath: 'inset(10% 50% 90% 50% round 16px)', opacity: 0.5, scale: 0.95 },
+    visible: {
+      clipPath: 'inset(0% 0% 0% 0% round 16px)',
+      opacity: 1,
+      scale: 1,
+      transition: {
+        duration: 0.7,
+        ease: [0.25, 1, 0.5, 1], // Faster start, smooth end
+        delay: 0.2
+      }
+    }
+  };
 
-   const gridContainerVariant = {
-        hidden: { opacity: 1 },
-        visible: {
-            opacity: 1,
-            transition: {
-                staggerChildren: 0.1,
-                delayChildren: 0.2
-            }
-        }
-    };
+  const gridContainerVariant = {
+    hidden: { opacity: 1 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.2
+      }
+    }
+  };
 
-    const leadershipCardVariant = {
-        hidden: { opacity: 0, scale: 0.8, rotateY: -45 },
-        visible: {
-            opacity: 1,
-            scale: 1,
-            rotateY: 0,
-            transition: {
-                duration: 0.6,
-                ease: [0.16, 1, 0.3, 1] // Custom spring-like ease
-            }
-        }
-    };
-
+  const leadershipCardVariant = {
+    hidden: { opacity: 0, scale: 0.8, rotateY: -45 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      rotateY: 0,
+      transition: {
+        duration: 0.6,
+        ease: [0.16, 1, 0.3, 1] // Custom spring-like ease
+      }
+    }
+  };
 
   return (
     <section
       id="about"
       ref={aboutSectionRef}
       className="w-full py-20 px-4 md:px-8 bg-gradient-to-r from-[#FFFFFF] to-[#F0F0F0] overflow-x-hidden"
-     >
+    >
       <div className="container mx-auto max-w-6xl">
         {/* About Voyager AI Section */}
         <motion.div
@@ -98,10 +84,9 @@ export function About() {
           </motion.div>
 
           <motion.h2
-            style={{ x: parallaxXAbout }}
             variants={itemFadeUp}
             className="text-3xl md:text-4xl text-center mb-12 font-[Arial_Rounded_MT_Bold]"
-           >
+          >
             <span className='font-bold'>About <span className="text-[#2D7DD2]">Voyager AI</span></span>
           </motion.h2>
 
@@ -147,7 +132,6 @@ export function About() {
           </motion.div>
 
           <motion.h2
-            style={{ x: parallaxXLeadership }}
             variants={itemFadeUp}
             className="text-3xl md:text-4xl font-[Arial_Rounded_MT_Bold] text-center mb-4"
           >
