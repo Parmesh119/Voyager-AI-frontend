@@ -7,7 +7,6 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import PdfIcon from "@/assets/HeroSection/PdfIcon"
 import Right_Tick from "@/assets/HeroSection/Right_Tick"
-import { MousePointer2 } from "lucide-react"
 import { useRef } from "react"
 
 export function HeroSection() {

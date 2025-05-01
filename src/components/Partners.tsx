@@ -106,18 +106,19 @@ export function Partners() {
 
   // Define animation variants for the sliding containers
   const marqueeVariants = {
-    animate: (direction) => ({
-      x: direction === 'rtl' ? ["0%", "-100%"] : ["-100%", "0%"], // Adjusted for duplicated content
+    animate: (direction: 'rtl' | 'ltr') => ({
+      x: direction === 'rtl' ? ['0%', '-100%'] : ['-100%', '0%'],
       transition: {
         x: {
           repeat: Infinity,
-          repeatType: "loop",
-          duration: 40, // Slower duration
-          ease: "linear",
+          repeatType: 'loop',
+          duration: 40,
+          ease: 'linear',
         },
       },
     }),
   };
+  
 
   return (
     <section id="partnerships" className="w-full py-20 bg-gradient-to-r from-[#FFFFFF] to-[#F0F0F0] overflow-x-hidden" ref={sectionRef}>
