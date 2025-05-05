@@ -1,54 +1,253 @@
-import { Button } from "./ui/button";
+import { useRef, useEffect } from "react";
+import { X, ChevronDown } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
-export default function RequestDemo() {
+interface RequestDemoModalProps {
+    isOpen: boolean;
+    onClose: () => void;
+}
+
+export default function RequestDemoModal({ isOpen, onClose }: RequestDemoModalProps) {
+    const modalRef = useRef(null);
+
+    // Handle click outside to close modal
+    useEffect(() => {
+        function handleClickOutside(event: MouseEvent): void {
+            if (modalRef.current && !(modalRef.current as HTMLElement).contains(event.target as Node)) {
+                onClose();
+            }
+        }
+
+        if (isOpen) {
+            document.addEventListener("mousedown", handleClickOutside);
+        }
+
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [isOpen, onClose]);
+
     return (
-        <>
-            <div id="requestDemo" className=" flex gap-40 lg:flex-row flex-col p-56 mb-28 mx-auto max-w-100 justify-between">
-                <div className="flex flex-col gap-4 w-1/2">
-                    <span className="w-1/3 text-center bg-[#9DC22333] text-[#2e8318] rounded-full py-2 px-12 text-sm font-medium">
-                        Community
-                    </span>
-                    <span>
-                        <span className="text-3xl md:text-4xl mb-6 font-[Arial_Rounded_MT_Bold]"><span className="font-bold">Request a <span className="text-[#2D7DD2]">Demo</span></span></span>
-                        <p className="mt-4 text-[Arial]">Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci officia voluptates dignissimos officiis nam ex nesciunt pariatur magni amet, placeat, sint laborum aspernatur est? Perspiciatis voluptatum quidem similique officiis? Veniam voluptatem soluta accusantium at asperiores impedit, explicabo ducimus perferendis aut molestiae delectus architecto sequi ratione pariatur, dignissimos quaerat mollitia laudantium?</p>
-                    </span>
-                </div>
-                <div className="w-3/4 font-[Arial]">
-                    <span className="flex flex-col font-[Arial] gap-3">
-                        <label className="font-bold text-black tracking-wider" htmlFor="companySize">Company Size <sup className="text-sm text-red-700">*</sup></label>
-                        <select name="companySieze" className="bg-white rounded-md w-full p-2" id="companySize">
-                            {/* need to add options */}
-                        </select>
-                        <label className="font-bold text-black tracking-wider" htmlFor="companyName">Company Name <sup className="text-sm text-red-700">*</sup></label>
-                        <input id="companyName" type="text" placeholder="Enter a name" className="p-2 rounded-md" />
-                        <span>
-                        <span className="flex flex-row gap-8">
-                            <span className="flex flex-col gap-2 w-1/2">
-                                <label className="font-bold text-black tracking-wider" htmlFor="FirstName">First Name <sup className="text-sm text-red-700">*</sup></label>
-                                <input id="companyName" type="text" placeholder="Enter a name" className="p-2 rounded-md" />
-                            </span>
-                            <span className="flex flex-col gap-2 w-1/2">
-                                <label className="font-bold text-black tracking-wider" htmlFor="LastName">Last Name <sup className="text-sm text-red-700">*</sup></label>
-                                <input id="companyName" type="text" placeholder="Enter a name" className="p-2 rounded-md" />
-                            </span>
-                        </span>
-                    </span>
-                    <span className="flex flex-row gap-8">
-                        <span className="flex flex-col gap-2 w-1/2">
-                        <label className="font-bold text-black tracking-wider" htmlFor="FirstName">Work Email <sup className="text-sm text-red-700">*</sup></label>
-                        <input id="companyName" type="email" placeholder="Enter your email" className="p-2 rounded-md" />
-                        </span>
-                        <span className="flex flex-col gap-2 w-1/2 ">
-                        <label className="font-bold text-black tracking-wider" htmlFor="FirstName">Phone Number <sup className="text-sm text-red-700">*</sup></label>
-                        <input id="companyName" type="number" placeholder="123-123-1234" className="p-2 rounded-md" />
-                        </span>
-                    </span>
-                    <label className="font-bold text-black tracking-wider" htmlFor="information" >Can you share some information about your business needs?</label>
-                    <textarea placeholder="Enter any relevant information" className="rounded-md p-2 tracking-wider" rows={8} cols={10}></textarea>
-                    <Button className="w-1/3 font-bold text-[Arial] text-white text-center mx-auto">Submit Request</Button>
-                    </span>
-                </div>  
-            </div>
-        </>
-    )
+        <AnimatePresence>
+            {isOpen && (
+                <motion.div 
+                    className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.2 }}
+                >
+                    <motion.div
+                        ref={modalRef}
+                        className="bg-white rounded-lg w-full max-w-[1000px] relative"
+                        style={{ fontFamily: 'Arial, sans-serif' }}
+                        initial={{ scale: 0.9, y: 20, opacity: 0 }}
+                        animate={{ scale: 1, y: 0, opacity: 1 }}
+                        exit={{ scale: 0.9, y: 20, opacity: 0 }}
+                        transition={{ type: "spring", damping: 25, stiffness: 500 }}
+                    >
+                        {/* Close button */}
+                        <motion.button
+                            onClick={onClose}
+                            className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-gray-100 rounded-full hover:bg-gray-200 transition-colors z-10"
+                            whileHover={{ scale: 1.1 }}
+                            whileTap={{ scale: 0.9 }}
+                        >
+                            <X size={16} />
+                        </motion.button>
+
+                        {/* Modal Content */}
+                        <div className="grid grid-cols-1 md:grid-cols-2">
+                            {/* Left Column */}
+                            <div className="p-12 flex flex-col">
+                                <motion.div 
+                                    className="bg-[#E8F5D2] text-[#2e8318] rounded-full py-1 px-10 text-xs font-medium w-fit mb-4"
+                                    initial={{ opacity: 0, x: -20 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    transition={{ delay: 0.2 }}
+                                >
+                                    Learn More
+                                </motion.div>
+                                <motion.h2 
+                                    className="text-2xl font-bold mb-4"
+                                    initial={{ opacity: 0, y: -10 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ delay: 0.3 }}
+                                >
+                                    <span className="font-[Arial_Rounded_MT_Bold]">Request a <span className="text-[#2D7DD2]">Demo</span></span>
+                                </motion.h2>
+                                <motion.div 
+                                    className="text-gray-700 text-xs leading-5 font-[Arial]" 
+                                    style={{ fontSize: '12px' }}
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    transition={{ delay: 0.4 }}
+                                >
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br />
+                                    Vivamus faucibus commodo lorem id euismod.<br />
+                                    Pellentesque eleifend, mi in volutpat posuere, quam nulla<br />
+                                    imperdiet neque, in pulvinar leo lacus quis purus. Duis<br />
+                                    pellentesque porttitor lectus, ornare tincidunt justo<br/>
+                                    aliquam suscipit. Phasellus a velit laoreet, bibendum nisi<br />
+                                    non, bibendum ipsum. Vestibulum ante ipsum primis in<br/>
+                                    faucibus orci luctus et ultrices posuere cubilia curae;<br/>
+                                    Proin accumsan tempor dictum. Duis egestas, lorem<br/>
+                                    vestibulum dignissim dignissim, libero lorem<br/>
+                                    condimentum augue, nec lacinia odio massa sit amet<br/>
+                                    odio. Curabitur ac tincidunt neque. Vestibulum<br/>
+                                </motion.div>
+                            </div>
+
+                            {/* Right Column - Form */}
+                            <div className="p-12 ">
+                                <motion.form 
+                                    className="flex flex-col gap-6"
+                                    initial="hidden"
+                                    animate="visible"
+                                    variants={{
+                                        hidden: { opacity: 0 },
+                                        visible: {
+                                            opacity: 1,
+                                            transition: {
+                                                staggerChildren: 0.1,
+                                                delayChildren: 0.3
+                                            }
+                                        }
+                                    }}
+                                >
+                                    <motion.div variants={{ hidden: { opacity: 0, y: 10 }, visible: { opacity: 1, y: 0 } }}>
+                                        <label className="block text-xs mb-1 font-bold" htmlFor="companySize">
+                                            Company Size<span className="text-red-500">*</span>
+                                        </label>
+                                        <div className="relative">
+                                            <select
+                                                name="companySize"
+                                                id="companySize"
+                                                required
+                                                className="w-full px-3 py-2 border border-gray-300 rounded appearance-none bg-white text-sm"
+                                                
+                                                >
+                                                <option value="" disabled selected>
+                                                    Please Select</option> 
+                                                <option value="1-10">1-10 employees</option>
+                                                <option value="11-50">11-50 employees</option>
+                                                <option value="51-200">51-200 employees</option>
+                                                <option value="201-500">201-500 employees</option>
+                                                <option value="501+">501+ employees</option>
+                                            </select>
+                                            <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                                                <ChevronDown size={16} className="text-gray-500" />
+                                            </div>
+                                        </div>
+                                    </motion.div>
+
+                                    <motion.div variants={{ hidden: { opacity: 0, y: 10 }, visible: { opacity: 1, y: 0 } }}>
+                                        <label className="block text-xs mb-1 font-bold" htmlFor="companyName">
+                                            Company Name<span className="text-red-500">*</span>
+                                        </label>
+                                        <input
+                                            id="companyName"
+                                            type="text"
+                                            required
+                                            placeholder="Enter a name"
+                                            className="w-full px-3 py-2 border border-gray-300 rounded text-sm"
+                                        />
+                                    </motion.div>
+
+                                    <motion.div 
+                                        className="grid grid-cols-2 gap-4"
+                                        variants={{ hidden: { opacity: 0 }, visible: { opacity: 1 } }}
+                                    >
+                                        <div>
+                                            <label className="block text-xs mb-1 font-bold" htmlFor="firstName">
+                                                First Name<span className="text-red-500">*</span>
+                                            </label>
+                                            <input
+                                                id="firstName"
+                                                type="text"
+                                                required
+                                                placeholder="Enter a name"
+                                                className="w-full px-3 py-2 border border-gray-300 rounded text-sm"
+                                            />
+                                        </div>
+                                        <div>
+                                            <label className="block text-xs mb-1 font-bold" htmlFor="lastName">
+                                                Last Name<span className="text-red-500">*</span>
+                                            </label>
+                                            <input
+                                                id="lastName"
+                                                type="text"
+                                                required
+                                                placeholder="Enter a name"
+                                                className="w-full px-3 py-2 border border-gray-300 rounded text-sm"
+                                            />
+                                        </div>
+                                    </motion.div>
+
+                                    <motion.div 
+                                        className="grid grid-cols-2 gap-4"
+                                        variants={{ hidden: { opacity: 0 }, visible: { opacity: 1 } }}
+                                    >
+                                        <div>
+                                            <label className="block text-xs mb-1 font-bold" htmlFor="workEmail">
+                                                Work Email<span className="text-red-500">*</span>
+                                            </label>
+                                            <input
+                                                id="workEmail"
+                                                type="email"
+                                                required
+                                                placeholder="Enter your email"
+                                                className="w-full px-3 py-2 border border-gray-300 rounded text-sm"
+                                            />
+                                        </div>
+                                        <div>
+                                            <label className="block text-xs mb-1 font-bold" htmlFor="phoneNumber">
+                                                Phone Number<span className="text-red-500">*</span>
+                                            </label>
+                                            <input
+                                                id="phoneNumber"
+                                                type="tel"
+                                                required    
+                                                placeholder="123-123-1234"
+                                                className="w-full px-3 py-2 border border-gray-300 rounded text-sm"
+                                            />
+                                        </div>
+                                    </motion.div>
+
+                                    <motion.div 
+                                        className="mt-1"
+                                        variants={{ hidden: { opacity: 0, y: 10 }, visible: { opacity: 1, y: 0 } }}
+                                    >
+                                        <label className="block text-xs mb-1 font-bold" htmlFor="information">
+                                            Can you share some information about your business needs?
+                                        </label>
+                                        <textarea
+                                            id="information"
+                                            placeholder="Enter any relevant information"
+                                            className="w-full px-3 py-2 border border-gray-300 rounded text-sm"
+                                            rows={4}
+                                        ></textarea>
+                                    </motion.div>
+
+                                    <motion.div 
+                                        className="flex justify-center"
+                                        variants={{ hidden: { opacity: 0 }, visible: { opacity: 1 } }}
+                                    >
+                                        <motion.button
+                                            type="submit"
+                                            className="bg-[#0077CC] font-bold text-white px-5 py-2 rounded text-sm"
+                                            whileHover={{ scale: 1.05 }}
+                                            whileTap={{ scale: 0.95 }}
+                                        >
+                                            Submit Request
+                                        </motion.button>
+                                    </motion.div>
+                                </motion.form>
+                            </div>
+                        </div>
+                    </motion.div>
+                </motion.div>
+            )}
+        </AnimatePresence>
+    );
 }

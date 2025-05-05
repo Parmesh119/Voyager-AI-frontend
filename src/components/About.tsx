@@ -102,13 +102,13 @@ export function About() {
                 <div className="flex-1">
                   <h3 className="text-xl font-bold mb-4">Mission</h3>
                   <p className="text-gray-600 font-[Arial] leading-relaxed">
-                    At Voyager AI, We are driven to empower financial institutions<br/> with the tools they need to navigate the ever-evolving<br/> regulatory landscape. Our mission is to be the trust partner in<br/> transforming compliance through innovative AI-Powered<br/> solutions.
+                    At Voyager AI, We are driven to empower financial institutions<br /> with the tools they need to navigate the ever-evolving<br /> regulatory landscape. Our mission is to be the trust partner in<br /> transforming compliance through innovative AI-Powered<br /> solutions.
                   </p>
                 </div>
                 <div className="flex-1">
                   <h3 className="text-xl font-bold mb-4">Expertise</h3>
                   <p className="text-gray-600 font-[Arial] leading-relaxed">
-                    Our Team comprises of seasoned financial experts, data<br/> scientists, and regulatory specialists who bring a wealth of<br /> industry knowledge and technical expertise to your doorstep.<br/> Together, We are redefining the future of compliance, risk<br/> management, and innovate AI.
+                    Our Team comprises of seasoned financial experts, data<br /> scientists, and regulatory specialists who bring a wealth of<br /> industry knowledge and technical expertise to your doorstep.<br /> Together, We are redefining the future of compliance, risk<br /> management, and innovate AI.
                   </p>
                 </div>
               </CardContent>
@@ -142,7 +142,7 @@ export function About() {
             variants={itemFadeUp}
             className="text-gray-600 text-center mb-12 font-[Arial] max-w-2xl mx-auto"
           >
-            Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum
+            Meet our leadership team – industry veterans combining expertise in fintech, compliance, and AI to revolutionize regulatory solutions for financial institutions.
           </motion.p>
 
           <motion.div
@@ -169,8 +169,8 @@ export function About() {
                   <span className='font-bold text-black font-[Arial]'>
                     {name}
                   </span>
-                  <span>
-                  Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum
+                  <span className="text-gray-600 text-sm">
+                    Combining deep industry expertise with innovative thinking to transform financial compliance through AI-powered solutions.
                   </span>
                 </div>
               </motion.div>
