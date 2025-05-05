@@ -64,7 +64,7 @@ export function Partners() {
   ];
 
   const friendsList = [
-    { src: FOR_M, alt: "FOR-M by mke tech", className: "w-56 md:w-56" }, // Adjust width
+    { src: FOR_M, alt: "FOR-M by mke tech", className: "w-64 md:w-56" }, // Adjust width
     { src: Gener8tor, alt: "gener8tor", className: "w-48 md:w-56" },
     { src: WISC, alt: "WISCONSIN ECONOMIC DEVELOPMENT", className: "w-56" },
   ];

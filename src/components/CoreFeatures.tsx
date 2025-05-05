@@ -65,9 +65,6 @@ export function CoreFeatures() {
     }
   }, [isInView]); // Rerun effect when isInView changes
 
-  const handleCardClick = (index: number) => {
-    setActiveCardIndex(activeCardIndex === index ? null : index);
-  };
 
   const cardVariants = {
     normal: {
@@ -226,7 +223,7 @@ export function CoreFeatures() {
             featureCards.map((card, index) => (
               <motion.div
                 key={index}
-                onClick={() => handleCardClick(index)}
+                
                 variants={cardVariants}
                 custom={index} // For potential stagger
                 initial={{
@@ -251,8 +248,8 @@ export function CoreFeatures() {
                   transition: { duration: 0.2 } // Faster hover transition
                 } : {}}
                 whileTap={!showSkeletons ? { scale: 0.98 } : {}} // Slightly less intense tap
-                className="cursor-pointer rounded-3xl" // Keep border styles outside motion? Might be better.
-                 style={{ // Ensure default card style applies if not active
+                className=" rounded-3xl" 
+                 style={{ 
                     boxShadow: activeCardIndex === index ? undefined : "0 4px 6px rgba(0, 0, 0, 0.1)"
                  }}
               >

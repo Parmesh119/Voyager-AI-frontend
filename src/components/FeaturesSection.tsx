@@ -125,7 +125,7 @@ export function FeaturesSection() {
               {[
                 {
                   value: "200X",
-                  title: "Faster Audits",
+                  title: "Faster Workflows",
                   description:
                     "Experience significantly reduced audit times with automated data analysis and reporting.",
                 },
