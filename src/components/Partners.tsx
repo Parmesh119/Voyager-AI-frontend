@@ -58,15 +58,15 @@ export function Partners() {
 
   const partnersList = [
     { src: AWS, alt: "AWS" },
-    { src: GoogleCloud, alt: "Google Cloud", className: "h-24 md:h-28" }, // Slightly adjust height if needed
-    { src: August_Brown, alt: "August Brown", className: "h-24 md:h-28" },
-    { src: MS_AZ, alt: "Microsoft Azure", className: "h-24 md:h-28" },
+    { src: GoogleCloud, alt: "Google Cloud"}, // Slightly adjust height if needed
+    { src: August_Brown, alt: "August Brown"},
+    { src: MS_AZ, alt: "Microsoft Azure" },
   ];
 
   const friendsList = [
-    { src: FOR_M, alt: "FOR-M by mke tech", className: "w-64 md:w-56" }, // Adjust width
-    { src: Gener8tor, alt: "gener8tor", className: "w-48 md:w-56" },
-    { src: WISC, alt: "WISCONSIN ECONOMIC DEVELOPMENT", className: "w-56" },
+    { src: FOR_M, alt: "FOR-M by mke tech" }, // Adjust width
+    { src: Gener8tor, alt: "gener8tor"},
+    { src: WISC, alt: "WISCONSIN ECONOMIC DEVELOPMENT", },
   ];
 
   const badgeVariants = {
@@ -164,7 +164,7 @@ export function Partners() {
           >
             {/* Render logos twice for seamless loop */}
             {[...partnersList, ...partnersList].map((partner, index) => (
-              <PartnerLogo key={`partner-${index}`} src={partner.src} alt={partner.alt} className={partner.className} />
+              <PartnerLogo key={`partner-${index}`} src={partner.src} alt={partner.alt} />
             ))}
           </motion.div>
         </div>
@@ -194,19 +194,19 @@ export function Partners() {
 
         {/* Friends Logos - Left to Right */}
         <div
-          className="relative w-full overflow-hidden mb-20"
+          className="relative w-full overflow-hidden mb-20 px-40"
           onMouseEnter={() => setIsFriendsHovered(true)}
           onMouseLeave={() => setIsFriendsHovered(false)}
         >
           <motion.div
-            className="flex flex-nowrap"
+            className="flex flex-nowrap px-40"
             variants={marqueeVariants}
             custom="ltr" // Pass direction
             animate={isFriendsHovered ? "paused" : "animate"}
           >
             {/* Render logos twice for seamless loop */}
             {[...friendsList, ...friendsList].map((friend, index) => (
-              <FriendLogo key={`friend-${index}`} src={friend.src} alt={friend.alt} className={friend.className} />
+              <FriendLogo key={`friend-${index}`} src={friend.src} alt={friend.alt}/>
             ))}
           </motion.div>
         </div>
