@@ -1,11 +1,19 @@
+@font-face {
+  font-family: "Arial_Rounded_MT_Bold";
+  src: url("./assets/Arial_Rounded_MT_Bold/arialroundedmtbold.ttf")
+    format("truetype");
+  font-weight: bold; /* Assuming this is the bold variant */
+  font-style: normal;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  font-family: 'Arial_Rounded_MT_Bold', sans-serif;
+  font-family: "Arial_Rounded_MT_Bold", sans-serif;
   line-height: 1.5;
-  font-weight: 400;
+  font-weight: 400; /* Note: Base weight is 400, but the font file might be bold */
   color-scheme: light;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -55,7 +63,8 @@
   }
 }
 
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   height: 100%;
