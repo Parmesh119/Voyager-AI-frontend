@@ -64,9 +64,9 @@ export function Partners() {
   ];
 
   const friendsList = [
-    { src: FOR_M, alt: "FOR-M by mke tech", className: "w-48 md:w-56" }, // Adjust width
+    { src: FOR_M, alt: "FOR-M by mke tech", className: "w-56 md:w-56" }, // Adjust width
     { src: Gener8tor, alt: "gener8tor", className: "w-48 md:w-56" },
-    { src: WISC, alt: "WISCONSIN ECONOMIC DEVELOPMENT", className: "w-48 md:w-56" },
+    { src: WISC, alt: "WISCONSIN ECONOMIC DEVELOPMENT", className: "w-56" },
   ];
 
   const badgeVariants = {
@@ -146,7 +146,7 @@ export function Partners() {
             className="text-gray-600 max-w-2xl mx-auto font-[Arial]"
             variants={textVariants}
           >
-            Lorem ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+            
           </motion.p>
         </motion.div>
 
