@@ -1,7 +1,14 @@
 export default function DomainCore() {
     return (
         <>
-            <svg width="500" height="381" viewBox="10 0 500 381" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg
+                width="100%"
+                viewBox="10 0 500 381"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                className="mx-auto ml-12 lg:ml-0"
+                
+            >
                 <g filter="url(#filter0_d_171_390_dom)">
                     <rect x="15" width="429" height="351" rx="20" fill="#2D7DD2" />
                     <rect x="15.5" y="0.5" width="428" height="350" rx="19.5" stroke="#EAEAEA" />
