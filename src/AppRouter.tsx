@@ -1,5 +1,4 @@
-import React from 'react'
-import { BrowserRouter as Router } from 'react-router-dom'
+import { BrowserRouter as Router } from "react-router-dom"
 import App from './App'
 import { Navbar } from './components/Navbar'
 import { Footer } from './components/Footer'
