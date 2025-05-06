@@ -87,7 +87,7 @@ export function CoreFeatures() {
       title: "Regulatory Briefs",
       descriptionParts: [
         <strong key="part1">Access clear, AI-powered summary alerts of regulatory changes.</strong>,
-        <> Voyager AI (VAI) creates accurate, summarized updates on federal and state policies, ensuring you're always informed.</>
+        <> Voyager AI creates accurate, summarized updates on federal and state policies, ensuring you're always informed.</>
       ]
     },
     {
@@ -95,31 +95,7 @@ export function CoreFeatures() {
       title: "Policy Execution Engine",
       descriptionParts: [
         <strong key="part1">Seamlessly translate compliance<br /> updates into action.</strong>,
-        <> VAI automates policy updates and integrates with your institution's policy store, ensuring regulatory compliance.</>
-      ]
-    },
-    {
-      icon: <BriefcaseBusiness className="h-8 w-8 text-[#1d801a] p-1.5 bg-[#e4f4be] rounded-lg" />,
-      title: "Institutional Awareness",
-      descriptionParts: [
-        <strong key="part1">An AI continuously refining itself from your live policies—in real time.</strong>,
-        <> VAI continuously learns from your compliance data, refining risk models and adapting to your unique evolving regulatory environment.</>
-      ]
-    },
-    {
-      icon: <Search className="h-8 w-8 text-[#1d801a] p-1.5 bg-[#e4f4be] rounded-lg" />,
-      title: "Regulatory Insight Engine",
-      descriptionParts: [
-        <strong key="part1">Instantly explore and interpret the latest federal and state regulations.</strong>,
-        <> VAI provides deep regulatory research and real-time insights, helping you stay compliant without manual effort.</>
-      ]
-    },
-    {
-      icon: <Megaphone className="h-8 w-8 text-[#1d801a] p-1.5 bg-[#e4f4be] rounded-lg" />,
-      title: "AI Compliance Advisor",
-      descriptionParts: [
-        <strong key="part1">Stay ahead of evolving regulations with AI-driven recommendations.</strong>,
-        <> VAI analyzes your position and suggests precise compliance actions, helping you future-proof your compliance strategy.</>
+        <> Ensure regulatory compliance through automated policy updates and integration<br /> with your institution's policy store.</>
       ]
     },
     {
@@ -127,7 +103,31 @@ export function CoreFeatures() {
       title: "On-Premise AI Engine",
       descriptionParts: [
         <strong key="part1">Compliance data, fully protected inside your secure environment. </strong>,
-        <> VAI ensures secure, on-premise storage of policies, offering real-risk analysis maintaining complete regulatory and data security.</>
+        <> Ensuring a secure, on-premise storage of documents, offering real-risk analysis maintaining complete regulatory and data security.</>
+      ]
+    },
+    {
+      icon: <Search className="h-8 w-8 text-[#1d801a] p-1.5 bg-[#e4f4be] rounded-lg" />,
+      title: "Regulatory Insight Engine",
+      descriptionParts: [
+        <strong key="part1">Instantly explore and interpret the latest federal and state regulations.</strong>,
+        <> Providing deep regulatory research and real-time insights, helping you stay compliant without manual effort.</>
+      ]
+    },
+    {
+      icon: <Megaphone className="h-8 w-8 text-[#1d801a] p-1.5 bg-[#e4f4be] rounded-lg" />,
+      title: "AI Compliance Advisor",
+      descriptionParts: [
+        <strong key="part1">Stay ahead of evolving regulations with AI-driven recommendations.</strong>,
+        <> Analyze your position and suggests precise compliance actions, helping you future-proof your compliance strategy.</>
+      ]
+    },
+    {
+      icon: <BriefcaseBusiness className="h-8 w-8 text-[#1d801a] p-1.5 bg-[#e4f4be] rounded-lg" />,
+      title: "Institutional Awareness",
+      descriptionParts: [
+        <strong key="part1">An AI continuously refining itself from your live policies—in real time.</strong>,
+        <> Continuously learning from your compliance data, refining risk models and adapting to your unique evolving regulatory environment.</>
       ]
     }
   ];
@@ -275,7 +275,7 @@ export function CoreFeatures() {
                         {card.title}
                       </motion.h3>
 
-                      <div className="text-gray-600 text-sm/relaxed">
+                      <div className="text-gray-600 text-sm/relaxed font-[Arial]">
                         {/* Phased description rendering based on animationComplete */}
                         {animationComplete ? (
                           <>
