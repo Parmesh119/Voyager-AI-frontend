@@ -111,7 +111,7 @@ export function CoreFeatures() {
       title: "Regulatory Insight Engine",
       descriptionParts: [
         <strong key="part1">Instantly explore and interpret the latest federal and state regulations.</strong>,
-        <> providing deep regulatory research and real-time insights, helping you stay compliant without manual effort.</>
+        <> Providing deep regulatory research and real-time insights, helping you stay compliant without manual effort.</>
       ]
     },
     {
@@ -275,7 +275,7 @@ export function CoreFeatures() {
                         {card.title}
                       </motion.h3>
 
-                      <div className="text-gray-600 text-sm/relaxed">
+                      <div className="text-gray-600 text-sm/relaxed font-[Arial]">
                         {/* Phased description rendering based on animationComplete */}
                         {animationComplete ? (
                           <>

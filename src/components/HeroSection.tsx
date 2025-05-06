@@ -82,7 +82,7 @@ export function HeroSection() {
           animate={{ opacity: 1 }}
           style={{ x: xRightItems }}
           transition={{ duration: 1, delay: 0.4 }}
-          className='text-gray-700 max-w-3xl mx-auto mb-8 text-base md:text-lg'
+          className='text-gray-700 max-w-3xl mx-auto mb-8 text-base md:text-lg font-[Arial]'
         >
           An advanced, secure AI that enhances your FI's financial knowledge
           while ensuring
@@ -137,6 +137,7 @@ export function HeroSection() {
                 transition: { duration: 0.5, delay: index * 0.1 },
               }}
               viewport={{ once: true }}
+              className="font-[Arial]"
             >
               <Benefit icon={benefit.icon} text={benefit.text} />
             </motion.div>

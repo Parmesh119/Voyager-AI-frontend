@@ -137,7 +137,7 @@ export function StrategicTools() {
                   {Object.keys(contentMap).map((key) => (
                     <p 
                       key={key}
-                      className={`absolute inset-0 flex items-center justify-center text-gray-600 text-lg font-bold tracking-normal leading-relaxed px-8 transition-all duration-500 ease-in-out ${
+                      className={`absolute font-[Arial] inset-0 flex items-center justify-center text-gray-600 text-lg font-bold tracking-normal leading-relaxed px-8 transition-all duration-500 ease-in-out ${
                         activeTab === key 
                           ? 'opacity-100 transform-none' 
                           : activeTab === 'summarize' && key === 'recommend' || 
