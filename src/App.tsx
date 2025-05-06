@@ -13,6 +13,7 @@ import { Architecture } from '@/components/Architecture';
 import { About } from '@/components/About';
 import { Footer } from '@/components/Footer';
 import AnimatedSection from './AnimatedSection';
+import PartnerWithVoyagerAI from '@/components/PartnerWithVoyagerAI';
 
 function App() {
   return (
@@ -26,7 +27,8 @@ function App() {
       <AnimatedSection><BeliefsSection /></AnimatedSection>
       <AnimatedSection><WhoWeAre /></AnimatedSection>
       <AnimatedSection><OurVision /></AnimatedSection>
-      <AnimatedSection><Partners /></AnimatedSection>
+      <AnimatedSection><Partners /></AnimatedSection>\
+      <AnimatedSection><PartnerWithVoyagerAI /></AnimatedSection>
       <AnimatedSection><Architecture /></AnimatedSection>
       <AnimatedSection><About /></AnimatedSection>
       <AnimatedSection><Footer /></AnimatedSection>
