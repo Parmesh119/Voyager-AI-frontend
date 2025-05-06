@@ -6,6 +6,7 @@ import { useState } from 'react';
 import RequestDemoModal from '@/components/RequestDemo';
 import BecomePartnerModal from '@/components/BecomePartner';
 import ContactSalesModal from './ContactSales';
+import { NavLink } from 'react-router-dom'
 
 export function Footer() {
   const [isRequestModalOpen, setIsRequestModalOpen] = useState(false);
@@ -54,7 +55,7 @@ export function Footer() {
 
   return (
     <>
-      <footer className="w-full bg-[#0A1628] text-white overflow-hidden">
+      <footer className="w-full bg-[#0A1628] text-white overflow-hidden" >
         {/* CTA Section */}
         <motion.div
           className="w-full py-20 px-4 md:px-8 bg-gradient-to-r from-[#02B6EA] to-[#A4C31A]"
@@ -133,19 +134,19 @@ export function Footer() {
               <h4 className="font-semibold mb-4">Resources</h4>
               <ul className="space-y-2 text-white">
                 <li>Blog</li>
-                <li>Case Studies</li>
+                {/* <li>Case Studies</li>
                 <li>Whitepapers</li>
-                <li>Documentation</li>
+                <li>Documentation</li> */}
               </ul>
             </motion.div>
 
             <motion.div variants={fadeIn}>
               <h4 className="font-semibold mb-4">Company</h4>
               <ul className="space-y-2 text-white">
-                <li>Leadership</li>
-                <li>About Us</li>
-                <li>Careers</li>
-                <li>Press</li>
+                <NavLink to="/leadership"><li>Leadership</li></NavLink>
+                {/* <li>About Us</li> */}
+                {/* <li>Careers</li> */}
+                {/* <li>Press</li> */}
                 <li>Contact</li>
               </ul>
             </motion.div>

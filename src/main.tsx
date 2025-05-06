@@ -1,13 +1,15 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import App from './App.tsx';
 import './index.css';
 import { ParallaxProvider } from 'react-scroll-parallax';
+import { Toaster } from "@/components/ui/sonner"
+import Router from './AppRouter.tsx';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <ParallaxProvider>
-    <App />
+    <Router />
     </ParallaxProvider>
+    <Toaster position={"top-center"} />
   </StrictMode>
 );
