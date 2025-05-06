@@ -60,7 +60,7 @@ export function HeroSection() {
       });
       return;
     }
-    navigate("https://explorer.voyagercx.ai/register?email=" + email);
+    window.location.replace("https://explorer.voyagercx.ai/register?email=" + email);
     setEmail("");
   }
 
