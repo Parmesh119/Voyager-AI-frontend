@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import Logo from '@/assets/logo/Logo';
 import RequestDemoModal from '@/components/RequestDemo';
-
+import { NavLink } from 'react-router-dom';
 export function Navbar() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -12,13 +12,13 @@ export function Navbar() {
 
   return (
     <>
-      <nav className="w-full py-4 px-4 md:px-8" id="top">
+      <nav className="w-full py-4 px-4 md:px-8 bg-gradient-to-r from-[#FFFFFF] to-[#F0F0F0]" id="top">
         <div className="container mx-auto flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <div className="flex items-center gap-2">
+            <NavLink to="/"><div className="flex items-center gap-2" >
               <Logo />
               <span className="ml-2 text-[#9BDC28] font-semibold tracking-widest text-xl">VOYAGER AI</span>
-            </div>
+            </div></NavLink>
           </div>
           
           <div className="hidden md:flex space-x-20 font-[Arial]">

@@ -1,6 +1,6 @@
 "use client";
 
-import type React from "react";
+import React, {useState} from "react";
 
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -8,12 +8,17 @@ import { Input } from "@/components/ui/input";
 import PdfIcon from "@/assets/HeroSection/PdfIcon";
 import Right_Tick from "@/assets/HeroSection/Right_Tick";
 import { useRef } from "react";
+import { toast } from "sonner";
+import { useNavigate } from "react-router-dom";
 
 export function HeroSection() {
+  const navigate = useNavigate();
   const containerRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLDivElement>(null);
   const paragraphRef = useRef<HTMLParagraphElement>(null);
   const buttonRef = useRef<HTMLDivElement>(null);
+
+  const [email, setEmail] = useState("");
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -25,6 +30,39 @@ export function HeroSection() {
   const scale = useTransform(scrollYProgress, [0, 0.5], [1, 0.95]);
   const xLeftItems = useTransform(scrollYProgress, [0, 0.5], [0, -30]);
   const xRightItems = useTransform(scrollYProgress, [0, 0.5], [0, 30]);
+
+  const handleGetStarted = () => {
+    if(!email) {
+      toast.error("Please enter your work email", {
+        style: {
+          background: "red",
+          color: "#FFFFFF",
+          padding: "16px",
+          borderRadius: "8px",
+          fontFamily: "Arial, sans-serif",
+          fontWeight: "bolder",
+          textAlign: "center",
+        },
+      });
+      return;
+    }
+    if (!email.includes("@")) {
+      toast.error("Please enter a valid email address", {
+        style: {
+          background: "red",
+          color: "#FFFFFF",
+          padding: "16px",
+          borderRadius: "8px",
+          fontFamily: "Arial, sans-serif",
+          fontWeight: "bolder",
+          textAlign: "center",
+        },
+      });
+      return;
+    }
+    navigate("https://explorer.voyagercx.ai/register?email=" + email);
+    setEmail("");
+  }
 
   return (
     <section
@@ -105,10 +143,11 @@ export function HeroSection() {
           <Input
             type='email'
             placeholder='Enter your work email'
+            onChange={(e) => setEmail(e.target.value)}
             className='h-12 rounded-l-md rounded-r-none border-gray-300 placeholder:text-gray-400 placeholder:tracking-wider placeholder:text-base'
           />
           <div className='relative'>
-            <Button className='h-12 text-md rounded-l-none rounded-r-md bg-[#2D7DD2] font-extrabold hover:bg-[#1d6abf] pl-6 pr-4 text-white'>
+            <Button onClick={handleGetStarted} className='h-12 text-md rounded-l-none rounded-r-md bg-[#2D7DD2] font-extrabold hover:bg-[#1d6abf] pl-6 pr-4 text-white'>
               Get Started
               <ArrowRightIcon className='ml-2 h-6 w-6' />
             </Button>
