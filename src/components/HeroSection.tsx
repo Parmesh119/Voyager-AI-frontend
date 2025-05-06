@@ -9,10 +9,8 @@ import PdfIcon from "@/assets/HeroSection/PdfIcon";
 import Right_Tick from "@/assets/HeroSection/Right_Tick";
 import { useRef } from "react";
 import { toast } from "sonner";
-import { useNavigate } from "react-router-dom";
 
 export function HeroSection() {
-  const navigate = useNavigate();
   const containerRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLDivElement>(null);
   const paragraphRef = useRef<HTMLParagraphElement>(null);
@@ -60,7 +58,7 @@ export function HeroSection() {
       });
       return;
     }
-    navigate("https://explorer.voyagercx.ai/register?email=" + email);
+    window.location.replace("https://explorer.voyagercx.ai/register?email=" + email);
     setEmail("");
   }
 
