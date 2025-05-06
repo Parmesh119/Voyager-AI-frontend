@@ -4,10 +4,13 @@ import { NavItem } from './Navbar';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import RequestDemoModal from '@/components/RequestDemo';
+import BecomePartnerModal from '@/components/BecomePartner';
+import ContactSalesModal from './ContactSales';
 
 export function Footer() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
+  const [isRequestModalOpen, setIsRequestModalOpen] = useState(false);
+  const [isBecomePartnerModalOpen, setIsBecomePartnerModalOpen] = useState(false)
+  const [isContactSalesModalOpen, setIsContactSalesModalOpen] = useState(false)
   // Simple fade in variants for all elements
   const fadeIn = {
     hidden: { opacity: 0 },
@@ -25,13 +28,29 @@ export function Footer() {
     tap: { scale: 0.95 }
   };
 
-  const handleOpenModal = () => {
-    setIsModalOpen(true);
+  const handleOpenRequestModal = () => {
+    setIsRequestModalOpen(true);
   };
 
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
+  const handleCloseRequestModal = () => {
+    setIsRequestModalOpen(false);
   };
+
+  const handleOpenBecomePartnerModal = () => {
+    setIsBecomePartnerModalOpen(true)
+  }
+
+  const handleCloseBecomePartnerModal = () => {
+    setIsBecomePartnerModalOpen(false)
+  }
+
+  const handleOpenContactSalesModal = () => {
+    setIsContactSalesModalOpen(true)
+  }
+
+  const handleCloseContactSalesModal = () => {
+    setIsContactSalesModalOpen(false)
+  }
 
   return (
     <>
@@ -59,20 +78,27 @@ export function Footer() {
             </motion.p>
             <div className="flex flex-wrap justify-center gap-4">
               <motion.div whileHover="hover" whileTap="tap" variants={buttonHover}>
-                <Button variant="secondary" size="lg" className="font-[Arial] bg-white hover:bg-gray-100 text-blue-700 font-bold text-md">Become a Partner</Button>
+                <Button 
+                  variant="secondary" 
+                  size="lg" 
+                  className="font-[Arial] bg-white hover:bg-gray-100 text-blue-700 font-bold text-md"
+                  onClick={handleOpenBecomePartnerModal}
+                >
+                  Become a Partner
+                </Button>
               </motion.div>
               <motion.div whileHover="hover" whileTap="tap" variants={buttonHover}>
                 <Button 
                   variant="secondary" 
                   size="lg" 
                   className="font-[Arial] bg-white hover:bg-gray-100 text-blue-700 font-bold text-md"
-                  onClick={handleOpenModal}
+                  onClick={handleOpenRequestModal}
                 >
                   Request a Demo
                 </Button>
               </motion.div>
               <motion.div whileHover="hover" whileTap="tap" variants={buttonHover}>
-                <Button variant="secondary" size="lg" className="font-[Arial] bg-white hover:bg-gray-100 text-blue-700 font-bold text-md">Contact Sales</Button>
+                <Button variant="secondary" onClick={handleOpenContactSalesModal} size="lg" className="font-[Arial] bg-white hover:bg-gray-100 text-blue-700 font-bold text-md">Contact Sales</Button>
               </motion.div>
             </div>
           </div>
@@ -158,7 +184,11 @@ export function Footer() {
       </footer>
 
       {/* Request Demo Modal */}
-      <RequestDemoModal isOpen={isModalOpen} onClose={handleCloseModal} />
+      <RequestDemoModal isOpen={isRequestModalOpen} onClose={handleCloseRequestModal} />
+      {/* Become Partner Modal */}
+      <BecomePartnerModal isOpen={isBecomePartnerModalOpen} onClose={handleCloseBecomePartnerModal} />
+      {/* Contact Sales Modal */}
+      <ContactSalesModal isOpen={isContactSalesModalOpen} onClose={handleCloseContactSalesModal} />
     </>
   );
 }
