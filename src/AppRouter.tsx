@@ -6,12 +6,10 @@ import { Footer } from './components/Footer'
 import AnimatedSection from './AnimatedSection';
 import Leadership from './components/Leadership'
 import { Routes, Route } from 'react-router-dom'
-import ScrollToTop from './ScrollToTop'
 
 export default function AppRouter() {
   return (
     <Router>
-      <ScrollToTop />
       <Navbar />
       <Routes>
         <Route path="/" element={<App />} />

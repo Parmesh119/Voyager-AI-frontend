@@ -1,10 +1,19 @@
 import { motion } from 'framer-motion'
 import { useRef, useEffect } from 'react';
 import { BriefcaseBusiness } from 'lucide-react';
+import { useLocation } from "react-router-dom";
+
 export default function Leadership() {
+    const location = useLocation();
+
     useEffect(() => {
-        window.scrollTo(0, 0);
-    }, []);
+        const topElement = document.getElementById("top");
+        if (topElement) {
+          topElement.scrollIntoView({ behavior: "smooth" });
+        }
+      }, [location]);
+
+      
     const gridContainerVariant = {
         hidden: { opacity: 1 },
         visible: {
@@ -42,13 +51,13 @@ export default function Leadership() {
         }
       };
 
-      const itemFadeUp = {
+    const itemFadeUp = {
         hidden: { opacity: 0, y: 25 },
         visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } }
-      };
+    };
     
     return (
-        <div className="leadership-container bg-gradient-to-r from-[#FFFFFF] to-[#F0F0F0]" >
+        <div className="bg-gradient-to-r from-[#FFFFFF] to-[#F0F0F0]" >
             {/* Leadership Section */}
             <motion.div
                 ref={leadershipSectionRef}
