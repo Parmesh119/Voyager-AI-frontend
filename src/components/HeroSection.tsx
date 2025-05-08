@@ -23,12 +23,9 @@ export function HeroSection() {
     offset: ["start start", "end start"],
   });
 
-  const y = useTransform(scrollYProgress, [0, 1], [0, -150]);
+  const y = useTransform(scrollYProgress, [0, 1], [0, -100]); // Adjusted for potentially smoother animation
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
   const scale = useTransform(scrollYProgress, [0, 0.5], [1, 0.95]);
-  
-  // Removed the xLeftItems and xRightItems transformations that caused
-  // elements to move in different directions
 
   const handleGetStarted = () => {
     if (!email) {
@@ -84,11 +81,11 @@ export function HeroSection() {
           </span>
         </motion.div>
 
+
         <motion.div
           ref={titleRef}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          // Removed style={{ x: xLeftItems }} that caused leftward movement
           transition={{ duration: 1 }}
           className="text-3xl sm:text-4xl md:text-5xl mb-3 sm:mb-4 px-1"
         >
@@ -117,7 +114,6 @@ export function HeroSection() {
           ref={paragraphRef}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          // Removed style={{ x: xRightItems }} that caused rightward movement
           transition={{ duration: 1, delay: 0.4 }}
           className="text-gray-700 max-w-3xl mx-auto mb-6 sm:mb-8 text-sm sm:text-base md:text-lg font-[Arial] px-2"
         >
