@@ -3,7 +3,7 @@
 import { motion, useInView, animate, motionValue, useTransform, useScroll } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 
-// Added isMobile detection
+// Enhanced isMobile detection
 function useIsMobile() {
   const [isMobile, setIsMobile] = useState(false);
   
@@ -28,7 +28,7 @@ function useIsMobile() {
   return isMobile;
 }
 
-// Improved AnimatedNumber component with mobile-optimized animation speed
+// Significantly faster AnimatedNumber component for mobile
 function AnimatedNumber({ value, startAnimation }: { value: string, startAnimation: boolean }) {
   const count = motionValue(0);
   const numericValue = parseInt(value.replace(/[^0-9]/g, ""), 10);
@@ -36,28 +36,26 @@ function AnimatedNumber({ value, startAnimation }: { value: string, startAnimati
   const rounded = useTransform(count, latest => `${Math.round(latest)}${suffix}`);
   const isMobile = useIsMobile();
   
-  // Track previous state to detect transitions from not visible to visible
+  // Track previous state to detect transitions
   const wasVisible = useRef(false);
 
   useEffect(() => {
     if (startAnimation) {
       // If becoming visible
       if (!wasVisible.current) {
-        // Animate from 0 to the target value - faster on mobile
+        // Much faster animation on mobile - 0.6s instead of 1.5s
         const controls = animate(count, numericValue, {
-          duration: isMobile ? 1 : 1.5, // Faster on mobile
-          ease: "easeOut"
+          duration: isMobile ? 0.6 : 1.5,
+          ease: isMobile ? "circOut" : "easeOut" // Snappier easing on mobile
         });
         
-        // Cleanup function
         return () => controls.stop();
       } else {
-        // If already visible, ensure the value is set properly without animation
         count.set(numericValue);
       }
       wasVisible.current = true;
     } else {
-      // When not visible, reset the counter to 0 for next animation
+      // Reset the counter to 0 for next animation
       count.set(0);
       wasVisible.current = false;
     }
@@ -71,48 +69,56 @@ export function FeaturesSection() {
   const imageRef = useRef(null);
   const isMobile = useIsMobile();
   
-  // Track when the section is in viewport with a more generous threshold
+  // More sensitive threshold for mobile
   const isInView = useInView(sectionRef, { 
-    once: false, // Important: we need to detect when it enters AND leaves
-    amount: isMobile ? 0.1 : 0.2,  // More sensitive triggering on mobile
+    once: false,
+    amount: isMobile ? 0.05 : 0.2, // Even more sensitive triggering on mobile
   });
 
-  // Set up scroll tracking for the image ref
+  // Set up scroll tracking with different offset values for mobile
   const { scrollYProgress } = useScroll({
     target: imageRef,
-    offset: ["start end", "end start"],
+    offset: isMobile ? ["start end", "end start"] : ["start end", "end start"],
   });
 
-  // Use useTransform to map the scroll progress (0 to 1) to a vertical translation range
-  const yImage = useTransform(scrollYProgress, [0, 1], [-50, 50]);
+  // Reduced movement range on mobile for better performance
+  const yImage = useTransform(
+    scrollYProgress, 
+    [0, 1], 
+    isMobile ? [-30, 30] : [-50, 50]
+  );
 
-  // Define animation variants for the main columns - with mobile-specific durations
+  // Much faster animations for mobile
   const columnVariants = {
     hidden: (direction: 'left' | 'right') => ({
       opacity: 0,
-      x: direction === 'left' ? -100 : 100,
+      x: direction === 'left' ? (isMobile ? -50 : -100) : (isMobile ? 50 : 100),
     }),
     visible: {
       opacity: 1,
       x: 0,
       transition: {
-        duration: isMobile ? 0.5 : 0.8, // Faster on mobile
-        ease: "easeOut",
+        duration: isMobile ? 0.3 : 0.8, // 62% faster on mobile
+        ease: isMobile ? "circOut" : "easeOut", // Snappier easing on mobile
         when: "beforeChildren",
-        staggerChildren: isMobile ? 0.1 : 0.15, // Faster staggering on mobile
-        delayChildren: isMobile ? 0.1 : 0.2 // Less delay on mobile
+        staggerChildren: isMobile ? 0.05 : 0.15, // 67% faster staggering
+        delayChildren: isMobile ? 0.05 : 0.2 // 75% less delay
       },
     },
   };
 
-  // Define animation variants for children elements - with mobile-specific durations
+  // Faster child animations for mobile
   const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { 
+      opacity: 0, 
+      y: isMobile ? 10 : 20 // Smaller distance to animate on mobile
+    },
     visible: { 
       opacity: 1, 
       y: 0, 
       transition: { 
-        duration: isMobile ? 0.3 : 0.5 // Faster on mobile
+        duration: isMobile ? 0.2 : 0.5, // 60% faster on mobile
+        ease: isMobile ? "circOut" : "easeOut" // Snappier easing
       } 
     }
   };
@@ -122,7 +128,7 @@ export function FeaturesSection() {
       <div className="container mx-auto max-w-6xl">
         <div className="flex flex-col md:flex-row gap-12">
 
-          {/* Left Column - Fade/Slide in/out on scroll */}
+          {/* Left Column - Faster fade/slide on mobile */}
           <motion.div
             variants={columnVariants}
             initial="hidden"
@@ -130,7 +136,7 @@ export function FeaturesSection() {
             custom="left"
             className="w-full md:w-1/2"
           >
-            {/* Child elements using itemVariants and staggered by parent */}
+            {/* Child elements using faster itemVariants */}
             <motion.div
               variants={itemVariants}
               className="inline-block mb-4 px-6 py-1 bg-[#9DC22333] text-[#2e8318] rounded-full text-sm font-medium"
@@ -179,7 +185,7 @@ export function FeaturesSection() {
                   variants={itemVariants}
                 >
                   <div className="w-28 h-12 justify-start text-sky-600 text-3xl font-black font-['Arial_Black']">
-                    {/* Pass the isInView status to trigger/reset animation */}
+                    {/* Faster number animation on mobile */}
                     <AnimatedNumber value={stat.value} startAnimation={isInView} />
                   </div>
                   <motion.div
@@ -200,7 +206,7 @@ export function FeaturesSection() {
             </div>
           </motion.div>
 
-          {/* Right Column - Fade/Slide in/out on scroll + Parallax Image */}
+          {/* Right Column - Faster fade/slide on mobile */}
           <motion.div
             variants={columnVariants}
             initial="hidden"

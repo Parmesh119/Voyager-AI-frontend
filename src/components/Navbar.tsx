@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import Logo from '@/assets/logo/Logo';
 import RequestDemoModal from '@/components/RequestDemoModal';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate, useLocation } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 
 export function Navbar() {
@@ -197,10 +197,39 @@ interface MobileNavItemProps {
 }
 
 function MobileNavItem({ href, onClick, children }: MobileNavItemProps) {
-  const handleClick = () => {
-    // Call the onClick handler if provided
+  const navigate = useNavigate();
+  const location = useLocation();
+  
+  const handleClick = (e: React.MouseEvent) => {
+    e.preventDefault(); // This is crucial to prevent default anchor behavior
+    
+    // Call the onClick handler if provided (for closing menu)
     if (onClick) {
       onClick();
+    }
+    
+    // If it's a hash link
+    if (href.startsWith('#')) {
+      // If not on home page, navigate there first
+      if (location.pathname !== '/') {
+        navigate('/');
+        // After navigation, scroll to the element
+        setTimeout(() => {
+          const element = document.getElementById(href.substring(1));
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+          }
+        }, 300); // Give time for page to load
+      } else {
+        // Already on home page, just scroll
+        const element = document.getElementById(href.substring(1));
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+    } else {
+      // Regular navigation
+      navigate(href);
     }
   };
 
