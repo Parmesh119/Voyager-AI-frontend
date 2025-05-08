@@ -1,14 +1,40 @@
 "use client"
 
 import { motion, useInView, animate, motionValue, useTransform, useScroll } from "framer-motion";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
-// Improved AnimatedNumber component that resets and re-animates when scrolling back into view
+// Added isMobile detection
+function useIsMobile() {
+  const [isMobile, setIsMobile] = useState(false);
+  
+  useEffect(() => {
+    // Check if window exists (client-side)
+    if (typeof window !== 'undefined') {
+      const checkMobile = () => {
+        setIsMobile(window.innerWidth < 768);
+      };
+      
+      // Initial check
+      checkMobile();
+      
+      // Listen for resize events
+      window.addEventListener('resize', checkMobile);
+      
+      // Cleanup
+      return () => window.removeEventListener('resize', checkMobile);
+    }
+  }, []);
+  
+  return isMobile;
+}
+
+// Improved AnimatedNumber component with mobile-optimized animation speed
 function AnimatedNumber({ value, startAnimation }: { value: string, startAnimation: boolean }) {
   const count = motionValue(0);
   const numericValue = parseInt(value.replace(/[^0-9]/g, ""), 10);
   const suffix = value.replace(/[0-9]/g, "");
   const rounded = useTransform(count, latest => `${Math.round(latest)}${suffix}`);
+  const isMobile = useIsMobile();
   
   // Track previous state to detect transitions from not visible to visible
   const wasVisible = useRef(false);
@@ -17,9 +43,9 @@ function AnimatedNumber({ value, startAnimation }: { value: string, startAnimati
     if (startAnimation) {
       // If becoming visible
       if (!wasVisible.current) {
-        // Animate from 0 to the target value
+        // Animate from 0 to the target value - faster on mobile
         const controls = animate(count, numericValue, {
-          duration: 1.5,
+          duration: isMobile ? 1 : 1.5, // Faster on mobile
           ease: "easeOut"
         });
         
@@ -35,7 +61,7 @@ function AnimatedNumber({ value, startAnimation }: { value: string, startAnimati
       count.set(0);
       wasVisible.current = false;
     }
-  }, [startAnimation, count, numericValue]);
+  }, [startAnimation, count, numericValue, isMobile]);
 
   return <motion.span>{rounded}</motion.span>;
 }
@@ -43,11 +69,12 @@ function AnimatedNumber({ value, startAnimation }: { value: string, startAnimati
 export function FeaturesSection() {
   const sectionRef = useRef(null);
   const imageRef = useRef(null);
+  const isMobile = useIsMobile();
   
   // Track when the section is in viewport with a more generous threshold
   const isInView = useInView(sectionRef, { 
     once: false, // Important: we need to detect when it enters AND leaves
-    amount: 0.2,  // Trigger when 20% of the element is in view 
+    amount: isMobile ? 0.1 : 0.2,  // More sensitive triggering on mobile
   });
 
   // Set up scroll tracking for the image ref
@@ -59,7 +86,7 @@ export function FeaturesSection() {
   // Use useTransform to map the scroll progress (0 to 1) to a vertical translation range
   const yImage = useTransform(scrollYProgress, [0, 1], [-50, 50]);
 
-  // Define animation variants for the main columns
+  // Define animation variants for the main columns - with mobile-specific durations
   const columnVariants = {
     hidden: (direction: 'left' | 'right') => ({
       opacity: 0,
@@ -69,23 +96,29 @@ export function FeaturesSection() {
       opacity: 1,
       x: 0,
       transition: {
-        duration: 0.8,
+        duration: isMobile ? 0.5 : 0.8, // Faster on mobile
         ease: "easeOut",
         when: "beforeChildren",
-        staggerChildren: 0.15,
-        delayChildren: 0.2
+        staggerChildren: isMobile ? 0.1 : 0.15, // Faster staggering on mobile
+        delayChildren: isMobile ? 0.1 : 0.2 // Less delay on mobile
       },
     },
   };
 
-  // Define animation variants for children elements within the left column
+  // Define animation variants for children elements - with mobile-specific durations
   const itemVariants = {
     hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
+    visible: { 
+      opacity: 1, 
+      y: 0, 
+      transition: { 
+        duration: isMobile ? 0.3 : 0.5 // Faster on mobile
+      } 
+    }
   };
 
   return (
-    <section ref={sectionRef} className="w-full py-32 px-4 md:px-8 font-[Arial_Rounded_MT_Bold] bg-gradient-to-r from-[#FFFFFF] to-[#F0F0F0] overflow-hidden">
+    <section ref={sectionRef} className="w-full lg:py-32 py-4 px-4 md:px-8 font-[Arial_Rounded_MT_Bold] bg-gradient-to-r from-[#FFFFFF] to-[#F0F0F0] overflow-hidden">
       <div className="container mx-auto max-w-6xl">
         <div className="flex flex-col md:flex-row gap-12">
 

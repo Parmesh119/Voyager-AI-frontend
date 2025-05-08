@@ -33,9 +33,10 @@ export function Footer() {
 
   // More reliable way to detect mobile using matchMedia
   const isMobileDevice = () => {
-    return window.matchMedia('(max-width: 767px)').matches || 
-           /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    return window.matchMedia('(max-width: 767px)').matches ||
+      /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Windows Phone|Mobile|Silk|Kindle|BB10|PlayBook|MeeGo|Tizen|Palm|Nokia/i.test(navigator.userAgent);
   };
+  
 
   // Handler functions for the modals and redirect links
   const handleBecomePartner = () => {
