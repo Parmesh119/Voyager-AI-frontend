@@ -11,42 +11,42 @@ export function Architecture() {
   const [windowWidth, setWindowWidth] = useState(
     typeof window !== 'undefined' ? window.innerWidth : 0
   );
-  
+
   useEffect(() => {
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
     };
-    
+
     if (typeof window !== 'undefined') {
       setWindowWidth(window.innerWidth);
       window.addEventListener('resize', handleResize);
     }
-    
+
     return () => {
       if (typeof window !== 'undefined') {
         window.removeEventListener('resize', handleResize);
       }
     };
   }, []);
-  
+
   const isMobile = windowWidth < 768;
-  
+
   const domainSectionRef = useRef(null);
   const knowledgeSectionRef = useRef(null);
-  
+
   const { scrollYProgress: domainScrollProgress } = useScroll({
     target: domainSectionRef,
     offset: ["start end", "end start"]
   });
-  
+
   const domainScale = useTransform(domainScrollProgress, [0, 0.3, 0.6], [0.8, 1, 1]);
   const domainOpacity = useTransform(domainScrollProgress, [0, 0.3, 0.6], [0, 1, 1]);
-  
+
   const { scrollYProgress: knowledgeScrollProgress } = useScroll({
     target: knowledgeSectionRef,
     offset: ["start end", "end start"]
   });
-  
+
   const knowledgeScale = useTransform(knowledgeScrollProgress, [0, 0.4, 0.7], [0.8, 1, 1]);
   const knowledgeOpacity = useTransform(knowledgeScrollProgress, [0, 0.4, 0.7], [0, 1, 1]);
 
@@ -195,14 +195,14 @@ export function Architecture() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.3 }}
-          >Meet your digital compliance guardians. These<br/> intelligent agents don't just read regulations–they<br/> breathe them. Transforming complex rules into<br/> actionable insights, they're the vigilant sentinels<br/> protecting your financial institution's integrity.
+          >Meet your digital compliance guardians. These<br /> intelligent agents don't just read regulations–they<br /> breathe them. Transforming complex rules into<br /> actionable insights, they're the vigilant sentinels<br /> protecting your financial institution's integrity.
           </motion.div>
         </motion.div>
 
         <div className="flex flex-col w-full lg:flex-row items-center justify-between mb-16 sm:mb-20 md:mb-24 lg:mb-32 px-2 sm:px-4" ref={domainSectionRef}>
           <motion.div
             className="shadow-lg bg-[#007ABA] rounded-2xl w-full sm:max-w-md lg:w-5/12 h-auto aspect-[4/3] sm:aspect-[5/4] md:aspect-auto md:h-[350px] lg:h-[381px] text-center p-4 sm:p-6 md:p-8 lg:p-12 flex flex-col justify-center items-center"
-            style={{ 
+            style={{
               scale: domainScale,
               opacity: domainOpacity
             }}
@@ -221,7 +221,7 @@ export function Architecture() {
             variants={slideInRightVariants}
           >
             <p className="text-gray-600 text-sm sm:text-base leading-relaxed font-[Arial] text-center lg:text-left">
-              Our Domain-Focused database is an infinite library<br/> of wisdom. No matter what type of financial<br/> institution, the knowledge has already been curated<br/> and primed to support depth and accuracy far<br/> beyond any generic AI!
+              Our Domain-Focused database is an infinite <span className="lg:inline hidden"> </span><span className="lg:hidden inline">library </span><span className="lg:inline hidden">library <br /> </span>of wisdom. No matter what type of <span className="lg:inline hidden"> </span><span className="lg:hidden inline"> financial </span><span className="lg:inline hidden">financial <br /> </span>institution, the knowledge has already been <span className="lg:inline hidden"> </span><span className="lg:hidden inline"> curated </span>curated<span className="lg:inline hidden"><br /> </span>and primed to support depth and accuracy <span className="lg:inline hidden"> </span><span className="lg:hidden inline"> far </span><span className="lg:inline hidden">far <br /> </span>beyond any generic AI!
             </p>
           </motion.div>
         </div>
@@ -229,7 +229,7 @@ export function Architecture() {
         <div className="flex lg:ml-44 ml-0 w-full flex-col lg:flex-row-reverse items-center justify-center gap-8 lg:gap-12 px-2 sm:px-4" ref={knowledgeSectionRef}>
           <motion.div
             className="shadow-lg bg-[#A8C315] rounded-2xl order-1 lg:order-2 w-full sm:max-w-md lg:w-5/12 h-auto aspect-[4/3] sm:aspect-[5/4] md:aspect-auto md:h-[350px] lg:h-[381px] text-center p-4 sm:p-6 md:p-8 lg:p-12 flex flex-col justify-center items-center"
-            style={{ 
+            style={{
               scale: knowledgeScale,
               opacity: knowledgeOpacity
             }}
@@ -248,8 +248,14 @@ export function Architecture() {
             variants={slideInLeftVariants}
           >
             <p className="text-gray-600 text-sm sm:text-base leading-relaxed font-[Arial] text-center lg:text-left">
-              We've created a secure vault where your existing<br/> documents are AI-empowered, compliant, and<br/> intelligent, allowing them to work smarter, not<br/> harder. We offer many options, from on-premises to<br/> cloud, ensuring your FI's core knowledge remains<br/> under your control.
+              We've created a secure vault where your existing
+              <span className="hidden lg:inline"><br /></span> documents are AI-empowered, compliant, and
+              <span className="hidden lg:inline"><br /></span> intelligent, allowing them to work smarter, not
+              <span className="hidden lg:inline"><br /></span> harder. We offer many options, from on-premises to
+              <span className="hidden lg:inline"><br /></span> cloud, ensuring your FI's core knowledge remains
+              <span className="hidden lg:inline"><br /></span> under your control.
             </p>
+
           </motion.div>
         </div>
       </div>

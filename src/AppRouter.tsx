@@ -9,6 +9,7 @@ import { Routes, Route } from 'react-router-dom'
 export default function AppRouter() {
   return (
     <Router>
+      <span id="top">
       <Navbar />
       <Routes>
         <Route path="/" element={<App />} />
@@ -17,6 +18,7 @@ export default function AppRouter() {
       <AnimatedSection>
         <Footer />
       </AnimatedSection>
+      </span>
     </Router>
   )
 }
