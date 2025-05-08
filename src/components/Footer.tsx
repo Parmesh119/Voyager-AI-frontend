@@ -3,15 +3,17 @@ import { ChevronUp } from 'lucide-react';
 import { NavItem } from './Navbar';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
-import RequestDemoModal from '@/components/RequestDemo';
-import BecomePartnerModal from '@/components/BecomePartner';
-import ContactSalesModal from './ContactSales';
-import { NavLink } from 'react-router-dom'
+import RequestDemoModal from '@/components/RequestDemoModal';
+import BecomePartnerModal from '@/components/BecomePartnerModal';
+import ContactSalesModal from './ContactSalesModal';
+import { NavLink, useNavigate } from 'react-router-dom'
 
 export function Footer() {
   const [isRequestModalOpen, setIsRequestModalOpen] = useState(false);
-  const [isBecomePartnerModalOpen, setIsBecomePartnerModalOpen] = useState(false)
-  const [isContactSalesModalOpen, setIsContactSalesModalOpen] = useState(false)
+  const [isBecomePartnerModalOpen, setIsBecomePartnerModalOpen] = useState(false);
+  const [isContactSalesModalOpen, setIsContactSalesModalOpen] = useState(false);
+  const navigate = useNavigate();
+  
   // Simple fade in variants for all elements
   const fadeIn = {
     hidden: { opacity: 0 },
@@ -29,29 +31,54 @@ export function Footer() {
     tap: { scale: 0.95 }
   };
 
-  const handleOpenRequestModal = () => {
-    setIsRequestModalOpen(true);
+  // More reliable way to detect mobile using matchMedia
+  const isMobileDevice = () => {
+    return window.matchMedia('(max-width: 767px)').matches || 
+           /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  };
+
+  // Handler functions for the modals and redirect links
+  const handleBecomePartner = () => {
+    if (isMobileDevice()) {
+      // For mobile, navigate to the page with replace: true
+      navigate('/become-partner', { replace: true });
+    } else {
+      // For desktop, open modal
+      setIsBecomePartnerModalOpen(true);
+    }
+  };
+
+  const handleRequestDemo = () => {
+    if (isMobileDevice()) {
+      // For mobile, navigate to the page with replace: true
+      navigate('/request-demo', { replace: true });
+    } else {
+      // For desktop, open modal
+      setIsRequestModalOpen(true);
+    }
+  };
+
+  const handleContactSales = () => {
+    if (isMobileDevice()) {
+      // For mobile, navigate to the page with replace: true
+      navigate('/contact-sales', { replace: true });
+    } else {
+      // For desktop, open modal
+      setIsContactSalesModalOpen(true);
+    }
   };
 
   const handleCloseRequestModal = () => {
     setIsRequestModalOpen(false);
   };
 
-  const handleOpenBecomePartnerModal = () => {
-    setIsBecomePartnerModalOpen(true)
-  }
-
   const handleCloseBecomePartnerModal = () => {
-    setIsBecomePartnerModalOpen(false)
-  }
-
-  const handleOpenContactSalesModal = () => {
-    setIsContactSalesModalOpen(true)
-  }
+    setIsBecomePartnerModalOpen(false);
+  };
 
   const handleCloseContactSalesModal = () => {
-    setIsContactSalesModalOpen(false)
-  }
+    setIsContactSalesModalOpen(false);
+  };
 
   return (
     <>
@@ -85,7 +112,7 @@ export function Footer() {
                   variant="secondary"
                   size="lg"
                   className="w-full sm:w-auto font-[Arial] bg-white hover:bg-gray-100 text-blue-700 font-bold text-sm md:text-md"
-                  onClick={handleOpenBecomePartnerModal}
+                  onClick={handleBecomePartner}
                 >
                   Become a Partner
                 </Button>
@@ -95,7 +122,7 @@ export function Footer() {
                   variant="secondary"
                   size="lg"
                   className="w-full sm:w-auto font-[Arial] bg-white hover:bg-gray-100 text-blue-700 font-bold text-sm md:text-md"
-                  onClick={handleOpenRequestModal}
+                  onClick={handleRequestDemo}
                 >
                   Request a Demo
                 </Button>
@@ -103,7 +130,7 @@ export function Footer() {
               <motion.div whileHover="hover" whileTap="tap" variants={buttonHover} className="w-full sm:w-auto">
                 <Button
                   variant="secondary"
-                  onClick={handleOpenContactSalesModal}
+                  onClick={handleContactSales}
                   size="lg"
                   className="w-full sm:w-auto font-[Arial] bg-white hover:bg-gray-100 text-blue-700 font-bold text-sm md:text-md"
                 >
@@ -193,11 +220,9 @@ export function Footer() {
         </motion.div>
       </footer>
 
-      {/* Request Demo Modal */}
+      {/* Always render modals - they'll only show when isOpen is true */}
       <RequestDemoModal isOpen={isRequestModalOpen} onClose={handleCloseRequestModal} />
-      {/* Become Partner Modal */}
       <BecomePartnerModal isOpen={isBecomePartnerModalOpen} onClose={handleCloseBecomePartnerModal} />
-      {/* Contact Sales Modal */}
       <ContactSalesModal isOpen={isContactSalesModalOpen} onClose={handleCloseContactSalesModal} />
     </>
   );
