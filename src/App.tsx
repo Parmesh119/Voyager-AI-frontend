@@ -12,6 +12,7 @@ import { Architecture } from '@/components/Architecture';
 import { About } from '@/components/About';
 import AnimatedSection from './AnimatedSection';
 import PartnerWithVoyagerAI from '@/components/PartnerWithVoyagerAI';
+
 function App() {
   return (
     <main className="min-h-screen bg-gradient-to-r from-[#FFFFFF] to-[#F0F0F0]">
