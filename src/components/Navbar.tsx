@@ -57,7 +57,7 @@ export function Navbar() {
           "w-full py-3 px-4 md:px-8 bg-gradient-to-r from-[#FFFFFF] to-[#F0F0F0] fixed top-0 left-0 right-0 z-50 transition-all duration-300",
           isScrolled && "shadow-md py-2"
         )} 
-        id="top"
+        
       >
         <div className="container mx-auto flex items-center justify-between">
           <div className="flex items-center gap-2">
