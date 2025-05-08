@@ -4,6 +4,31 @@ import PdfIcon from '@/assets/CoreFeatures/PdfIcon';
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence, useInView } from 'framer-motion';
 
+// Helper hook to detect mobile view
+function useIsMobile() {
+  const [isMobile, setIsMobile] = useState(false);
+  
+  useEffect(() => {
+    // Check if window exists (client-side)
+    if (typeof window !== 'undefined') {
+      const checkMobile = () => {
+        setIsMobile(window.innerWidth < 768);
+      };
+      
+      // Initial check
+      checkMobile();
+      
+      // Listen for resize events
+      window.addEventListener('resize', checkMobile);
+      
+      // Cleanup
+      return () => window.removeEventListener('resize', checkMobile);
+    }
+  }, []);
+  
+  return isMobile;
+}
+
 export function CoreFeatures() {
   const [loading, setLoading] = useState(true);
   const [animationPhase, setAnimationPhase] = useState(0);
@@ -11,9 +36,17 @@ export function CoreFeatures() {
   const [animationComplete, setAnimationComplete] = useState(false);
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { once: true, amount: 0.05 });
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     if (isInView) {
+      // Faster timers for mobile
+      const loadingTimerDuration = isMobile ? 300 : 500;
+      const phase1TimerDuration = isMobile ? 200 : 300;
+      const phase2TimerDuration = isMobile ? 400 : 600;
+      const phase3TimerDuration = isMobile ? 400 : 600;
+      const completeTimerDuration = isMobile ? 300 : 500;
+
       const loadingTimer = setTimeout(() => {
         setLoading(false);
         const phase1Timer = setTimeout(() => {
@@ -30,17 +63,17 @@ export function CoreFeatures() {
               // Mark animation as complete after all phases
               setTimeout(() => {
                 setAnimationComplete(true);
-              }, 500);
-            }, 600);
+              }, completeTimerDuration);
+            }, phase3TimerDuration);
 
             return () => clearTimeout(phase3Timer);
-          }, 600);
+          }, phase2TimerDuration);
 
           return () => clearTimeout(phase2Timer);
-        }, 300);
+        }, phase1TimerDuration);
 
         return () => clearTimeout(phase1Timer);
-      }, 500);
+      }, loadingTimerDuration);
 
       return () => clearTimeout(loadingTimer);
     } else {
@@ -48,20 +81,28 @@ export function CoreFeatures() {
       setAnimationPhase(0);
       setAnimationComplete(false);
     }
-  }, [isInView]);
+  }, [isInView, isMobile]);
 
   const cardVariants = {
     normal: {
       scale: 1,
       zIndex: 1,
       boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-      transition: { type: "spring", stiffness: 400, damping: 30 }
+      transition: { 
+        type: "spring", 
+        stiffness: 400, 
+        damping: isMobile ? 20 : 30 // Less damping on mobile for faster animations
+      }
     },
     active: {
       scale: 1.05,
       zIndex: 10,
       boxShadow: "0 12px 20px rgba(0, 0, 0, 0.15)",
-      transition: { type: "spring", stiffness: 400, damping: 30 }
+      transition: { 
+        type: "spring", 
+        stiffness: 400, 
+        damping: isMobile ? 20 : 30 // Less damping on mobile for faster animations
+      }
     }
   };
 
@@ -116,17 +157,24 @@ export function CoreFeatures() {
     }
   ];
 
-  // Simplified animation props
+  // Simplified animation props - with mobile-specific durations
   const sectionFadeInProps = {
     initial: { opacity: 0 },
     animate: { opacity: isInView ? 1 : 0 },
-    transition: { duration: 0.6, ease: "easeOut" }
+    transition: { 
+      duration: isMobile ? 0.4 : 0.6, 
+      ease: "easeOut" 
+    }
   };
 
   const textFadeInProps = {
     initial: { opacity: 0 },
     animate: { opacity: isInView ? 1 : 0 },
-    transition: { duration: 0.7, delay: isInView ? 0.2 : 0, ease: "easeOut" }
+    transition: { 
+      duration: isMobile ? 0.5 : 0.7, 
+      delay: isInView ? (isMobile ? 0.1 : 0.2) : 0, 
+      ease: "easeOut" 
+    }
   }
 
   const showSkeletons = loading;
@@ -211,15 +259,15 @@ export function CoreFeatures() {
                   boxShadow: activeCardIndex === index ? "0 12px 20px rgba(0, 0, 0, 0.15)" : "0 4px 6px rgba(0, 0, 0, 0.1)",
                   opacity: isInView ? 1 : 0,
                   transition: {
-                    duration: 0.5,
-                    delay: isInView ? 0.2 + index * 0.08 : 0,
+                    duration: isMobile ? 0.3 : 0.5,
+                    delay: isInView ? (isMobile ? 0.15 + index * 0.05 : 0.2 + index * 0.08) : 0,
                     ease: "easeOut",
                   },
                 }}
                 whileHover={{
                   scale: 1.05,
                   boxShadow: "0 12px 20px rgba(0, 0, 0, 0.15)",
-                  transition: { duration: 0.2 }
+                  transition: { duration: isMobile ? 0.15 : 0.2 }
                 }}
                 whileTap={{ scale: 0.98 }}
                 className="rounded-3xl" 
@@ -233,7 +281,7 @@ export function CoreFeatures() {
                       className="mb-4"
                       initial={{ opacity: 0 }}
                       animate={{ opacity: animationPhase >= 1 ? 1 : 0 }}
-                      transition={{ duration: 0.5, ease: "easeOut" }}
+                      transition={{ duration: isMobile ? 0.3 : 0.5, ease: "easeOut" }}
                     >
                       {card.icon}
                     </motion.div>
@@ -243,7 +291,11 @@ export function CoreFeatures() {
                         className="text-lg font-semibold"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: animationPhase >= 1 ? 1 : 0 }}
-                        transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
+                        transition={{ 
+                          duration: isMobile ? 0.3 : 0.5, 
+                          delay: isMobile ? 0.05 : 0.1, 
+                          ease: "easeOut" 
+                        }}
                       >
                         {card.title}
                       </motion.h3>
@@ -264,7 +316,7 @@ export function CoreFeatures() {
                             <motion.span
                               initial={{ opacity: 0 }}
                               animate={{ opacity: animationPhase >= 2 ? 1 : 0 }}
-                              transition={{ duration: 0.4 }}
+                              transition={{ duration: isMobile ? 0.25 : 0.4 }}
                             >
                               {card.descriptionParts[0]}
                             </motion.span>
@@ -275,7 +327,7 @@ export function CoreFeatures() {
                                 <motion.span
                                   initial={{ opacity: 0 }}
                                   animate={{ opacity: animationPhase >= 3 ? 1 : 0 }}
-                                  transition={{ duration: 0.4 }}
+                                  transition={{ duration: isMobile ? 0.25 : 0.4 }}
                                 >
                                   {card.descriptionParts[1]}
                                 </motion.span>
@@ -300,7 +352,7 @@ export function CoreFeatures() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
+            transition={{ duration: isMobile ? 0.2 : 0.3 }}
             className="fixed inset-0 bg-black/20 z-5"
             onClick={() => setActiveCardIndex(null)}
           />

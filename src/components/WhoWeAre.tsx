@@ -1,13 +1,30 @@
 import { motion, useScroll, useTransform, useInView, useSpring } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import WhoWeAreImage from "@/assets/WhoWeAre/WhoWeAreImage.jpg";
 
 export function WhoWeAre() {
   const sectionRef = useRef(null);
   const imageRef = useRef(null);
   const textRef = useRef(null);
+  const [isMobile, setIsMobile] = useState(false);
   
-  const isInView = useInView(sectionRef, { once: false, amount: 0.2 }); // Changed to false to enable fade-out
+  // Check if viewport is mobile size
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    // Set initial value
+    checkMobile();
+    
+    // Add event listener
+    window.addEventListener("resize", checkMobile);
+    
+    // Clean up
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+  
+  const isInView = useInView(sectionRef, { once: false, amount: 0.2 });
   const isImageInView = useInView(imageRef, { once: true, amount: 0.5 });
   const isTextInView = useInView(textRef, { once: true, amount: 0.5 });
   
@@ -17,10 +34,10 @@ export function WhoWeAre() {
     offset: ["start end", "end start"]
   });
   
-  // Smoother scrollYProgress with spring physics
+  // Smoother scrollYProgress with spring physics - faster on mobile
   const smoothScroll = useSpring(scrollYProgress, { 
-    stiffness: 100, 
-    damping: 30,
+    stiffness: isMobile ? 150 : 100, 
+    damping: isMobile ? 20 : 30,
     restDelta: 0.001
   });
   
@@ -32,14 +49,17 @@ export function WhoWeAre() {
   const sectionOpacity = useTransform(smoothScroll, [0.1, 0.8, 0.95], [1, 1, 0]);
   const sectionScale = useTransform(smoothScroll, [0.1, 0.8, 0.95], [1, 1, 0.95]);
   
-  // Staggered text animation variants
+  // Animation durations based on device
+  const mobileDurationFactor = 0.6; // 40% faster on mobile
+  
+  // Staggered text animation variants with responsive timing
   const paragraphVariants = {
     hidden: { opacity: 0, x: -15 },
     visible: { 
       opacity: 1, 
       x: 0,
       transition: { 
-        duration: 0.6,
+        duration: isMobile ? 0.6 * mobileDurationFactor : 0.6,
         ease: [0.21, 0.45, 0.15, 1.0]
       }
     },
@@ -47,34 +67,34 @@ export function WhoWeAre() {
       opacity: 0,
       x: -15,
       transition: {
-        duration: 0.4,
+        duration: isMobile ? 0.4 * mobileDurationFactor : 0.4,
         ease: [0.65, 0, 0.35, 1]
       }
     }
   };
   
-  // Container for text elements with staggered animation
+  // Container for text elements with staggered animation - faster on mobile
   const textContainerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.15,
-        delayChildren: 0.2,
+        staggerChildren: isMobile ? 0.08 : 0.15,
+        delayChildren: isMobile ? 0.1 : 0.2,
         when: "beforeChildren"
       }
     },
     exit: {
       opacity: 0,
       transition: {
-        staggerChildren: 0.08,
+        staggerChildren: isMobile ? 0.05 : 0.08,
         staggerDirection: -1,
         when: "afterChildren"
       }
     }
   };
   
-  // Badge animation - fade and slide
+  // Badge animation - fade and slide - faster on mobile
   const badgeVariants = {
     hidden: { opacity: 0, y: -15, scale: 0.95 },
     visible: {
@@ -83,8 +103,8 @@ export function WhoWeAre() {
       scale: 1,
       transition: {
         type: "spring",
-        stiffness: 200,
-        damping: 20
+        stiffness: isMobile ? 250 : 200,
+        damping: isMobile ? 15 : 20
       }
     },
     exit: {
@@ -92,19 +112,19 @@ export function WhoWeAre() {
       y: -10,
       scale: 0.95,
       transition: {
-        duration: 0.3
+        duration: isMobile ? 0.3 * mobileDurationFactor : 0.3
       }
     }
   };
   
-  // Heading animation with split effect
+  // Heading animation with split effect - faster on mobile
   const headingVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.7,
+        duration: isMobile ? 0.7 * mobileDurationFactor : 0.7,
         ease: [0.25, 0.1, 0.25, 1]
       }
     },
@@ -112,19 +132,19 @@ export function WhoWeAre() {
       opacity: 0,
       y: 15,
       transition: {
-        duration: 0.5
+        duration: isMobile ? 0.5 * mobileDurationFactor : 0.5
       }
     }
   };
 
-  // Image animation with fade-out
+  // Image animation with fade-out - faster on mobile
   const imageVariants = {
     hidden: { opacity: 0, scale: 0.95 },
     visible: { 
       opacity: 1, 
       scale: 1,
       transition: { 
-        duration: 0.8, 
+        duration: isMobile ? 0.8 * mobileDurationFactor : 0.8, 
         ease: [0.25, 0.1, 0.25, 1]
       }
     },
@@ -132,7 +152,7 @@ export function WhoWeAre() {
       opacity: 0,
       scale: 0.97,
       transition: {
-        duration: 0.6
+        duration: isMobile ? 0.6 * mobileDurationFactor : 0.6
       }
     }
   };
@@ -219,7 +239,10 @@ export function WhoWeAre() {
                   scaleX: isImageInView ? 0 : 1,
                   transformOrigin: "right"
                 }}
-                transition={{ duration: 0.8, ease: [0.65, 0, 0.35, 1] }}
+                transition={{ 
+                  duration: isMobile ? 0.8 * mobileDurationFactor : 0.8, 
+                  ease: [0.65, 0, 0.35, 1] 
+                }}
               />
               
               <motion.img 
@@ -231,7 +254,10 @@ export function WhoWeAre() {
                 }}
                 whileHover={{ 
                   scale: 1.03,
-                  transition: { duration: 1.2, ease: [0.25, 0.1, 0.25, 1] }
+                  transition: { 
+                    duration: isMobile ? 1.2 * mobileDurationFactor : 1.2, 
+                    ease: [0.25, 0.1, 0.25, 1] 
+                  }
                 }}
               />
             </div>

@@ -18,21 +18,21 @@ export function Navbar() {
   // Close mobile menu when clicking outside
   useEffect(() => {
     if (!isMobileMenuOpen) return;
-    
+
     const handleOutsideClick = (event: MouseEvent | TouchEvent): void => {
       // Close the menu if click is outside the navigation elements
       const navElement = document.getElementById('mobile-menu');
       const menuButton = document.getElementById('menu-toggle');
-      
-      if (navElement && !navElement.contains(event.target as Node) && 
+
+      if (navElement && !navElement.contains(event.target as Node) &&
         menuButton && !menuButton.contains(event.target as Node)) {
-      closeMobileMenu();
+        closeMobileMenu();
       }
     };
-    
+
     document.addEventListener('mousedown', handleOutsideClick);
     document.addEventListener('touchstart', handleOutsideClick);
-    
+
     return () => {
       document.removeEventListener('mousedown', handleOutsideClick);
       document.removeEventListener('touchstart', handleOutsideClick);
@@ -44,15 +44,15 @@ export function Navbar() {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 10);
     };
-    
+
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const isMobileDevice = () => {
     return window.matchMedia('(max-width: 767px)').matches ||
-        /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-};
+      /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Windows Phone|Mobile|Silk|Kindle|BB10|PlayBook|MeeGo|Tizen|Palm|Nokia/i.test(navigator.userAgent);
+  };
 
 
   const handleRequestDemo = () => {
@@ -65,17 +65,17 @@ export function Navbar() {
 
   const handleClseRequestModal = () => {
     setIsRequestModalOpen(false)
-}
+  }
 
 
   return (
     <>
-      <nav 
+      <nav
         className={cn(
           "w-full py-3 px-4 md:px-8 bg-gradient-to-r from-[#FFFFFF] to-[#F0F0F0] fixed top-0 left-0 right-0 z-50 transition-all duration-300",
           isScrolled && "shadow-md py-2"
-        )} 
-        
+        )}
+
       >
         <div className="container mx-auto flex items-center justify-between">
           <div className="flex items-center gap-2">
@@ -86,7 +86,7 @@ export function Navbar() {
               </div>
             </NavLink>
           </div>
-          
+
           {/* Desktop Navigation */}
           <div className="hidden md:flex space-x-8 lg:space-x-20 font-[Arial]">
             <NavItem href="#features" className='font-bold'>Features</NavItem>
@@ -94,13 +94,13 @@ export function Navbar() {
             <NavItem href="#partnerships" className='font-bold'>Partnerships</NavItem>
             <NavItem href="#about" className='font-bold'>About Us</NavItem>
           </div>
-          
+
           {/* Desktop Actions */}
           <div className="hidden md:flex items-center gap-3">
             <Button variant="ghost" className="text-black font-bold">
               Login
             </Button>
-            <Button 
+            <Button
               onClick={isRequestModalOpen ? handleClseRequestModal : handleRequestDemo}
               className="cursor-pointer bg-[#2D7DD2] hover:bg-[#1d6abf] font-extrabold"
             >
@@ -110,7 +110,7 @@ export function Navbar() {
 
           {/* Mobile Menu Button */}
           <div className="flex md:hidden items-center gap-2">
-            <Button 
+            <Button
               id="menu-toggle"
               variant="ghost"
               size="sm"
@@ -128,7 +128,7 @@ export function Navbar() {
         </div>
 
         {/* Mobile Navigation Menu */}
-        <div 
+        <div
           id="mobile-menu"
           className={cn(
             "fixed inset-x-0 bg-gradient-to-r from-[#FFFFFF] to-[#F0F0F0] shadow-lg transition-all duration-300 overflow-hidden",
@@ -142,12 +142,12 @@ export function Navbar() {
               <MobileNavItem href="#partnerships" onClick={closeMobileMenu}>Partnerships</MobileNavItem>
               <MobileNavItem href="#about" onClick={closeMobileMenu}>About Us</MobileNavItem>
             </div>
-            
+
             <div className="flex flex-col space-y-3">
-            <Button variant="ghost" className="text-black font-bold ">
-              Login
-            </Button>
-              <Button 
+              <Button variant="ghost" className="text-black font-bold ">
+                Login
+              </Button>
+              <Button
                 onClick={() => {
                   handleRequestDemo()
                 }}
@@ -178,8 +178,8 @@ interface NavItemProps {
 
 export function NavItem({ href, children, className }: NavItemProps) {
   return (
-    <a 
-      href={href} 
+    <a
+      href={href}
       className={cn(
         "text-black transition-colors hover:text-[#2D7DD2] text-base font-medium",
         className
@@ -205,8 +205,8 @@ function MobileNavItem({ href, onClick, children }: MobileNavItemProps) {
   };
 
   return (
-    <a 
-      href={href} 
+    <a
+      href={href}
       onClick={handleClick}
       className="text-black font-bold py-2 block hover:text-[#2D7DD2] border-b border-gray-100"
     >

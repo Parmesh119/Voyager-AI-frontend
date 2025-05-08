@@ -27,7 +27,7 @@ export default function PartnerWithVoyagerAI() {
         hidden: { opacity: 0, y: 20 },
         visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.25, 0.1, 0.25, 1] } }
     };
-
+    
     const textVariants = {
         hidden: { opacity: 0, y: 20 },
         visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.21, 0.45, 0.15, 1.0] } }
@@ -38,8 +38,9 @@ export default function PartnerWithVoyagerAI() {
 
     const isMobileDevice = () => {
         return window.matchMedia('(max-width: 767px)').matches ||
-            /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+            /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Windows Phone|Mobile|Silk|Kindle|BB10|PlayBook|MeeGo|Tizen|Palm|Nokia/i.test(navigator.userAgent);
     };
+
 
     const handleBecomePartner = () => {
         if (isMobileDevice()) {

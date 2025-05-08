@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 export default function RequestDemoForm() {
     const location = useLocation();
-
+    
     useEffect(() => {
         const topElement = document.getElementById("top");
         if (topElement) {

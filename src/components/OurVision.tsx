@@ -140,7 +140,7 @@ export function OurVision() {
   return (
     <motion.section
       ref={sectionRef}
-      className="w-full py-20 px-4 md:px-8 bg-gradient-to-r from-[#FFFFFF] to-[#F0F0F0] overflow-hidden"
+      className="w-full lg:py-20 py-4 px-4 md:px-8 bg-gradient-to-r from-[#FFFFFF] to-[#F0F0F0] overflow-hidden"
       style={{
         opacity: sectionOpacity,
         scale: sectionScale
