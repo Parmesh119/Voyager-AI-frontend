@@ -152,6 +152,7 @@ export function Navbar() {
   );
 }
 
+
 interface NavItemProps {
   href: string;
   children: React.ReactNode;
