@@ -1,10 +1,11 @@
 import { motion, useInView } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { useRef, useState } from "react";
-import BecomePartnerModal from '@/components/BecomePartner';
+import BecomePartnerModal from '@/components/BecomePartnerModal';
+import { useNavigate } from 'react-router-dom';
 
 export default function PartnerWithVoyagerAI() {
-
+    const navigate = useNavigate()
     const [isBecomePartnerModalOpen, setIsBecomePartnerModalOpen] = useState(false)
 
 
@@ -35,9 +36,20 @@ export default function PartnerWithVoyagerAI() {
     const ctaRef = useRef(null);
     const isCtaInView = useInView(ctaRef, { once: true, amount: 0.3 });
 
-    const handleOpenBecomePartnerModal = () => {
-        setIsBecomePartnerModalOpen(true)
-    }
+    const isMobileDevice = () => {
+        return window.matchMedia('(max-width: 767px)').matches ||
+            /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    };
+
+    const handleBecomePartner = () => {
+        if (isMobileDevice()) {
+            // For mobile, navigate to the page with replace: true
+            navigate('/become-partner', { replace: true });
+        } else {
+            // For desktop, open modal
+            setIsBecomePartnerModalOpen(true);
+        }
+    };
 
     return (
         <>
@@ -63,7 +75,7 @@ export default function PartnerWithVoyagerAI() {
                     </motion.p>
                     <motion.div variants={buttonVariants}>
                         <Button
-                            onClick={handleOpenBecomePartnerModal}
+                            onClick={handleBecomePartner}
                             variant="secondary"
                             size="lg"
                             className="bg-white font-[Arial] text-[#2D7DD2] hover:bg-gray-100 font-bold text-base px-8 py-3"

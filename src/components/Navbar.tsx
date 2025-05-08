@@ -2,20 +2,19 @@ import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import Logo from '@/assets/logo/Logo';
-import RequestDemoModal from '@/components/RequestDemo';
-import { NavLink } from 'react-router-dom';
+import RequestDemoModal from '@/components/RequestDemoModal';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 
 export function Navbar() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isRequestModalOpen, setIsRequestModalOpen] = useState(false);
 
-  const openModal = () => setIsModalOpen(true);
-  const closeModal = () => setIsModalOpen(false);
   const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
   const closeMobileMenu = () => setIsMobileMenuOpen(false);
 
+  const navigate = useNavigate()
   // Close mobile menu when clicking outside
   useEffect(() => {
     if (!isMobileMenuOpen) return;
@@ -50,6 +49,25 @@ export function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const isMobileDevice = () => {
+    return window.matchMedia('(max-width: 767px)').matches ||
+        /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+};
+
+
+  const handleRequestDemo = () => {
+    if (isMobileDevice()) {
+      navigate('/request-demo', { replace: true });
+    } else {
+      setIsRequestModalOpen(true);
+    }
+  };
+
+  const handleClseRequestModal = () => {
+    setIsRequestModalOpen(false)
+}
+
+
   return (
     <>
       <nav 
@@ -83,7 +101,7 @@ export function Navbar() {
               Login
             </Button>
             <Button 
-              onClick={openModal}
+              onClick={isRequestModalOpen ? handleClseRequestModal : handleRequestDemo}
               className="cursor-pointer bg-[#2D7DD2] hover:bg-[#1d6abf] font-extrabold"
             >
               Request a Demo
@@ -131,8 +149,7 @@ export function Navbar() {
             </Button>
               <Button 
                 onClick={() => {
-                  closeMobileMenu();
-                  openModal();
+                  handleRequestDemo()
                 }}
                 className="bg-[#2D7DD2] hover:bg-[#1d6abf] font-extrabold w-full"
               >
@@ -147,7 +164,7 @@ export function Navbar() {
       <div className="h-16"></div>
 
       {/* Modal Component */}
-      <RequestDemoModal isOpen={isModalOpen} onClose={closeModal} />
+      <RequestDemoModal isOpen={isRequestModalOpen} onClose={handleClseRequestModal} />
     </>
   );
 }
