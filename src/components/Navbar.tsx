@@ -200,10 +200,8 @@ function MobileNavItem({ href, onClick, children }: MobileNavItemProps) {
   const navigate = useNavigate();
   const location = useLocation();
   
-  const handleClick = (e: React.MouseEvent) => {
-    e.preventDefault(); // This is crucial to prevent default anchor behavior
+  const handleClick = () => {
     
-    // Call the onClick handler if provided (for closing menu)
     if (onClick) {
       onClick();
     }
