@@ -169,7 +169,7 @@ export function Footer() {
             <motion.div variants={fadeIn}>
               <h4 className="font-semibold mb-4">Resources</h4>
               <ul className="space-y-2 text-white">
-                <li>Blog</li>
+                <NavLink to="http://learn.voyagercx.ai/" replace={true}><li>Blog</li></NavLink>
                 {/* <li>Case Studies</li>
                 <li>Whitepapers</li>
                 <li>Documentation</li> */}
