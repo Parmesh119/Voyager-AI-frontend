@@ -41,7 +41,7 @@ export function About() {
 
   return (
     <section
-      id="about"
+    id="about"
       ref={aboutSectionRef}
       className="w-full py-20 px-4 md:px-8 bg-gradient-to-r from-[#FFFFFF] to-[#F0F0F0] overflow-x-hidden"
     >
