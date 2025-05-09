@@ -124,7 +124,7 @@ export function FeaturesSection() {
   };
 
   return (
-    <section ref={sectionRef} className="w-full lg:py-32 py-4 px-4 md:px-8 font-[Arial_Rounded_MT_Bold] bg-gradient-to-r from-[#FFFFFF] to-[#F0F0F0] overflow-hidden">
+    <section id="features" ref={sectionRef} className="w-full lg:py-32 py-4 px-4 md:px-8 font-[Arial_Rounded_MT_Bold] bg-gradient-to-r from-[#FFFFFF] to-[#F0F0F0] overflow-hidden">
       <div className="container mx-auto max-w-6xl">
         <div className="flex flex-col md:flex-row gap-12">
 
