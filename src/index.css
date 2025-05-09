@@ -21,7 +21,6 @@
   -moz-osx-font-smoothing: grayscale;
   background-color: #fff;
   color: #000;
-  overflow-x: auto;
 }
 
 @layer base {
