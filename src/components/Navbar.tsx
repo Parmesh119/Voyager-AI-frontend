@@ -14,7 +14,9 @@ export function Navbar() {
   const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
   const closeMobileMenu = () => setIsMobileMenuOpen(false);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const location = useLocation();
+
   // Close mobile menu when clicking outside
   useEffect(() => {
     if (!isMobileMenuOpen) return;
@@ -54,6 +56,28 @@ export function Navbar() {
       /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Windows Phone|Mobile|Silk|Kindle|BB10|PlayBook|MeeGo|Tizen|Palm|Nokia/i.test(navigator.userAgent);
   };
 
+  // Scroll to section helper function
+  const scrollToSection = (sectionId: string) => {
+    closeMobileMenu();
+    
+    // If not on home page, navigate there first
+    if (location.pathname !== '/') {
+      navigate('/', { replace: true });
+      // After navigation, scroll to the element with delay
+      setTimeout(() => {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 300); // Give time for page to load
+    } else {
+      // Already on home page, just scroll
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  };
 
   const handleRequestDemo = () => {
     // Close mobile menu first before navigating or opening modal
@@ -68,8 +92,13 @@ export function Navbar() {
 
   const handleCloseRequestModal = () => {
     setIsRequestModalOpen(false);
-  }
+  };
 
+  // Section navigation handlers
+  const handleFeaturesClick = () => scrollToSection('features');
+  const handleBeliefsClick = () => scrollToSection('beliefs');
+  const handlePartnershipsClick = () => scrollToSection('partnerships');
+  const handleAboutClick = () => scrollToSection('about');
 
   return (
     <>
@@ -78,7 +107,6 @@ export function Navbar() {
           "w-full py-3 px-4 md:px-8 bg-gradient-to-r from-[#FFFFFF] to-[#F0F0F0] fixed top-0 left-0 right-0 z-50 transition-all duration-300",
           isScrolled && "shadow-md py-2"
         )}
-
       >
         <div className="container mx-auto flex items-center justify-between">
           <div className="flex items-center gap-2">
@@ -92,10 +120,10 @@ export function Navbar() {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex space-x-8 lg:space-x-20 font-[Arial]">
-            <NavItem href="#features" className='font-bold'>Features</NavItem>
-            <NavItem href="#beliefs" className='font-bold'>Beliefs</NavItem>
-            <NavItem href="#partnerships" className='font-bold'>Partnerships</NavItem>
-            <NavItem href="#about" className='font-bold'>About Us</NavItem>
+            <button onClick={handleFeaturesClick} className="text-black transition-colors hover:text-[#2D7DD2] text-base font-bold">Features</button>
+            <button onClick={handleBeliefsClick} className="text-black transition-colors hover:text-[#2D7DD2] text-base font-bold">Beliefs</button>
+            <button onClick={handlePartnershipsClick} className="text-black transition-colors hover:text-[#2D7DD2] text-base font-bold">Partnerships</button>
+            <button onClick={handleAboutClick} className="text-black transition-colors hover:text-[#2D7DD2] text-base font-bold">About Us</button>
           </div>
 
           {/* Desktop Actions */}
@@ -140,14 +168,34 @@ export function Navbar() {
         >
           <div className="container mx-auto px-4 py-4 flex flex-col space-y-4">
             <div className="flex flex-col space-y-3">
-              <MobileNavItem href="#features" onClick={closeMobileMenu}>Features</MobileNavItem>
-              <MobileNavItem href="#beliefs" onClick={closeMobileMenu}>Beliefs</MobileNavItem>
-              <MobileNavItem href="#partnerships" onClick={closeMobileMenu}>Partnerships</MobileNavItem>
-              <MobileNavItem href="#about" onClick={closeMobileMenu}>About Us</MobileNavItem>
+              <button 
+                onClick={handleFeaturesClick} 
+                className="text-black font-bold py-2 block hover:text-[#2D7DD2] text-left border-b border-gray-100"
+              >
+                Features
+              </button>
+              <button 
+                onClick={handleBeliefsClick} 
+                className="text-black font-bold py-2 block hover:text-[#2D7DD2] text-left border-b border-gray-100"
+              >
+                Beliefs
+              </button>
+              <button 
+                onClick={handlePartnershipsClick} 
+                className="text-black font-bold py-2 block hover:text-[#2D7DD2] text-left border-b border-gray-100"
+              >
+                Partnerships
+              </button>
+              <button 
+                onClick={handleAboutClick} 
+                className="text-black font-bold py-2 block hover:text-[#2D7DD2] text-left border-b border-gray-100"
+              >
+                About Us
+              </button>
             </div>
 
             <div className="flex flex-col space-y-3">
-              <Button variant="ghost" className="text-black font-bold ">
+              <Button variant="ghost" className="text-black font-bold">
                 Login
               </Button>
               <Button
@@ -191,54 +239,54 @@ export function NavItem({ href, children, className }: NavItemProps) {
   );
 }
 
-interface MobileNavItemProps {
-  href: string;
-  onClick?: () => void;
-  children: React.ReactNode;
-}
+// interface MobileNavItemProps {
+//   href: string;
+//   onClick?: () => void;
+//   children: React.ReactNode;
+// }
 
-function MobileNavItem({ href, onClick, children }: MobileNavItemProps) {
-  const navigate = useNavigate();
-  const location = useLocation();
+// function MobileNavItem({ href, onClick, children }: MobileNavItemProps) {
+//   const navigate = useNavigate();
+//   const location = useLocation();
   
-  const handleClick = () => {
+//   const handleClick = () => {
     
-    if (onClick) {
-      onClick();
-    }
+//     if (onClick) {
+//       onClick();
+//     }
     
-    // If it's a hash link
-    if (href.startsWith('#')) {
-      // If not on home page, navigate there first
-      if (location.pathname !== '/') {
-        navigate('/');
-        // After navigation, scroll to the element
-        setTimeout(() => {
-          const element = document.getElementById(href.substring(1));
-          if (element) {
-            element.scrollIntoView({ behavior: 'smooth' });
-          }
-        }, 300); // Give time for page to load
-      } else {
-        // Already on home page, just scroll
-        const element = document.getElementById(href.substring(1));
-        if (element) {
-          element.scrollIntoView({ behavior: 'smooth' });
-        }
-      }
-    } else {
-      // Regular navigation
-      navigate(href);
-    }
-  };
+//     // If it's a hash link
+//     if (href.startsWith('#')) {
+//       // If not on home page, navigate there first
+//       if (location.pathname !== '/') {
+//         navigate('/');
+//         // After navigation, scroll to the element
+//         setTimeout(() => {
+//           const element = document.getElementById(href.substring(1));
+//           if (element) {
+//             element.scrollIntoView({ behavior: 'smooth' });
+//           }
+//         }, 300); // Give time for page to load
+//       } else {
+//         // Already on home page, just scroll
+//         const element = document.getElementById(href.substring(1));
+//         if (element) {
+//           element.scrollIntoView({ behavior: 'smooth' });
+//         }
+//       }
+//     } else {
+//       // Regular navigation
+//       navigate(href);
+//     }
+//   };
 
-  return (
-    <a
-      href={href}
-      onClick={handleClick}
-      className="text-black font-bold py-2 block hover:text-[#2D7DD2] border-b border-gray-100"
-    >
-      {children}
-    </a>
-  );
-}
+//   return (
+//     <a
+//       href={href}
+//       onClick={handleClick}
+//       className="text-black font-bold py-2 block hover:text-[#2D7DD2] border-b border-gray-100"
+//     >
+//       {children}
+//     </a>
+//   );
+// }
