@@ -58,7 +58,7 @@ export function Navbar() {
   const handleRequestDemo = () => {
     // Close mobile menu first before navigating or opening modal
     closeMobileMenu();
-    
+
     if (isMobileDevice()) {
       navigate('/request-demo', { replace: true });
     } else {
@@ -200,34 +200,37 @@ interface MobileNavItemProps {
 function MobileNavItem({ href, onClick, children }: MobileNavItemProps) {
   const navigate = useNavigate();
   const location = useLocation();
-  
-  const handleClick = () => {
-    
+
+  const handleClick = (e: React.MouseEvent) => {
+    e.preventDefault(); // Prevent default navigation
+
+    // Execute the onClick callback if provided
     if (onClick) {
       onClick();
     }
-    
+
     // If it's a hash link
     if (href.startsWith('#')) {
-      // If not on home page, navigate there first
+
       if (location.pathname !== '/') {
+
         navigate('/');
-        // After navigation, scroll to the element
+
         setTimeout(() => {
           const element = document.getElementById(href.substring(1));
           if (element) {
             element.scrollIntoView({ behavior: 'smooth' });
           }
-        }, 300); // Give time for page to load
+        }, 500); // Increase timeout to ensure page has loaded
       } else {
-        // Already on home page, just scroll
+
         const element = document.getElementById(href.substring(1));
         if (element) {
           element.scrollIntoView({ behavior: 'smooth' });
         }
       }
     } else {
-      // Regular navigation
+
       navigate(href);
     }
   };
