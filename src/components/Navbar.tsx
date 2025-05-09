@@ -201,9 +201,8 @@ function MobileNavItem({ href, onClick, children }: MobileNavItemProps) {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const handleClick = (e: React.MouseEvent) => {
-    e.preventDefault(); // Prevent default navigation
-
+  const handleClick = () => {
+    
     // Execute the onClick callback if provided
     if (onClick) {
       onClick();
