@@ -13,8 +13,7 @@ export function Footer() {
   const [isBecomePartnerModalOpen, setIsBecomePartnerModalOpen] = useState(false);
   const [isContactSalesModalOpen, setIsContactSalesModalOpen] = useState(false);
   const navigate = useNavigate();
-  
-  // Simple fade in variants for all elements
+
   const fadeIn = {
     hidden: { opacity: 0 },
     visible: {
@@ -25,46 +24,37 @@ export function Footer() {
     }
   };
 
-  // Button hover animation
   const buttonHover = {
     hover: { scale: 1.05 },
     tap: { scale: 0.95 }
   };
 
-  // More reliable way to detect mobile using matchMedia
   const isMobileDevice = () => {
     return window.matchMedia('(max-width: 767px)').matches ||
       /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Windows Phone|Mobile|Silk|Kindle|BB10|PlayBook|MeeGo|Tizen|Palm|Nokia/i.test(navigator.userAgent);
   };
-  
 
-  // Handler functions for the modals and redirect links
+
   const handleBecomePartner = () => {
     if (isMobileDevice()) {
-      // For mobile, navigate to the page with replace: true
       navigate('/become-partner', { replace: true });
     } else {
-      // For desktop, open modal
       setIsBecomePartnerModalOpen(true);
     }
   };
 
   const handleRequestDemo = () => {
     if (isMobileDevice()) {
-      // For mobile, navigate to the page with replace: true
       navigate('/request-demo', { replace: true });
     } else {
-      // For desktop, open modal
       setIsRequestModalOpen(true);
     }
   };
 
   const handleContactSales = () => {
     if (isMobileDevice()) {
-      // For mobile, navigate to the page with replace: true
       navigate('/contact-sales', { replace: true });
     } else {
-      // For desktop, open modal
       setIsContactSalesModalOpen(true);
     }
   };
@@ -84,7 +74,6 @@ export function Footer() {
   return (
     <>
       <footer className="w-full bg-[#0A1628] text-white overflow-hidden" >
-        {/* CTA Section */}
         <motion.div
           className="w-full py-20 px-4 md:px-8 bg-gradient-to-r from-[#02B6EA] to-[#A4C31A]"
           initial="hidden"
@@ -142,7 +131,6 @@ export function Footer() {
           </div>
         </motion.div>
 
-        {/* Footer Content */}
         <motion.div
           className="container mx-auto py-16 p-4"
           initial="hidden"
@@ -171,9 +159,6 @@ export function Footer() {
               <h4 className="font-semibold mb-4">Resources</h4>
               <ul className="space-y-2 text-white">
                 <NavLink to="http://learn.voyagercx.ai/" replace={true}><li>Blog</li></NavLink>
-                {/* <li>Case Studies</li>
-                <li>Whitepapers</li>
-                <li>Documentation</li> */}
               </ul>
             </motion.div>
 
@@ -181,9 +166,6 @@ export function Footer() {
               <h4 className="font-semibold mb-4">Company</h4>
               <ul className="space-y-2 text-white">
                 <NavLink to="/leadership"><li>Leadership</li></NavLink>
-                {/* <li>About Us</li> */}
-                {/* <li>Careers</li> */}
-                {/* <li>Press</li> */}
                 <li>Contact</li>
               </ul>
             </motion.div>
@@ -221,7 +203,6 @@ export function Footer() {
         </motion.div>
       </footer>
 
-      {/* Always render modals - they'll only show when isOpen is true */}
       <RequestDemoModal isOpen={isRequestModalOpen} onClose={handleCloseRequestModal} />
       <BecomePartnerModal isOpen={isBecomePartnerModalOpen} onClose={handleCloseBecomePartnerModal} />
       <ContactSalesModal isOpen={isContactSalesModalOpen} onClose={handleCloseContactSalesModal} />

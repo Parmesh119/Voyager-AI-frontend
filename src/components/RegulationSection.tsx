@@ -4,18 +4,14 @@ export function RegulationSection() {
   const [isDesktop, setIsDesktop] = useState(false);
 
   useEffect(() => {
-    // Check if window is desktop size on initial load
     const checkScreenSize = () => {
-      setIsDesktop(window.innerWidth >= 768); // md breakpoint in Tailwind
+      setIsDesktop(window.innerWidth >= 768);
     };
 
-    // Run on mount
     checkScreenSize();
 
-    // Add resize listener
     window.addEventListener('resize', checkScreenSize);
 
-    // Cleanup
     return () => window.removeEventListener('resize', checkScreenSize);
   }, []);
 

@@ -9,19 +9,15 @@ export function StrategicTools() {
   const [isAnimating, setIsAnimating] = useState(false);
   const [isDesktop, setIsDesktop] = useState(false);
   
-  // Check if screen is desktop size
   useEffect(() => {
     const checkScreenSize = () => {
-      setIsDesktop(window.innerWidth >= 768); // md breakpoint in Tailwind
+      setIsDesktop(window.innerWidth >= 768);
     };
     
-    // Run on mount
     checkScreenSize();
     
-    // Add resize listener
     window.addEventListener('resize', checkScreenSize);
     
-    // Cleanup
     return () => window.removeEventListener('resize', checkScreenSize);
   }, []);
   
@@ -49,7 +45,6 @@ export function StrategicTools() {
     };
   }, [isVisible]);
   
-  // Tab rotation animation
   useEffect(() => {
     if (!isAnimating) return;
     
@@ -97,7 +92,6 @@ export function StrategicTools() {
       aria-label="Strategic Tools Section"
     >
       <div className="container mx-auto max-w-6xl">
-        {/* Section heading with reveal animation */}
         <div 
           className={`flex justify-center mb-8 md:mb-12 transition-all duration-500 ease-out ${
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
@@ -110,7 +104,6 @@ export function StrategicTools() {
         </div>
 
         <div className="flex flex-col items-center mb-8 md:mb-16 max-w-3xl mx-auto">
-          {/* Tab buttons with staggered animation */}
           <div 
             className={`grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-8 w-full max-w-3xl transition-all duration-500 ease-out ${
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
@@ -149,7 +142,6 @@ export function StrategicTools() {
             ))}
           </div>
 
-          {/* Content card with smooth fade transitions */}
           <div
             className={`w-full mt-8 md:mt-12 transition-all duration-500 ease-out ${
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'

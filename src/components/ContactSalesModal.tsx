@@ -30,7 +30,7 @@ export default function ContactSalesModal({ isOpen, onClose }: ContactSalesModal
     return (
         <AnimatePresence>
             {isOpen && (
-                <motion.div 
+                <motion.div
                     className="fixed inset-0 bg-black bg-opacity-50 z-100 flex items-center justify-center"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
@@ -56,11 +56,9 @@ export default function ContactSalesModal({ isOpen, onClose }: ContactSalesModal
                             <X size={16} />
                         </motion.button>
 
-                        {/* Modal Content */}
                         <div className="grid grid-cols-1 md:grid-cols-2">
-                            {/* Left Column */}
                             <div className="p-12 flex flex-col">
-                                <motion.div 
+                                <motion.div
                                     className="bg-[#E8F5D2] text-[#2e8318] rounded-full py-1 px-10 text-xs font-medium w-fit mb-4"
                                     initial={{ opacity: 0, x: -20 }}
                                     animate={{ opacity: 1, x: 0 }}
@@ -68,7 +66,7 @@ export default function ContactSalesModal({ isOpen, onClose }: ContactSalesModal
                                 >
                                     Learn More
                                 </motion.div>
-                                <motion.h2 
+                                <motion.h2
                                     className="text-2xl font-bold mb-4"
                                     initial={{ opacity: 0, y: -10 }}
                                     animate={{ opacity: 1, y: 0 }}
@@ -76,8 +74,8 @@ export default function ContactSalesModal({ isOpen, onClose }: ContactSalesModal
                                 >
                                     <span className="font-[Arial_Rounded_MT_Bold]">Contact <span className="text-[#2D7DD2]">Sales</span></span>
                                 </motion.h2>
-                                <motion.div 
-                                    className="text-gray-700 text-xs leading-5 font-[Arial]" 
+                                <motion.div
+                                    className="text-gray-700 text-xs leading-5 font-[Arial]"
                                     style={{ fontSize: '12px' }}
                                     initial={{ opacity: 0 }}
                                     animate={{ opacity: 1 }}
@@ -87,20 +85,19 @@ export default function ContactSalesModal({ isOpen, onClose }: ContactSalesModal
                                     Vivamus faucibus commodo lorem id euismod.<br />
                                     Pellentesque eleifend, mi in volutpat posuere, quam nulla<br />
                                     imperdiet neque, in pulvinar leo lacus quis purus. Duis<br />
-                                    pellentesque porttitor lectus, ornare tincidunt justo<br/>
+                                    pellentesque porttitor lectus, ornare tincidunt justo<br />
                                     aliquam suscipit. Phasellus a velit laoreet, bibendum nisi<br />
-                                    non, bibendum ipsum. Vestibulum ante ipsum primis in<br/>
-                                    faucibus orci luctus et ultrices posuere cubilia curae;<br/>
-                                    Proin accumsan tempor dictum. Duis egestas, lorem<br/>
-                                    vestibulum dignissim dignissim, libero lorem<br/>
-                                    condimentum augue, nec lacinia odio massa sit amet<br/>
-                                    odio. Curabitur ac tincidunt neque. Vestibulum<br/>
+                                    non, bibendum ipsum. Vestibulum ante ipsum primis in<br />
+                                    faucibus orci luctus et ultrices posuere cubilia curae;<br />
+                                    Proin accumsan tempor dictum. Duis egestas, lorem<br />
+                                    vestibulum dignissim dignissim, libero lorem<br />
+                                    condimentum augue, nec lacinia odio massa sit amet<br />
+                                    odio. Curabitur ac tincidunt neque. Vestibulum<br />
                                 </motion.div>
                             </div>
 
-                            {/* Right Column - Form */}
                             <div className="p-12 ">
-                                <motion.form 
+                                <motion.form
                                     className="flex flex-col gap-6"
                                     initial="hidden"
                                     animate="visible"
@@ -125,10 +122,9 @@ export default function ContactSalesModal({ isOpen, onClose }: ContactSalesModal
                                                 id="companySize"
                                                 required
                                                 className="w-full px-3 py-2 border border-gray-300 rounded appearance-none bg-white text-sm"
-                                                
-                                                >
+                                            >
                                                 <option value="" disabled selected>
-                                                    Please Select</option> 
+                                                    Please Select</option>
                                                 <option value="1-10">1-10 employees</option>
                                                 <option value="11-50">11-50 employees</option>
                                                 <option value="51-200">51-200 employees</option>
@@ -154,7 +150,7 @@ export default function ContactSalesModal({ isOpen, onClose }: ContactSalesModal
                                         />
                                     </motion.div>
 
-                                    <motion.div 
+                                    <motion.div
                                         className="grid grid-cols-2 gap-4"
                                         variants={{ hidden: { opacity: 0 }, visible: { opacity: 1 } }}
                                     >
@@ -184,7 +180,7 @@ export default function ContactSalesModal({ isOpen, onClose }: ContactSalesModal
                                         </div>
                                     </motion.div>
 
-                                    <motion.div 
+                                    <motion.div
                                         className="grid grid-cols-2 gap-4"
                                         variants={{ hidden: { opacity: 0 }, visible: { opacity: 1 } }}
                                     >
@@ -207,14 +203,14 @@ export default function ContactSalesModal({ isOpen, onClose }: ContactSalesModal
                                             <input
                                                 id="phoneNumber"
                                                 type="tel"
-                                                required    
+                                                required
                                                 placeholder="123-123-1234"
                                                 className="w-full px-3 py-2 border border-gray-300 rounded text-sm"
                                             />
                                         </div>
                                     </motion.div>
 
-                                    <motion.div 
+                                    <motion.div
                                         className="mt-1"
                                         variants={{ hidden: { opacity: 0, y: 10 }, visible: { opacity: 1, y: 0 } }}
                                     >
@@ -229,7 +225,7 @@ export default function ContactSalesModal({ isOpen, onClose }: ContactSalesModal
                                         ></textarea>
                                     </motion.div>
 
-                                    <motion.div 
+                                    <motion.div
                                         className="flex justify-center"
                                         variants={{ hidden: { opacity: 0 }, visible: { opacity: 1 } }}
                                     >

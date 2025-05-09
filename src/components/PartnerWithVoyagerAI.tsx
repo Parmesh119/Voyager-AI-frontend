@@ -27,7 +27,7 @@ export default function PartnerWithVoyagerAI() {
         hidden: { opacity: 0, y: 20 },
         visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.25, 0.1, 0.25, 1] } }
     };
-    
+
     const textVariants = {
         hidden: { opacity: 0, y: 20 },
         visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.21, 0.45, 0.15, 1.0] } }
@@ -44,10 +44,8 @@ export default function PartnerWithVoyagerAI() {
 
     const handleBecomePartner = () => {
         if (isMobileDevice()) {
-            // For mobile, navigate to the page with replace: true
             navigate('/become-partner', { replace: true });
         } else {
-            // For desktop, open modal
             setIsBecomePartnerModalOpen(true);
         }
     };

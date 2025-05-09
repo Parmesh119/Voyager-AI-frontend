@@ -49,7 +49,7 @@ export function Partners() {
   const friendsIntroRef = useRef(null);
   const [isPartnersHovered, setIsPartnersHovered] = useState(false);
   const [isFriendsHovered, setIsFriendsHovered] = useState(false);
-  
+
   const isPartnersIntroInView = useInView(partnersIntroRef, { once: true, amount: 0.2 });
   const isFriendsIntroInView = useInView(friendsIntroRef, { once: true, amount: 0.2 });
 
@@ -91,10 +91,8 @@ export function Partners() {
     visible: { opacity: 1, transition: { staggerChildren: 0.1, delayChildren: 0.2 } }
   };
 
-  // Adjust animation speed based on screen size for better mobile experience
   const useSlowerAnimationForMobile = typeof window !== 'undefined' && window.innerWidth < 768;
-  
-  // Define animation variants for the sliding containers
+
   const marqueeVariants = {
     animate: (direction: 'rtl' | 'ltr') => ({
       x: direction === 'rtl' ? ['0%', '-100%'] : ['-100%', '0%'],
@@ -102,7 +100,7 @@ export function Partners() {
         x: {
           repeat: Infinity,
           repeatType: 'loop',
-          duration: useSlowerAnimationForMobile ? 60 : 40, // Slower on mobile
+          duration: useSlowerAnimationForMobile ? 60 : 40,
           ease: 'linear',
         },
       },
@@ -118,7 +116,6 @@ export function Partners() {
   return (
     <section id="partnerships" className="w-full py-10 sm:py-14 md:py-20 bg-gradient-to-r from-[#FFFFFF] to-[#F0F0F0] overflow-hidden" ref={sectionRef}>
       <div className="container mx-auto max-w-6xl px-4">
-        {/* Partners Section */}
         <motion.div
           className="text-center mb-8 sm:mb-12 md:mb-16"
           ref={partnersIntroRef}
@@ -145,7 +142,6 @@ export function Partners() {
           </motion.p>
         </motion.div>
 
-        {/* Partners Logos - Right to Left - Responsive container */}
         <div
           className="relative w-full overflow-hidden mb-10 md:mb-20"
           onMouseEnter={() => setIsPartnersHovered(true)}
@@ -159,14 +155,12 @@ export function Partners() {
             custom="rtl"
             animate={isPartnersHovered ? "paused" : "animate"}
           >
-            {/* Double the logos for seamless loop */}
             {[...partnersList, ...partnersList].map((partner, index) => (
               <PartnerLogo key={`partner-${index}`} src={partner.src} alt={partner.alt} />
             ))}
           </motion.div>
         </div>
 
-        {/* Friends Section */}
         <motion.div
           className="text-center mb-8 sm:mb-12 md:mb-16"
           ref={friendsIntroRef}
@@ -188,7 +182,6 @@ export function Partners() {
           </motion.h2>
         </motion.div>
 
-        {/* Friends Logos - Left to Right - Responsive container */}
         <div
           className="relative w-full overflow-hidden mb-10 md:mb-20"
           onMouseEnter={() => setIsFriendsHovered(true)}
@@ -202,7 +195,6 @@ export function Partners() {
             custom="ltr"
             animate={isFriendsHovered ? "paused" : "animate"}
           >
-            {/* Double the logos for seamless loop */}
             {[...friendsList, ...friendsList].map((friend, index) => (
               <FriendLogo key={`friend-${index}`} src={friend.src} alt={friend.alt} />
             ))}

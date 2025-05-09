@@ -8,7 +8,7 @@ import RequestDemoForm from "@/components/RequestDemoForm";
 import ContactSalesForm from "@/components/ContactSalesForm";
 import BecomePartnerForm from "@/components/BecomePartnerForm";
 export default function AppRouter() {
-  
+
   return (
     <Router>
       <span id="top">

@@ -11,28 +11,23 @@ export function OurVision() {
   const isImageInView = useInView(imageRef, { once: true, amount: 0.5 });
   const isTextInView = useInView(textRef, { once: true, amount: 0.5 });
 
-  // Scroll-based animations
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start end", "end start"]
   });
 
-  // Smoother scrollYProgress with spring physics
   const smoothScroll = useSpring(scrollYProgress, {
     stiffness: 100,
     damping: 30,
     restDelta: 0.001
   });
 
-  // Enhanced scroll animations with fade-out effect
   const textOpacity = useTransform(smoothScroll, [0.1, 0.4, 0.7, 0.9], [0.6, 1, 1, 0]);
   const textY = useTransform(smoothScroll, [0.1, 0.4, 0.7, 0.9], [30, 0, 0, -30]);
 
-  // New fade-out animation for the entire section
   const sectionOpacity = useTransform(smoothScroll, [0.1, 0.8, 0.95], [1, 1, 0]);
   const sectionScale = useTransform(smoothScroll, [0.1, 0.8, 0.95], [1, 1, 0.95]);
 
-  // Staggered text animation variants
   const paragraphVariants = {
     hidden: { opacity: 0, x: -15 },
     visible: {
@@ -53,7 +48,6 @@ export function OurVision() {
     }
   };
 
-  // Container for text elements with staggered animation
   const textContainerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -74,7 +68,6 @@ export function OurVision() {
     }
   };
 
-  // Badge animation - fade and slide
   const badgeVariants = {
     hidden: { opacity: 0, y: -15, scale: 0.95 },
     visible: {
@@ -97,7 +90,6 @@ export function OurVision() {
     }
   };
 
-  // Heading animation with split effect
   const headingVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
@@ -117,7 +109,6 @@ export function OurVision() {
     }
   };
 
-  // Image animation with fade-out
   const imageVariants = {
     hidden: { opacity: 0, scale: 0.95 },
     visible: {
@@ -205,7 +196,6 @@ export function OurVision() {
             animate={isImageInView ? "visible" : "hidden"}
           >
             <div className="rounded-2xl overflow-hidden h-[400px] relative">
-              {/* Image mask effect */}
               <motion.div
                 className="absolute inset-0 bg-white z-10 origin-left"
                 style={{

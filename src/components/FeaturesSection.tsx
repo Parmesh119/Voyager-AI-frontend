@@ -3,24 +3,19 @@
 import { motion, useInView, animate, motionValue, useTransform, useScroll } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 
-// Enhanced isMobile detection
 function useIsMobile() {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    // Check if window exists (client-side)
     if (typeof window !== 'undefined') {
       const checkMobile = () => {
         setIsMobile(window.innerWidth < 768);
       };
 
-      // Initial check
       checkMobile();
 
-      // Listen for resize events
       window.addEventListener('resize', checkMobile);
 
-      // Cleanup
       return () => window.removeEventListener('resize', checkMobile);
     }
   }, []);
@@ -28,7 +23,6 @@ function useIsMobile() {
   return isMobile;
 }
 
-// Significantly faster AnimatedNumber component for mobile
 function AnimatedNumber({ value, startAnimation }: { value: string, startAnimation: boolean }) {
   const count = motionValue(0);
   const numericValue = parseInt(value.replace(/[^0-9]/g, ""), 10);
@@ -36,17 +30,14 @@ function AnimatedNumber({ value, startAnimation }: { value: string, startAnimati
   const rounded = useTransform(count, latest => `${Math.round(latest)}${suffix}`);
   const isMobile = useIsMobile();
 
-  // Track previous state to detect transitions
   const wasVisible = useRef(false);
 
   useEffect(() => {
     if (startAnimation) {
-      // If becoming visible
       if (!wasVisible.current) {
-        // Much faster animation on mobile - 0.6s instead of 1.5s
         const controls = animate(count, numericValue, {
           duration: isMobile ? 0.6 : 1.5,
-          ease: isMobile ? "circOut" : "easeOut" // Snappier easing on mobile
+          ease: isMobile ? "circOut" : "easeOut"
         });
 
         return () => controls.stop();
@@ -55,7 +46,7 @@ function AnimatedNumber({ value, startAnimation }: { value: string, startAnimati
       }
       wasVisible.current = true;
     } else {
-      // Reset the counter to 0 for next animation
+
       count.set(0);
       wasVisible.current = false;
     }
@@ -69,26 +60,25 @@ export function FeaturesSection() {
   const imageRef = useRef(null);
   const isMobile = useIsMobile();
 
-  // More sensitive threshold for mobile
   const isInView = useInView(sectionRef, {
     once: false,
-    amount: isMobile ? 0.05 : 0.2, // Even more sensitive triggering on mobile
+    amount: isMobile ? 0.05 : 0.2,
   });
 
-  // Set up scroll tracking with different offset values for mobile
+
   const { scrollYProgress } = useScroll({
     target: imageRef,
     offset: isMobile ? ["start end", "end start"] : ["start end", "end start"],
   });
 
-  // Reduced movement range on mobile for better performance
+
   const yImage = useTransform(
     scrollYProgress,
     [0, 1],
     isMobile ? [-30, 30] : [-50, 50]
   );
 
-  // Much faster animations for mobile
+
   const columnVariants = {
     hidden: (direction: 'left' | 'right') => ({
       opacity: 0,
@@ -98,27 +88,26 @@ export function FeaturesSection() {
       opacity: 1,
       x: 0,
       transition: {
-        duration: isMobile ? 0.3 : 0.8, // 62% faster on mobile
-        ease: isMobile ? "circOut" : "easeOut", // Snappier easing on mobile
+        duration: isMobile ? 0.3 : 0.8,
+        ease: isMobile ? "circOut" : "easeOut",
         when: "beforeChildren",
-        staggerChildren: isMobile ? 0.05 : 0.15, // 67% faster staggering
-        delayChildren: isMobile ? 0.05 : 0.2 // 75% less delay
+        staggerChildren: isMobile ? 0.05 : 0.15,
+        delayChildren: isMobile ? 0.05 : 0.2
       },
     },
   };
 
-  // Faster child animations for mobile
   const itemVariants = {
     hidden: {
       opacity: 0,
-      y: isMobile ? 10 : 20 // Smaller distance to animate on mobile
+      y: isMobile ? 10 : 20
     },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
-        duration: isMobile ? 0.2 : 0.5, // 60% faster on mobile
-        ease: isMobile ? "circOut" : "easeOut" // Snappier easing
+        duration: isMobile ? 0.2 : 0.5,
+        ease: isMobile ? "circOut" : "easeOut"
       }
     }
   };
@@ -128,7 +117,6 @@ export function FeaturesSection() {
       <div className="container mx-auto max-w-6xl">
         <div className="flex flex-col md:flex-row gap-12">
 
-          {/* Left Column - Faster fade/slide on mobile */}
           <motion.div
             variants={columnVariants}
             initial="hidden"
@@ -136,7 +124,6 @@ export function FeaturesSection() {
             custom="left"
             className="w-full md:w-1/2"
           >
-            {/* Child elements using faster itemVariants */}
             <motion.div
               variants={itemVariants}
               className="inline-block mb-4 px-6 py-1 bg-[#9DC22333] text-[#2e8318] rounded-full text-sm font-medium"
@@ -185,7 +172,6 @@ export function FeaturesSection() {
                   variants={itemVariants}
                 >
                   <div className="w-28 h-12 justify-start text-sky-600 text-3xl font-black font-['Arial_Black']">
-                    {/* Faster number animation on mobile */}
                     <AnimatedNumber value={stat.value} startAnimation={isInView} />
                   </div>
                   <motion.div
@@ -206,7 +192,6 @@ export function FeaturesSection() {
             </div>
           </motion.div>
 
-          {/* Right Column - Faster fade/slide on mobile */}
           <motion.div
             variants={columnVariants}
             initial="hidden"

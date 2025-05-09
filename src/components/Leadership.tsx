@@ -33,7 +33,7 @@ export default function Leadership() {
             rotateY: 0,
             transition: {
                 duration: 0.6,
-                ease: [0.16, 1, 0.3, 1] // Custom spring-like ease
+                ease: [0.16, 1, 0.3, 1]
             }
         }
     };
@@ -58,7 +58,6 @@ export default function Leadership() {
 
     return (
         <div className="bg-gradient-to-r from-[#FFFFFF] to-[#F0F0F0]" >
-            {/* Leadership Section */}
             <motion.div
                 ref={leadershipSectionRef}
                 className="px-10 py-20"

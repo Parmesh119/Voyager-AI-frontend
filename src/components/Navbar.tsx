@@ -15,12 +15,10 @@ export function Navbar() {
   const closeMobileMenu = () => setIsMobileMenuOpen(false);
 
   const navigate = useNavigate()
-  // Close mobile menu when clicking outside
   useEffect(() => {
     if (!isMobileMenuOpen) return;
 
     const handleOutsideClick = (event: MouseEvent | TouchEvent): void => {
-      // Close the menu if click is outside the navigation elements
       const navElement = document.getElementById('mobile-menu');
       const menuButton = document.getElementById('menu-toggle');
 
@@ -39,7 +37,6 @@ export function Navbar() {
     };
   }, [isMobileMenuOpen]);
 
-  // Handle scroll effect
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 10);
@@ -56,7 +53,6 @@ export function Navbar() {
 
 
   const handleRequestDemo = () => {
-    // Close mobile menu first before navigating or opening modal
     closeMobileMenu();
 
     if (isMobileDevice()) {
@@ -161,10 +157,8 @@ export function Navbar() {
         </div>
       </nav>
 
-      {/* Spacer to prevent content from hiding under fixed navbar */}
       <div className="h-16"></div>
 
-      {/* Modal Component */}
       <RequestDemoModal isOpen={isRequestModalOpen} onClose={handleCloseRequestModal} />
     </>
   );
@@ -202,12 +196,10 @@ function MobileNavItem({ href, onClick, children }: MobileNavItemProps) {
   const location = useLocation();
 
   const handleClick = () => {
-    // Execute the onClick callback if provided
     if (onClick) {
       onClick();
     }
 
-    // If it's a hash link
     if (href.startsWith('#')) {
 
       if (location.pathname !== '/') {
@@ -219,7 +211,7 @@ function MobileNavItem({ href, onClick, children }: MobileNavItemProps) {
           if (element) {
             element.scrollIntoView({ behavior: 'smooth' });
           }
-        }, 500); // Increase timeout to ensure page has loaded
+        }, 500);
       } else {
 
         const element = document.getElementById(href.substring(1));
