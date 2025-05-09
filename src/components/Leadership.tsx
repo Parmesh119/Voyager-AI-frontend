@@ -9,11 +9,11 @@ export default function Leadership() {
     useEffect(() => {
         const topElement = document.getElementById("top");
         if (topElement) {
-          topElement.scrollIntoView({ behavior: "smooth" });
+            topElement.scrollIntoView({ behavior: "smooth" });
         }
-      }, [location]);
+    }, [location]);
 
-      
+
     const gridContainerVariant = {
         hidden: { opacity: 1 },
         visible: {
@@ -42,20 +42,20 @@ export default function Leadership() {
     const sectionEntryVariant = {
         hidden: { opacity: 0 },
         visible: {
-          opacity: 1,
-          transition: {
-            duration: 0.4,
-            staggerChildren: 0.15,
-            delayChildren: 0.1
-          }
+            opacity: 1,
+            transition: {
+                duration: 0.4,
+                staggerChildren: 0.15,
+                delayChildren: 0.1
+            }
         }
-      };
+    };
 
     const itemFadeUp = {
         hidden: { opacity: 0, y: 25 },
         visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } }
     };
-    
+
     return (
         <div className="bg-gradient-to-r from-[#FFFFFF] to-[#F0F0F0]" >
             {/* Leadership Section */}

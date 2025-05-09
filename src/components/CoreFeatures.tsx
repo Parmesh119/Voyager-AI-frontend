@@ -7,25 +7,25 @@ import { motion, AnimatePresence, useInView } from 'framer-motion';
 // Helper hook to detect mobile view
 function useIsMobile() {
   const [isMobile, setIsMobile] = useState(false);
-  
+
   useEffect(() => {
     // Check if window exists (client-side)
     if (typeof window !== 'undefined') {
       const checkMobile = () => {
         setIsMobile(window.innerWidth < 768);
       };
-      
+
       // Initial check
       checkMobile();
-      
+
       // Listen for resize events
       window.addEventListener('resize', checkMobile);
-      
+
       // Cleanup
       return () => window.removeEventListener('resize', checkMobile);
     }
   }, []);
-  
+
   return isMobile;
 }
 
@@ -88,9 +88,9 @@ export function CoreFeatures() {
       scale: 1,
       zIndex: 1,
       boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-      transition: { 
-        type: "spring", 
-        stiffness: 400, 
+      transition: {
+        type: "spring",
+        stiffness: 400,
         damping: isMobile ? 20 : 30 // Less damping on mobile for faster animations
       }
     },
@@ -98,9 +98,9 @@ export function CoreFeatures() {
       scale: 1.05,
       zIndex: 10,
       boxShadow: "0 12px 20px rgba(0, 0, 0, 0.15)",
-      transition: { 
-        type: "spring", 
-        stiffness: 400, 
+      transition: {
+        type: "spring",
+        stiffness: 400,
         damping: isMobile ? 20 : 30 // Less damping on mobile for faster animations
       }
     }
@@ -161,19 +161,19 @@ export function CoreFeatures() {
   const sectionFadeInProps = {
     initial: { opacity: 0 },
     animate: { opacity: isInView ? 1 : 0 },
-    transition: { 
-      duration: isMobile ? 0.4 : 0.6, 
-      ease: "easeOut" 
+    transition: {
+      duration: isMobile ? 0.4 : 0.6,
+      ease: "easeOut"
     }
   };
 
   const textFadeInProps = {
     initial: { opacity: 0 },
     animate: { opacity: isInView ? 1 : 0 },
-    transition: { 
-      duration: isMobile ? 0.5 : 0.7, 
-      delay: isInView ? (isMobile ? 0.1 : 0.2) : 0, 
-      ease: "easeOut" 
+    transition: {
+      duration: isMobile ? 0.5 : 0.7,
+      delay: isInView ? (isMobile ? 0.1 : 0.2) : 0,
+      ease: "easeOut"
     }
   }
 
@@ -270,8 +270,8 @@ export function CoreFeatures() {
                   transition: { duration: isMobile ? 0.15 : 0.2 }
                 }}
                 whileTap={{ scale: 0.98 }}
-                className="rounded-3xl" 
-                style={{ 
+                className="rounded-3xl"
+                style={{
                   boxShadow: activeCardIndex === index ? undefined : "0 4px 6px rgba(0, 0, 0, 0.1)"
                 }}
               >
@@ -291,10 +291,10 @@ export function CoreFeatures() {
                         className="text-lg font-semibold"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: animationPhase >= 1 ? 1 : 0 }}
-                        transition={{ 
-                          duration: isMobile ? 0.3 : 0.5, 
-                          delay: isMobile ? 0.05 : 0.1, 
-                          ease: "easeOut" 
+                        transition={{
+                          duration: isMobile ? 0.3 : 0.5,
+                          delay: isMobile ? 0.05 : 0.1,
+                          ease: "easeOut"
                         }}
                       >
                         {card.title}

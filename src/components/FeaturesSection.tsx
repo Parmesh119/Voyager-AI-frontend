@@ -6,25 +6,25 @@ import { useEffect, useRef, useState } from "react";
 // Enhanced isMobile detection
 function useIsMobile() {
   const [isMobile, setIsMobile] = useState(false);
-  
+
   useEffect(() => {
     // Check if window exists (client-side)
     if (typeof window !== 'undefined') {
       const checkMobile = () => {
         setIsMobile(window.innerWidth < 768);
       };
-      
+
       // Initial check
       checkMobile();
-      
+
       // Listen for resize events
       window.addEventListener('resize', checkMobile);
-      
+
       // Cleanup
       return () => window.removeEventListener('resize', checkMobile);
     }
   }, []);
-  
+
   return isMobile;
 }
 
@@ -35,7 +35,7 @@ function AnimatedNumber({ value, startAnimation }: { value: string, startAnimati
   const suffix = value.replace(/[0-9]/g, "");
   const rounded = useTransform(count, latest => `${Math.round(latest)}${suffix}`);
   const isMobile = useIsMobile();
-  
+
   // Track previous state to detect transitions
   const wasVisible = useRef(false);
 
@@ -48,7 +48,7 @@ function AnimatedNumber({ value, startAnimation }: { value: string, startAnimati
           duration: isMobile ? 0.6 : 1.5,
           ease: isMobile ? "circOut" : "easeOut" // Snappier easing on mobile
         });
-        
+
         return () => controls.stop();
       } else {
         count.set(numericValue);
@@ -68,9 +68,9 @@ export function FeaturesSection() {
   const sectionRef = useRef(null);
   const imageRef = useRef(null);
   const isMobile = useIsMobile();
-  
+
   // More sensitive threshold for mobile
-  const isInView = useInView(sectionRef, { 
+  const isInView = useInView(sectionRef, {
     once: false,
     amount: isMobile ? 0.05 : 0.2, // Even more sensitive triggering on mobile
   });
@@ -83,8 +83,8 @@ export function FeaturesSection() {
 
   // Reduced movement range on mobile for better performance
   const yImage = useTransform(
-    scrollYProgress, 
-    [0, 1], 
+    scrollYProgress,
+    [0, 1],
     isMobile ? [-30, 30] : [-50, 50]
   );
 
@@ -109,17 +109,17 @@ export function FeaturesSection() {
 
   // Faster child animations for mobile
   const itemVariants = {
-    hidden: { 
-      opacity: 0, 
+    hidden: {
+      opacity: 0,
       y: isMobile ? 10 : 20 // Smaller distance to animate on mobile
     },
-    visible: { 
-      opacity: 1, 
-      y: 0, 
-      transition: { 
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
         duration: isMobile ? 0.2 : 0.5, // 60% faster on mobile
         ease: isMobile ? "circOut" : "easeOut" // Snappier easing
-      } 
+      }
     }
   };
 
