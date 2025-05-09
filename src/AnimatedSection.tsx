@@ -8,9 +8,8 @@ const AnimatedSection = ({ children }: { children: ReactNode }) => {
   return (
     <section
       ref={ref}
-      className={`transition-opacity duration-[1000ms] transform-gpu ease-out ${
-        inView ? 'opacity-100 translate-y-0' : 'opacity-0'
-      } parallax-section`}
+      className={`transition-opacity duration-[1000ms] transform-gpu ease-out ${inView ? 'opacity-100 translate-y-0' : 'opacity-0'
+        } parallax-section`}
     >
       {children}
     </section>

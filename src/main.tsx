@@ -8,7 +8,7 @@ import Router from './AppRouter.tsx';
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <ParallaxProvider>
-    <Router />
+      <Router />
     </ParallaxProvider>
     <Toaster position={"top-center"} />
   </StrictMode>

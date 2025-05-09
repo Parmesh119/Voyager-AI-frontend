@@ -15,14 +15,14 @@ export function Architecture() {
 
   useEffect(() => {
     setIsMounted(true);
-    
+
     // Debounced resize handler
     let timeoutId: NodeJS.Timeout | null = null;
     const handleResize = () => {
       if (timeoutId) clearTimeout(timeoutId);
       timeoutId = setTimeout(() => {
         setWindowWidth(window.innerWidth);
-      }, 150); // Debounce resize events
+      }, 150);
     };
 
     if (typeof window !== 'undefined') {
@@ -43,21 +43,20 @@ export function Architecture() {
   const domainSectionRef = useRef(null);
   const knowledgeSectionRef = useRef(null);
 
-  // Simplify scrolling animations for mobile
   const { scrollYProgress: domainScrollProgress } = useScroll({
     target: domainSectionRef,
     offset: isMobile ? ["start end", "center center"] : ["start end", "end start"]
   });
 
   const domainScale = useTransform(
-    domainScrollProgress, 
-    [0, 0.3], 
+    domainScrollProgress,
+    [0, 0.3],
     isMobile ? [0.95, 1] : [0.8, 1]
   );
-  
+
   const domainOpacity = useTransform(
-    domainScrollProgress, 
-    [0, 0.3], 
+    domainScrollProgress,
+    [0, 0.3],
     [0.5, 1]
   );
 
@@ -67,18 +66,17 @@ export function Architecture() {
   });
 
   const knowledgeScale = useTransform(
-    knowledgeScrollProgress, 
-    [0, 0.4], 
+    knowledgeScrollProgress,
+    [0, 0.4],
     isMobile ? [0.95, 1] : [0.8, 1]
   );
-  
+
   const knowledgeOpacity = useTransform(
-    knowledgeScrollProgress, 
-    [0, 0.4], 
+    knowledgeScrollProgress,
+    [0, 0.4],
     [0.5, 1]
   );
 
-  // Simplified variants for mobile
   const sectionVariants = {
     hidden: { opacity: 0, y: isMobile ? 20 : 50 },
     visible: {
@@ -151,9 +149,8 @@ export function Architecture() {
     }
   };
 
-  // Skip animations if not mounted yet (prevents initial animation jank)
   if (!isMounted) {
-    return null; // Or a loading placeholder
+    return null;
   }
 
   return (
@@ -190,11 +187,9 @@ export function Architecture() {
           </motion.p>
         </motion.div>
 
-        {/* Conditionally apply different animation approaches based on device */}
         {isMobile ? (
           <div className="flex flex-col justify-between items-center mb-12 sm:mb-16 md:mb-20 gap-6 sm:gap-8 md:gap-12 lg:gap-16">
             <div className="flex flex-col gap-6 mb-6 w-full">
-              {/* Render SVGs without animation wrappers on mobile */}
               <div className="flex justify-center items-center">
                 <div className="transform scale-75 sm:scale-90">
                   <Comparison />
@@ -212,8 +207,8 @@ export function Architecture() {
               </div>
             </div>
             <div className="text-gray-600 text-xs sm:text-sm w-full mx-auto text-center font-[Arial] px-4 sm:px-8">
-              Meet your digital compliance guardians. These<br /> intelligent agents don't just read regulations–they<br /> 
-              breathe them. Transforming complex rules into<br /> actionable insights, they're the vigilant sentinels<br /> 
+              Meet your digital compliance guardians. These<br /> intelligent agents don't just read regulations–they<br />
+              breathe them. Transforming complex rules into<br /> actionable insights, they're the vigilant sentinels<br />
               protecting your financial institution's integrity.
             </div>
           </div>

@@ -7,58 +7,48 @@ export function WhoWeAre() {
   const imageRef = useRef(null);
   const textRef = useRef(null);
   const [isMobile, setIsMobile] = useState(false);
-  
-  // Check if viewport is mobile size
+
   useEffect(() => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768);
     };
-    
-    // Set initial value
+
     checkMobile();
-    
-    // Add event listener
+
     window.addEventListener("resize", checkMobile);
-    
-    // Clean up
+
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
-  
+
   const isInView = useInView(sectionRef, { once: false, amount: 0.2 });
   const isImageInView = useInView(imageRef, { once: true, amount: 0.5 });
   const isTextInView = useInView(textRef, { once: true, amount: 0.5 });
-  
-  // Scroll-based animations
+
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start end", "end start"]
   });
-  
-  // Smoother scrollYProgress with spring physics - faster on mobile
-  const smoothScroll = useSpring(scrollYProgress, { 
-    stiffness: isMobile ? 150 : 100, 
+
+  const smoothScroll = useSpring(scrollYProgress, {
+    stiffness: isMobile ? 150 : 100,
     damping: isMobile ? 20 : 30,
     restDelta: 0.001
   });
-  
-  // Enhanced scroll animations with fade-out effect
+
   const textOpacity = useTransform(smoothScroll, [0.1, 0.4, 0.7, 0.9], [0.6, 1, 1, 0]);
   const textY = useTransform(smoothScroll, [0.1, 0.4, 0.7, 0.9], [30, 0, 0, -30]);
-  
-  // New fade-out animation for the entire section
+
   const sectionOpacity = useTransform(smoothScroll, [0.1, 0.8, 0.95], [1, 1, 0]);
   const sectionScale = useTransform(smoothScroll, [0.1, 0.8, 0.95], [1, 1, 0.95]);
-  
-  // Animation durations based on device
-  const mobileDurationFactor = 0.6; // 40% faster on mobile
-  
-  // Staggered text animation variants with responsive timing
+
+  const mobileDurationFactor = 0.6;
+
   const paragraphVariants = {
     hidden: { opacity: 0, x: -15 },
-    visible: { 
-      opacity: 1, 
+    visible: {
+      opacity: 1,
       x: 0,
-      transition: { 
+      transition: {
         duration: isMobile ? 0.6 * mobileDurationFactor : 0.6,
         ease: [0.21, 0.45, 0.15, 1.0]
       }
@@ -72,8 +62,7 @@ export function WhoWeAre() {
       }
     }
   };
-  
-  // Container for text elements with staggered animation - faster on mobile
+
   const textContainerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -93,8 +82,7 @@ export function WhoWeAre() {
       }
     }
   };
-  
-  // Badge animation - fade and slide - faster on mobile
+
   const badgeVariants = {
     hidden: { opacity: 0, y: -15, scale: 0.95 },
     visible: {
@@ -116,8 +104,7 @@ export function WhoWeAre() {
       }
     }
   };
-  
-  // Heading animation with split effect - faster on mobile
+
   const headingVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
@@ -137,14 +124,13 @@ export function WhoWeAre() {
     }
   };
 
-  // Image animation with fade-out - faster on mobile
   const imageVariants = {
     hidden: { opacity: 0, scale: 0.95 },
-    visible: { 
-      opacity: 1, 
+    visible: {
+      opacity: 1,
       scale: 1,
-      transition: { 
-        duration: isMobile ? 0.8 * mobileDurationFactor : 0.8, 
+      transition: {
+        duration: isMobile ? 0.8 * mobileDurationFactor : 0.8,
         ease: [0.25, 0.1, 0.25, 1]
       }
     },
@@ -158,7 +144,7 @@ export function WhoWeAre() {
   };
 
   return (
-    <motion.section 
+    <motion.section
       ref={sectionRef}
       className="w-full py-20 px-4 md:px-8 bg-gradient-to-r from-[#FFFFFF] to-[#F0F0F0] overflow-hidden"
       style={{
@@ -168,7 +154,7 @@ export function WhoWeAre() {
     >
       <div className="container mx-auto max-w-6xl">
         <div className="flex flex-col md:flex-row-reverse lg:gap-48 gap-10">
-          <motion.div 
+          <motion.div
             className="w-full md:w-1/3"
             ref={textRef}
             initial="hidden"
@@ -179,14 +165,14 @@ export function WhoWeAre() {
               y: isInView ? textY : 0
             }}
           >
-            <motion.div 
+            <motion.div
               className="inline-block mb-4 px-14 py-1 bg-[#9DC22333] text-[#2e8318] rounded-full text-sm font-medium"
               variants={badgeVariants}
             >
               Pioneers
             </motion.div>
 
-            <motion.h2 
+            <motion.h2
               className="text-3xl md:text-4xl mb-6 font-[Arial_Rounded_MT_Bold]"
               variants={headingVariants}
             >
@@ -194,37 +180,37 @@ export function WhoWeAre() {
             </motion.h2>
 
             <div className="space-y-6 text-sm font-[Arial]">
-              <motion.p 
+              <motion.p
                 className="text-gray-600"
                 variants={paragraphVariants}
               >
                 We are a group of pioneers, born in the mobile banking age.
               </motion.p>
-              
-              <motion.p 
+
+              <motion.p
                 className="text-gray-600"
                 variants={paragraphVariants}
               >
-                We went on to build digital banking and develop multiple<br/> successful AI programs for major firms.
+                We went on to build digital banking and develop multiple<br /> successful AI programs for major firms.
               </motion.p>
-              
-              <motion.p 
+
+              <motion.p
                 className="text-gray-600"
                 variants={paragraphVariants}
               >
-                We are here because we have a vision to tackle the toughest<br/> unaddressed problems.
+                We are here because we have a vision to tackle the toughest<br /> unaddressed problems.
               </motion.p>
-              
-              <motion.p 
+
+              <motion.p
                 className="text-gray-600"
                 variants={paragraphVariants}
               >
-                We understand financial institutions' challenges with new<br/> technology and know how to navigate those challenges to<br/> achieve results without getting lost on the journey.
+                We understand financial institutions' challenges with new<br /> technology and know how to navigate those challenges to<br /> achieve results without getting lost on the journey.
               </motion.p>
             </div>
           </motion.div>
-          
-          <motion.div 
+
+          <motion.div
             className="w-full md:w-1/2"
             ref={imageRef}
             variants={imageVariants}
@@ -232,31 +218,30 @@ export function WhoWeAre() {
             animate={isImageInView ? "visible" : "hidden"}
           >
             <div className="rounded-2xl overflow-hidden h-[400px] relative">
-              {/* Image mask effect */}
-              <motion.div 
+              <motion.div
                 className="absolute inset-0 bg-white z-10 origin-left"
-                style={{ 
+                style={{
                   scaleX: isImageInView ? 0 : 1,
                   transformOrigin: "right"
                 }}
-                transition={{ 
-                  duration: isMobile ? 0.8 * mobileDurationFactor : 0.8, 
-                  ease: [0.65, 0, 0.35, 1] 
+                transition={{
+                  duration: isMobile ? 0.8 * mobileDurationFactor : 0.8,
+                  ease: [0.65, 0, 0.35, 1]
                 }}
               />
-              
-              <motion.img 
+
+              <motion.img
                 src={WhoWeAreImage}
-                alt="People looking at night sky" 
+                alt="People looking at night sky"
                 className="w-full h-full object-cover rounded-2xl"
-                style={{ 
+                style={{
                   objectPosition: "center center"
                 }}
-                whileHover={{ 
+                whileHover={{
                   scale: 1.03,
-                  transition: { 
-                    duration: isMobile ? 1.2 * mobileDurationFactor : 1.2, 
-                    ease: [0.25, 0.1, 0.25, 1] 
+                  transition: {
+                    duration: isMobile ? 1.2 * mobileDurationFactor : 1.2,
+                    ease: [0.25, 0.1, 0.25, 1]
                   }
                 }}
               />

@@ -4,24 +4,20 @@ import PdfIcon from '@/assets/CoreFeatures/PdfIcon';
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence, useInView } from 'framer-motion';
 
-// Helper hook to detect mobile view
 function useIsMobile() {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    // Check if window exists (client-side)
+
     if (typeof window !== 'undefined') {
       const checkMobile = () => {
         setIsMobile(window.innerWidth < 768);
       };
 
-      // Initial check
       checkMobile();
 
-      // Listen for resize events
       window.addEventListener('resize', checkMobile);
 
-      // Cleanup
       return () => window.removeEventListener('resize', checkMobile);
     }
   }, []);
@@ -52,15 +48,12 @@ export function CoreFeatures() {
         const phase1Timer = setTimeout(() => {
           setAnimationPhase(1);
 
-          // Phase 2: Show first line of description
           const phase2Timer = setTimeout(() => {
             setAnimationPhase(2);
 
-            // Phase 3: Show second line of description
             const phase3Timer = setTimeout(() => {
               setAnimationPhase(3);
 
-              // Mark animation as complete after all phases
               setTimeout(() => {
                 setAnimationComplete(true);
               }, completeTimerDuration);
@@ -91,7 +84,7 @@ export function CoreFeatures() {
       transition: {
         type: "spring",
         stiffness: 400,
-        damping: isMobile ? 20 : 30 // Less damping on mobile for faster animations
+        damping: isMobile ? 20 : 30
       }
     },
     active: {
@@ -101,7 +94,7 @@ export function CoreFeatures() {
       transition: {
         type: "spring",
         stiffness: 400,
-        damping: isMobile ? 20 : 30 // Less damping on mobile for faster animations
+        damping: isMobile ? 20 : 30
       }
     }
   };
@@ -157,7 +150,6 @@ export function CoreFeatures() {
     }
   ];
 
-  // Simplified animation props - with mobile-specific durations
   const sectionFadeInProps = {
     initial: { opacity: 0 },
     animate: { opacity: isInView ? 1 : 0 },
@@ -182,7 +174,7 @@ export function CoreFeatures() {
   return (
     <section ref={sectionRef} id="features" className="w-full py-12 md:py-24 px-4 md:px-8 bg-gradient-to-r from-[#FFFFFF] to-[#F0F0F0] overflow-hidden">
       <div className="container mx-auto max-w-6xl">
-        {/* Header Badge */}
+
         <AnimatePresence>
           {showSkeletons ? (
             <div key="skeleton-badge" className="flex justify-center mb-4">
@@ -202,7 +194,6 @@ export function CoreFeatures() {
           )}
         </AnimatePresence>
 
-        {/* Title & Subtitle */}
         <AnimatePresence>
           {showSkeletons ? (
             <div key="skeleton-header" className="flex flex-col items-center text-center mb-12">
@@ -226,7 +217,6 @@ export function CoreFeatures() {
           )}
         </AnimatePresence>
 
-        {/* Cards Grid */}
         <motion.div
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8"
           {...sectionFadeInProps}

@@ -202,12 +202,10 @@ function MobileNavItem({ href, onClick, children }: MobileNavItemProps) {
   const location = useLocation();
 
   const handleClick = () => {
-    // Execute the onClick callback if provided
     if (onClick) {
       onClick();
     }
 
-    // If it's a hash link
     if (href.startsWith('#')) {
 
       if (location.pathname !== '/') {
@@ -219,7 +217,7 @@ function MobileNavItem({ href, onClick, children }: MobileNavItemProps) {
           if (element) {
             element.scrollIntoView({ behavior: 'smooth' });
           }
-        }, 500); // Increase timeout to ensure page has loaded
+        }, 500);
       } else {
 
         const element = document.getElementById(href.substring(1));

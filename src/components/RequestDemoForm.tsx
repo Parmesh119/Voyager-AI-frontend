@@ -13,9 +13,7 @@ export default function RequestDemoForm() {
     }, [location]);
     return (
         <div className="bg-gradient-to-r from-[#FFFFFF] to-[#F0F0F0] mx-auto rounded-lg max-w-[1000px] w-full mt-4 lg:mt-8 p-0 lg:p-8" style={{ fontFamily: 'Arial, sans-serif' }}>
-            {/* Content */}
             <div className="grid grid-cols-1 md:grid-cols-2">
-                {/* Left Column */}
                 <div className="p-8 md:p-12 flex flex-col">
                     <motion.div
                         className="bg-[#E8F5D2] text-[#2e8318] rounded-full py-1 px-10 text-xs font-medium w-fit mb-4"
@@ -55,7 +53,6 @@ export default function RequestDemoForm() {
                     </motion.div>
                 </div>
 
-                {/* Right Column - Form */}
                 <div className="p-8 md:p-12">
                     <motion.form
                         className="flex flex-col gap-6"
