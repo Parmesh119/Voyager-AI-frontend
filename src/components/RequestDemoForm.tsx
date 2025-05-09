@@ -1,42 +1,30 @@
 import { ChevronDown } from "lucide-react";
 import { motion } from "framer-motion";
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
 export default function RequestDemoForm() {
     const location = useLocation();
-    const initialRender = useRef(true);
 
     useEffect(() => {
-        if (initialRender.current) {
-            initialRender.current = false;
-            return;
-        }
+        window.scrollTo({
+            top: 0,
+            left: 0,
+            behavior: "smooth"
+        });
 
-        const scrollTimeout = setTimeout(() => {
+        setTimeout(() => {
             const topElement = document.getElementById("top");
-
             if (topElement) {
-                topElement.scrollIntoView({ behavior: "smooth" });
-
-                window.scrollTo({
-                    top: 0,
-                    behavior: "smooth"
-                });
-            } else {
-                window.scrollTo({
-                    top: 0,
-                    behavior: "smooth"
-                });
+                const yOffset = topElement.getBoundingClientRect().top + window.pageYOffset;
+                window.scrollTo(0, yOffset);
             }
         }, 100);
-
-        return () => clearTimeout(scrollTimeout);
     }, [location]);
 
     return (
-        <div id="demo-form-container" className="bg-gradient-to-r from-[#FFFFFF] to-[#F0F0F0] mx-auto rounded-lg max-w-[1000px] w-full mt-4 lg:mt-8 p-0 lg:p-8" style={{ fontFamily: 'Arial, sans-serif' }}>
-            <div className="grid grid-cols-1 md:grid-cols-2">
+        <div className="bg-gradient-to-r from-[#FFFFFF] to-[#F0F0F0] mx-auto rounded-lg max-w-[1000px] w-full mt-4 lg:mt-8 p-0 lg:p-8" style={{ fontFamily: 'Arial, sans-serif' }}>
+            <div id="top" className="grid grid-cols-1 md:grid-cols-2">
                 <div className="p-8 md:p-12 flex flex-col">
                     <motion.div
                         className="bg-[#E8F5D2] text-[#2e8318] rounded-full py-1 px-10 text-xs font-medium w-fit mb-4"
@@ -102,9 +90,8 @@ export default function RequestDemoForm() {
                                     id="companySize"
                                     required
                                     className="w-full px-3 py-2 border border-gray-300 rounded appearance-none bg-white text-sm"
-                                    defaultValue=""
                                 >
-                                    <option value="" disabled>Please Select</option>
+                                    <option value="" disabled selected>Please Select</option>
                                     <option value="1-10">1-10 employees</option>
                                     <option value="11-50">11-50 employees</option>
                                     <option value="51-200">51-200 employees</option>
