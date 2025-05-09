@@ -2,29 +2,18 @@ import { ChevronDown } from "lucide-react";
 import { motion } from "framer-motion";
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
-
 export default function RequestDemoForm() {
     const location = useLocation();
-
+    
     useEffect(() => {
-        window.scrollTo({
-            top: 0,
-            left: 0,
-            behavior: "smooth"
-        });
-
-        setTimeout(() => {
-            const topElement = document.getElementById("top");
-            if (topElement) {
-                const yOffset = topElement.getBoundingClientRect().top + window.pageYOffset;
-                window.scrollTo(0, yOffset);
-            }
-        }, 100);
+        const topElement = document.getElementById("top");
+        if (topElement) {
+            topElement.scrollIntoView({ behavior: "smooth" });
+        }
     }, [location]);
-
     return (
         <div className="bg-gradient-to-r from-[#FFFFFF] to-[#F0F0F0] mx-auto rounded-lg max-w-[1000px] w-full mt-4 lg:mt-8 p-0 lg:p-8" style={{ fontFamily: 'Arial, sans-serif' }}>
-            <div id="top" className="grid grid-cols-1 md:grid-cols-2">
+            <div className="grid grid-cols-1 md:grid-cols-2">
                 <div className="p-8 md:p-12 flex flex-col">
                     <motion.div
                         className="bg-[#E8F5D2] text-[#2e8318] rounded-full py-1 px-10 text-xs font-medium w-fit mb-4"

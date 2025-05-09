@@ -1,5 +1,5 @@
-import { motion, useInView } from "framer-motion";
-import { useRef, useState } from "react";
+import { motion, useInView, useReducedMotion } from "framer-motion";
+import { useRef, useState, useEffect } from "react";
 import { UserRound } from 'lucide-react';
 import AWS from '@/assets/Partners/AWS.png';
 import GoogleCloud from '@/assets/Partners/GoogleCloud.png';
@@ -21,8 +21,9 @@ const PartnerLogo = ({ src, alt, className }: PartnerLogoProps) => (
     alt={alt}
     className={`flex-shrink-0 w-auto h-12 sm:h-16 md:h-24 lg:h-32 mx-4 sm:mx-6 md:mx-8 ${className || ''}`}
     whileHover={{ scale: 1.05, opacity: 1 }}
-    transition={{ duration: 0.3 }}
+    transition={{ duration: 0.3, type: "tween" }}
     style={{ opacity: 0.7 }}
+    loading="lazy"
   />
 );
 
@@ -38,8 +39,9 @@ const FriendLogo = ({ src, alt, className }: FriendLogoProps) => (
     alt={alt}
     className={`flex-shrink-0 w-auto h-10 sm:h-14 md:h-20 lg:h-24 mx-4 sm:mx-6 md:mx-10 ${className || ''}`}
     whileHover={{ scale: 1.05, opacity: 1 }}
-    transition={{ duration: 0.3 }}
+    transition={{ duration: 0.3, type: "tween" }}
     style={{ opacity: 0.7 }}
+    loading="lazy"
   />
 );
 
@@ -49,6 +51,20 @@ export function Partners() {
   const friendsIntroRef = useRef(null);
   const [isPartnersHovered, setIsPartnersHovered] = useState(false);
   const [isFriendsHovered, setIsFriendsHovered] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  const prefersReducedMotion = useReducedMotion();
+
+  useEffect(() => {
+    const checkIfMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    checkIfMobile();
+
+    window.addEventListener('resize', checkIfMobile);
+
+    return () => window.removeEventListener('resize', checkIfMobile);
+  }, []);
 
   const isPartnersIntroInView = useInView(partnersIntroRef, { once: true, amount: 0.2 });
   const isFriendsIntroInView = useInView(friendsIntroRef, { once: true, amount: 0.2 });
@@ -72,26 +88,30 @@ export function Partners() {
       opacity: 1,
       y: 0,
       scale: 1,
-      transition: { type: "spring", stiffness: 200, damping: 20 }
+      transition: { type: "spring", stiffness: 150, damping: 20 }
     }
   };
 
   const headingVariants = {
     hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.25, 0.1, 0.25, 1] } }
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
   };
 
   const textVariants = {
     hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.21, 0.45, 0.15, 1.0] } }
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } }
   };
 
   const containerVariants = {
     hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { staggerChildren: 0.1, delayChildren: 0.2 } }
+    visible: { opacity: 1, transition: { staggerChildren: 0.08, delayChildren: 0.1 } }
   };
 
-  const useSlowerAnimationForMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+  const getMarqueeSpeed = () => {
+    if (prefersReducedMotion) return 120;
+    if (isMobile) return 80;
+    return 40;
+  };
 
   const marqueeVariants = {
     animate: (direction: 'rtl' | 'ltr') => ({
@@ -100,7 +120,7 @@ export function Partners() {
         x: {
           repeat: Infinity,
           repeatType: 'loop',
-          duration: useSlowerAnimationForMobile ? 60 : 40,
+          duration: getMarqueeSpeed(),
           ease: 'linear',
         },
       },
@@ -143,20 +163,24 @@ export function Partners() {
         </motion.div>
 
         <div
-          className="relative w-full overflow-hidden mb-10 md:mb-20"
+          className="relative w-full overflow-hidden mb-10 md:mb-20 will-change-transform"
           onMouseEnter={() => setIsPartnersHovered(true)}
           onMouseLeave={() => setIsPartnersHovered(false)}
           onTouchStart={() => setIsPartnersHovered(true)}
           onTouchEnd={() => setIsPartnersHovered(false)}
         >
           <motion.div
-            className="flex flex-nowrap"
+            className="flex flex-nowrap will-change-transform"
             variants={marqueeVariants}
             custom="rtl"
             animate={isPartnersHovered ? "paused" : "animate"}
+            style={{
+              transform: 'translateZ(0)',
+              backfaceVisibility: 'hidden'
+            }}
           >
-            {[...partnersList, ...partnersList].map((partner, index) => (
-              <PartnerLogo key={`partner-${index}`} src={partner.src} alt={partner.alt} />
+            {[...partnersList, ...partnersList, ...partnersList].map((partner, index) => (
+              <PartnerLogo key={`partner-${index}`} className="h-20" src={partner.src} alt={partner.alt} />
             ))}
           </motion.div>
         </div>
@@ -183,19 +207,23 @@ export function Partners() {
         </motion.div>
 
         <div
-          className="relative w-full overflow-hidden mb-10 md:mb-20"
+          className="relative w-full overflow-hidden mb-10 md:mb-20 will-change-transform"
           onMouseEnter={() => setIsFriendsHovered(true)}
           onMouseLeave={() => setIsFriendsHovered(false)}
           onTouchStart={() => setIsFriendsHovered(true)}
           onTouchEnd={() => setIsFriendsHovered(false)}
         >
           <motion.div
-            className="flex flex-nowrap"
+            className="flex flex-nowrap will-change-transform"
             variants={marqueeVariants}
             custom="ltr"
             animate={isFriendsHovered ? "paused" : "animate"}
+            style={{
+              transform: 'translateZ(0)',
+              backfaceVisibility: 'hidden'
+            }}
           >
-            {[...friendsList, ...friendsList].map((friend, index) => (
+            {[...friendsList, ...friendsList, ...friendsList].map((friend, index) => (
               <FriendLogo key={`friend-${index}`} src={friend.src} alt={friend.alt} />
             ))}
           </motion.div>
