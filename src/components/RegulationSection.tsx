@@ -2,19 +2,19 @@ import { useEffect, useState } from 'react';
 
 export function RegulationSection() {
   const [isDesktop, setIsDesktop] = useState(false);
-  
+
   useEffect(() => {
     // Check if window is desktop size on initial load
     const checkScreenSize = () => {
       setIsDesktop(window.innerWidth >= 768); // md breakpoint in Tailwind
     };
-    
+
     // Run on mount
     checkScreenSize();
-    
+
     // Add resize listener
     window.addEventListener('resize', checkScreenSize);
-    
+
     // Cleanup
     return () => window.removeEventListener('resize', checkScreenSize);
   }, []);
@@ -27,7 +27,7 @@ export function RegulationSection() {
             Regulation: A Top Priority for Financial Institutions
           </h2>
         </span>
-        
+
         <div className="grid md:grid-cols-2 gap-16">
           <div>
             <h3 className="text-2xl font-semibold mb-4">CSBS Survey Reveals Growing Focus</h3>
@@ -39,7 +39,7 @@ export function RegulationSection() {
               {isDesktop && <br />} in the CSBS Annual Survey.
             </p>
           </div>
-          
+
           <div>
             <h3 className="text-2xl font-semibold mb-4">Time for a New Approach</h3>
             <p className="text-white/90 font-[Arial]">

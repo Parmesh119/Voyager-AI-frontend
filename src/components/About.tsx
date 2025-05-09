@@ -31,22 +31,21 @@ export function About() {
       scale: 1,
       transition: {
         duration: 0.7,
-        ease: [0.25, 1, 0.5, 1], // Faster start, smooth end
+        ease: [0.25, 1, 0.5, 1],
         delay: 0.2
       }
     }
   };
 
- 
+
 
   return (
     <section
-    id="about"
+      id="about"
       ref={aboutSectionRef}
       className="w-full py-20 px-4 md:px-8 bg-gradient-to-r from-[#FFFFFF] to-[#F0F0F0] overflow-x-hidden"
     >
       <div className="container mx-auto max-w-6xl">
-        {/* About Voyager AI Section */}
         <motion.div
           className="mb-20"
           initial="hidden"
