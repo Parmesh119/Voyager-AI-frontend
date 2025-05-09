@@ -92,7 +92,7 @@ export function Navbar() {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex space-x-8 lg:space-x-20 font-[Arial]">
-            <NavItem href="/#features" className='font-bold'>Features</NavItem>
+            <NavItem href="#features" className='font-bold'>Features</NavItem>
             <NavItem href="#beliefs" className='font-bold'>Beliefs</NavItem>
             <NavItem href="#partnerships" className='font-bold'>Partnerships</NavItem>
             <NavItem href="#about" className='font-bold'>About Us</NavItem>
