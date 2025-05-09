@@ -1,18 +1,41 @@
 import { ChevronDown } from "lucide-react";
 import { motion } from "framer-motion";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
+
 export default function RequestDemoForm() {
     const location = useLocation();
-    
+    const initialRender = useRef(true);
+
     useEffect(() => {
-        const topElement = document.getElementById("top");
-        if (topElement) {
-            topElement.scrollIntoView({ behavior: "smooth" });
+        if (initialRender.current) {
+            initialRender.current = false;
+            return;
         }
+
+        const scrollTimeout = setTimeout(() => {
+            const topElement = document.getElementById("top");
+
+            if (topElement) {
+                topElement.scrollIntoView({ behavior: "smooth" });
+
+                window.scrollTo({
+                    top: 0,
+                    behavior: "smooth"
+                });
+            } else {
+                window.scrollTo({
+                    top: 0,
+                    behavior: "smooth"
+                });
+            }
+        }, 100);
+
+        return () => clearTimeout(scrollTimeout);
     }, [location]);
+
     return (
-        <div className="bg-gradient-to-r from-[#FFFFFF] to-[#F0F0F0] mx-auto rounded-lg max-w-[1000px] w-full mt-4 lg:mt-8 p-0 lg:p-8" style={{ fontFamily: 'Arial, sans-serif' }}>
+        <div id="demo-form-container" className="bg-gradient-to-r from-[#FFFFFF] to-[#F0F0F0] mx-auto rounded-lg max-w-[1000px] w-full mt-4 lg:mt-8 p-0 lg:p-8" style={{ fontFamily: 'Arial, sans-serif' }}>
             <div className="grid grid-cols-1 md:grid-cols-2">
                 <div className="p-8 md:p-12 flex flex-col">
                     <motion.div
@@ -79,8 +102,9 @@ export default function RequestDemoForm() {
                                     id="companySize"
                                     required
                                     className="w-full px-3 py-2 border border-gray-300 rounded appearance-none bg-white text-sm"
+                                    defaultValue=""
                                 >
-                                    <option value="" disabled selected>Please Select</option>
+                                    <option value="" disabled>Please Select</option>
                                     <option value="1-10">1-10 employees</option>
                                     <option value="11-50">11-50 employees</option>
                                     <option value="51-200">51-200 employees</option>
