@@ -56,6 +56,9 @@ export function Navbar() {
 
 
   const handleRequestDemo = () => {
+    // Close mobile menu first before navigating or opening modal
+    closeMobileMenu();
+    
     if (isMobileDevice()) {
       navigate('/request-demo', { replace: true });
     } else {
@@ -63,8 +66,8 @@ export function Navbar() {
     }
   };
 
-  const handleClseRequestModal = () => {
-    setIsRequestModalOpen(false)
+  const handleCloseRequestModal = () => {
+    setIsRequestModalOpen(false);
   }
 
 
@@ -101,7 +104,7 @@ export function Navbar() {
               Login
             </Button>
             <Button
-              onClick={isRequestModalOpen ? handleClseRequestModal : handleRequestDemo}
+              onClick={isRequestModalOpen ? handleCloseRequestModal : handleRequestDemo}
               className="cursor-pointer bg-[#2D7DD2] hover:bg-[#1d6abf] font-extrabold"
             >
               Request a Demo
@@ -148,9 +151,7 @@ export function Navbar() {
                 Login
               </Button>
               <Button
-                onClick={() => {
-                  handleRequestDemo()
-                }}
+                onClick={handleRequestDemo}
                 className="bg-[#2D7DD2] hover:bg-[#1d6abf] font-extrabold w-full"
               >
                 Request a Demo
@@ -164,7 +165,7 @@ export function Navbar() {
       <div className="h-16"></div>
 
       {/* Modal Component */}
-      <RequestDemoModal isOpen={isRequestModalOpen} onClose={handleClseRequestModal} />
+      <RequestDemoModal isOpen={isRequestModalOpen} onClose={handleCloseRequestModal} />
     </>
   );
 }
