@@ -201,8 +201,8 @@ function MobileNavItem({ href, onClick, children }: MobileNavItemProps) {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const handleClick = () => {
-    
+  const handleClick = (e: React.SyntheticEvent) => {
+    e.preventDefault();
     // Execute the onClick callback if provided
     if (onClick) {
       onClick();

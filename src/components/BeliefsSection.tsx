@@ -131,6 +131,7 @@ export function BeliefsSection() {
   };
 
   return (
+    <span id="beliefs">
     <motion.section
       ref={sectionRef}
       className="w-full lg:py-20 py-4 px-4 md:px-8 bg-gradient-to-r from-[#FFFFFF] to-[#F0F0F0] overflow-hidden"
@@ -139,7 +140,7 @@ export function BeliefsSection() {
         scale: sectionScale
       }}
     >
-      <div id="beliefs" className="container mx-auto max-w-6xl">
+      <div  className="container mx-auto max-w-6xl">
         <div className="flex flex-col md:flex-row lg:gap-48 gap-10">
           <motion.div
             className="w-full md:w-1/3"
@@ -232,5 +233,6 @@ export function BeliefsSection() {
         </div>
       </div>
     </motion.section>
+    </span>
   );
 }
